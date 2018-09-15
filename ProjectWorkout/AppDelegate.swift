@@ -16,6 +16,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        let layout = UICollectionViewFlowLayout()
+        window?.rootViewController = UINavigationController(rootViewController: MusclesViewController(collectionViewLayout: layout))
+        // Navigation bar at top
+        UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 255, green: 255, blue: 255)
+        
+        // get rid of black bar underneath navigation bar
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for:.default)
+        
+//        // add status bar which stays no matter what in our window, which contains everything in all applications
+//        let statusBarBackgroundView = UIView()
+//        statusBarBackgroundView.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 255)
+//
+//        window?.addSubview(statusBarBackgroundView)
+//        window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackgroundView)
+//        window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackgroundView)
+        
         return true
     }
 
