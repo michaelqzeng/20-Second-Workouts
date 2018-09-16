@@ -11,12 +11,22 @@ import UIKit
 
 class MusclesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    let searchBar = UISearchBar()
+    
+    var muscles: [Muscle] = {
+        var male_arms = Muscle(imageFileName: "male_arms", muscleName: "Arms")
+        var male_chest = Muscle(imageFileName: "male_chest", muscleName: "Chest")
+        var male_legs = Muscle(imageFileName: "male_legs", muscleName: "Legs")
+        var male_back = Muscle(imageFileName: "male_back", muscleName: "Back")
+        var male_shoudlers = Muscle(imageFileName: "male_shoulders", muscleName: "Shoulders")
+        return [male_arms, male_chest, male_back, male_back, male_shoudlers]
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.isTranslucent = false
         navigationController?.hidesBarsOnSwipe = true
+        navigationController?.navigationBar.isTranslucent = false
         
         collectionView?.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 255)
         collectionView?.contentInsetAdjustmentBehavior = .always
@@ -26,48 +36,43 @@ class MusclesViewController: UICollectionViewController, UICollectionViewDelegat
         collectionView?.register(MuscleCell.self, forCellWithReuseIdentifier: "cellId")
         
         setupSearchBar()
-        
-//        // move collection view under the bar. push it 50 pixels down
-//        collectionView?.contentInset = UIEdgeInsetsMake(25, 0, 0, 0)
-//        // move scroll view under the bar as well, 50 pixels down
-//        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(25, 0, 0, 0)
+             
     }
+    
     
     
     private func setupSearchBar() {
-        let searchController = UISearchController(searchResultsController: nil) // display results in our homecontroller
-        searchController.searchResultsUpdater = self // allows homecontroller class to be informed as text changes within uisearchbar
-        searchController.obscuresBackgroundDuringPresentation = false // do not obscure current view when showing results
-        searchController.searchBar.placeholder = "Search Workouts"
-        searchController.searchBar.sizeToFit()
-
-        navigationItem.searchController = searchController
-        definesPresentationContext = true // ensure search bar does not remain on screen if user navigates to another view controller while uisearchcontroller is active
-        searchController.hidesNavigationBarDuringPresentation = true
-//        let searchBar = UISearchBar()
-//        navigationItem.titleView = searchController.searchBar
-    }
-    
-    // MARK: Hide navigation bar on this viewcontroller
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(true, animated: animated)
-//    }
+//        let image = UIImage(named: "search_icon")
 //
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        navigationController?.setNavigationBarHidden(false, animated: animated)
-//    }
-    
+//        let searchButton = UIButton(type: .custom)
+//        searchButton.setImage(image, for: .normal)
+//        searchButton.addTarget(self, action: #selector(MusclesViewController.handleSearch), for: .touchUpInside)
+//
+//        let searchButtonItem = UIBarButtonItem(customView: searchButton)
+//        NSLayoutConstraint.activate([searchButtonItem.customView!.widthAnchor.constraint(equalToConstant: 40),
+//                                    searchButtonItem.customView!.heightAnchor.constraint(equalToConstant: 40)])
+//
+//        navigationItem.leftBarButtonItems = [searchButtonItem]
+        
+        searchBar.placeholder = "Search Workouts"
+        searchBar.showsCancelButton = false
+        searchBar.delegate = self
+        navigationItem.titleView = searchBar
+        
+        hideKeyboardWhenTappedAround()
+    }
     
     
     // MARK: UICollectionView override delegation methods
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5 // 5 items for now, base off Model later
+        return muscles.count // 5 items for now, base off Model later
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MuscleCell
+        
+        cell.muscle = muscles[indexPath.item]
+        
         return cell
     }
     
@@ -85,4 +90,17 @@ class MusclesViewController: UICollectionViewController, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    
+    
+    // MARK: Hide navigation bar on this viewcontroller
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        super.viewWillAppear(animated)
+    //        navigationController?.setNavigationBarHidden(true, animated: animated)
+    //    }
+    //
+    //    override func viewWillDisappear(_ animated: Bool) {
+    //        super.viewWillDisappear(animated)
+    //        navigationController?.setNavigationBarHidden(false, animated: animated)
+    //    }
 }

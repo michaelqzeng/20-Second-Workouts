@@ -10,7 +10,11 @@ import Foundation
 import UIKit
 
 class Muscle: NSObject {
+    var muscleImageName: String?
+    var displayName: String?
     
-    var muscleImage: UIImage?
-    var muscleName: String?
+    init(imageFileName: String, muscleName: String) {
+        muscleImageName = imageFileName
+        displayName = muscleName
+    }
 }

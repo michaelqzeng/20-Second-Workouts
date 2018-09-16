@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UINavigationController(rootViewController: MusclesViewController(collectionViewLayout: layout))
         // Navigation bar at top
         UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 255, green: 255, blue: 255)
-        
-        // get rid of black bar underneath navigation bar
-        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for:.default)
+//        
+//        // get rid of black bar underneath navigation bar
+//        UINavigationBar.appearance().shadowImage = UIImage()
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for:.default)
         
 //        // add status bar which stays no matter what in our window, which contains everything in all applications
 //        let statusBarBackgroundView = UIView()

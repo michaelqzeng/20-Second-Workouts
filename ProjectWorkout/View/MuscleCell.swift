@@ -15,6 +15,13 @@ class MuscleCell: UICollectionViewCell {
         setUpViews()
     }
     
+    // every time our muscle variable is set
+    var muscle: Muscle? {
+        didSet{
+            thumbnailLabel.text = muscle?.displayName
+            thumbnailImageView.image = UIImage(named: (muscle?.muscleImageName)!)
+        }
+    }
     
     // image of workout
     let thumbnailImageView: UIImageView = {
@@ -23,7 +30,7 @@ class MuscleCell: UICollectionViewCell {
         imageview.backgroundColor = .blue
         imageview.image = UIImage(named: "male_arms")
         // maintain aspect ratio in cell
-        imageview.contentMode = .scaleAspectFit
+        //imageview.contentMode = .scaleAspectFit
         // round image
         imageview.layoutIfNeeded()
         imageview.layer.cornerRadius = 20

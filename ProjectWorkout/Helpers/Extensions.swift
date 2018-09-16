@@ -37,9 +37,11 @@ extension UILabel {
     }
 }
 
-extension MusclesViewController: UISearchResultsUpdating {
-    // MARK: - UISearchresultsUpdating Delegate
-    func updateSearchResults(for searchController: UISearchController) {
-        // TODO
+extension UICollectionViewController {
+    // shift down our collectionView and scrollView 
+    func shiftDownCollectionView(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) {
+        let inset = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+        collectionView?.contentInset = inset // move collection view under the bar. push it 50 pixels down
+        collectionView?.scrollIndicatorInsets = inset // move scroll view under the bar as well, 50 pixels down
     }
 }
