@@ -12,6 +12,10 @@ import UIKit
 class MusclesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     let searchBar = UISearchBar()
+    let pageLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
     
     var muscles: [Muscle] = {
         var male_arms = Muscle(imageFileName: "male_arms", muscleName: "Arms")
@@ -62,6 +66,10 @@ class MusclesViewController: UICollectionViewController, UICollectionViewDelegat
         hideKeyboardWhenTappedAround()
     }
     
+    private func setupPageLabel() {
+        pageLabel.text = "Muscle Groups"
+        pageLabel.textColor = .white
+    }
     
     // MARK: UICollectionView override delegation methods
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

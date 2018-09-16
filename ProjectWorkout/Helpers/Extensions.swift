@@ -45,3 +45,16 @@ extension UICollectionViewController {
         collectionView?.scrollIndicatorInsets = inset // move scroll view under the bar as well, 50 pixels down
     }
 }
+
+extension String {
+    func convertToNSAtrributredString(size: CGFloat) -> NSAttributedString {
+        
+        let attributes = [NSAttributedStringKey.font: UIFont(name: "Futura", size: size) as Any,
+                          NSAttributedStringKey.foregroundColor: UIColor.white
+            ] as [NSAttributedStringKey: Any]
+        let attributedString = NSAttributedString(string: self, attributes: attributes)
+        
+        return attributedString
+    }
+}
+

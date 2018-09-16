@@ -15,10 +15,13 @@ class MuscleCell: UICollectionViewCell {
         setUpViews()
     }
     
+    //var thumbnailLabel: UILabel
+    //var thumbnailImageView: UIImageView?
+    
     // every time our muscle variable is set
     var muscle: Muscle? {
         didSet{
-            thumbnailLabel.text = muscle?.displayName
+            thumbnailLabel.attributedText =  (muscle?.displayName)!.convertToNSAtrributredString(size: 30)
             thumbnailImageView.image = UIImage(named: (muscle?.muscleImageName)!)
         }
     }
@@ -43,15 +46,11 @@ class MuscleCell: UICollectionViewCell {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 63, height: 32))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.contentMode = .scaleAspectFit // maintain aspect ratio in cell
+
+        //let text = "Mock text"
         
-        let text = "Mock text"
-        // UIFont(name: "ArialRoundedMTBold", size: 28)
-        var attributes = [NSAttributedStringKey.font: UIFont(name: "Futura", size: 30) as Any,
-                          NSAttributedStringKey.foregroundColor: UIColor.white
-            ] as [NSAttributedStringKey: Any]
-        var attributedString = NSAttributedString(string: text, attributes: attributes)
-        
-        label.attributedText = attributedString
+
+        //label.attributedText = text.convertToNSAtrributredString(size: 30)
         return label
     }()
     
