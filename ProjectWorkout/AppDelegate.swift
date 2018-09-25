@@ -21,21 +21,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let layout = UICollectionViewFlowLayout()
-        window?.rootViewController = UINavigationController(rootViewController: MusclesViewController(collectionViewLayout: layout))
+        window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
+        window?.backgroundColor = .white
         // Navigation bar at top
         UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 255, green: 255, blue: 255)
-//        
-//        // get rid of black bar underneath navigation bar
-//        UINavigationBar.appearance().shadowImage = UIImage()
-//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for:.default)
+       
+        // get rid of black bar underneath navigation bar
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for:.default)
         
-//        // add status bar which stays no matter what in our window, which contains everything in all applications
+        // change status bar to white color... go to info.plist add view controller-based status bar, set to no
+        application.statusBarStyle = .default
+        
+        // add status bar which stays no matter what in our window, which contains everything in all applications
 //        let statusBarBackgroundView = UIView()
-//        statusBarBackgroundView.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 255)
-//
+//        statusBarBackgroundView.backgroundColor = .white
 //        window?.addSubview(statusBarBackgroundView)
+//        // horiztonally left to right
 //        window?.addConstraintsWithFormat(format: "H:|[v0]|", views: statusBarBackgroundView)
-//        window?.addConstraintsWithFormat(format: "V:|[v0(20)]", views: statusBarBackgroundView)
+//        var statusBarHeight = 20
+//        if (window?.safeAreaInsets.top)! > CGFloat(0.0) || window?.safeAreaInsets != .zero {
+//            statusBarHeight = 44
+//        }
+//        // vertically 20 pixels tall, touch top only
+//        window?.addConstraintsWithFormat(format: "V:|[v0(\(statusBarHeight))]", views: statusBarBackgroundView)
+        
+        
         
         return true
     }

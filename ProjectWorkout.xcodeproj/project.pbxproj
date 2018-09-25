@@ -9,8 +9,15 @@
 /* Begin PBXBuildFile section */
 		3934F1D2214CB89B004ADF39 /* Muscle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934F1D1214CB89B004ADF39 /* Muscle.swift */; };
 		394F5ACB214DA00A00E37521 /* MusclesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F5ACA214DA00A00E37521 /* MusclesSearch.swift */; };
+		394F5B09215209F800E37521 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F5B08215209F800E37521 /* SettingsLauncher.swift */; };
+		394F5B0B2153551B00E37521 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F5B0A2153551B00E37521 /* SettingsCell.swift */; };
+		394F5B0D2154144F00E37521 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F5B0C2154144F00E37521 /* Setting.swift */; };
+		394F5B0F2154E20B00E37521 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F5B0E2154E20B00E37521 /* ScrollView.swift */; };
+		394F5B11215899CB00E37521 /* WorkoutListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F5B10215899CB00E37521 /* WorkoutListController.swift */; };
+		394F5B1521589C4700E37521 /* ContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F5B1421589C4700E37521 /* ContentController.swift */; };
+		394F5B192158A28400E37521 /* GenderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394F5B182158A28400E37521 /* GenderController.swift */; };
 		396BE80521473F7200B349CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BE80421473F7200B349CF /* AppDelegate.swift */; };
-		396BE80721473F7200B349CF /* MusclesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BE80621473F7200B349CF /* MusclesViewController.swift */; };
+		396BE80721473F7200B349CF /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BE80621473F7200B349CF /* HomeController.swift */; };
 		396BE80A21473F7200B349CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 396BE80821473F7200B349CF /* Main.storyboard */; };
 		396BE80C21473F7300B349CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 396BE80B21473F7300B349CF /* Assets.xcassets */; };
 		396BE8182147468100B349CF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BE8172147468100B349CF /* Extensions.swift */; };
@@ -20,9 +27,16 @@
 /* Begin PBXFileReference section */
 		3934F1D1214CB89B004ADF39 /* Muscle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Muscle.swift; sourceTree = "<group>"; };
 		394F5ACA214DA00A00E37521 /* MusclesSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusclesSearch.swift; sourceTree = "<group>"; };
+		394F5B08215209F800E37521 /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
+		394F5B0A2153551B00E37521 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		394F5B0C2154144F00E37521 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		394F5B0E2154E20B00E37521 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
+		394F5B10215899CB00E37521 /* WorkoutListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListController.swift; sourceTree = "<group>"; };
+		394F5B1421589C4700E37521 /* ContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentController.swift; sourceTree = "<group>"; };
+		394F5B182158A28400E37521 /* GenderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderController.swift; sourceTree = "<group>"; };
 		396BE80121473F7200B349CF /* ProjectWorkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectWorkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		396BE80421473F7200B349CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		396BE80621473F7200B349CF /* MusclesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusclesViewController.swift; sourceTree = "<group>"; };
+		396BE80621473F7200B349CF /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		396BE80921473F7200B349CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		396BE80B21473F7300B349CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		396BE81021473F7300B349CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				3934F1D1214CB89B004ADF39 /* Muscle.swift */,
+				394F5B0C2154144F00E37521 /* Setting.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -83,7 +98,11 @@
 		396BE8162147454F00B349CF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				396BE80621473F7200B349CF /* MusclesViewController.swift */,
+				396BE80621473F7200B349CF /* HomeController.swift */,
+				394F5B08215209F800E37521 /* SettingsLauncher.swift */,
+				394F5B10215899CB00E37521 /* WorkoutListController.swift */,
+				394F5B1421589C4700E37521 /* ContentController.swift */,
+				394F5B182158A28400E37521 /* GenderController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -93,6 +112,7 @@
 			children = (
 				396BE8172147468100B349CF /* Extensions.swift */,
 				394F5ACA214DA00A00E37521 /* MusclesSearch.swift */,
+				394F5B0E2154E20B00E37521 /* ScrollView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -101,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				396BE81A21475A3700B349CF /* MuscleCell.swift */,
+				394F5B0A2153551B00E37521 /* SettingsCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -177,10 +198,17 @@
 			files = (
 				394F5ACB214DA00A00E37521 /* MusclesSearch.swift in Sources */,
 				396BE81B21475A3700B349CF /* MuscleCell.swift in Sources */,
-				396BE80721473F7200B349CF /* MusclesViewController.swift in Sources */,
+				396BE80721473F7200B349CF /* HomeController.swift in Sources */,
+				394F5B1521589C4700E37521 /* ContentController.swift in Sources */,
+				394F5B0F2154E20B00E37521 /* ScrollView.swift in Sources */,
+				394F5B09215209F800E37521 /* SettingsLauncher.swift in Sources */,
 				396BE8182147468100B349CF /* Extensions.swift in Sources */,
+				394F5B192158A28400E37521 /* GenderController.swift in Sources */,
 				396BE80521473F7200B349CF /* AppDelegate.swift in Sources */,
+				394F5B11215899CB00E37521 /* WorkoutListController.swift in Sources */,
+				394F5B0B2153551B00E37521 /* SettingsCell.swift in Sources */,
 				3934F1D2214CB89B004ADF39 /* Muscle.swift in Sources */,
+				394F5B0D2154144F00E37521 /* Setting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

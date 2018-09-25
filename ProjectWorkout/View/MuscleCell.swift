@@ -9,11 +9,22 @@
 import Foundation
 import UIKit
 
-class MuscleCell: UICollectionViewCell {
+class BaseCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpViews()
+        setupViews()
     }
+    
+    func setupViews() {
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError()
+    }
+}
+
+class MuscleCell: BaseCell {
     
     //var thumbnailLabel: UILabel
     //var thumbnailImageView: UIImageView?
@@ -21,7 +32,7 @@ class MuscleCell: UICollectionViewCell {
     // every time our muscle variable is set
     var muscle: Muscle? {
         didSet{
-            thumbnailLabel.attributedText =  (muscle?.displayName)!.convertToNSAtrributredString(size: 30)
+            thumbnailLabel.attributedText =  (muscle?.displayName)!.convertToNSAtrributredString(size: 32, color: UIColor.white)
             thumbnailImageView.image = UIImage(named: (muscle?.muscleImageName)!)
         }
     }
@@ -54,22 +65,19 @@ class MuscleCell: UICollectionViewCell {
         return label
     }()
     
-    func setUpViews() {
+    override func setupViews() {
+        super.setupViews()
         self.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 255)
         
         // add muscle image
         addSubview(thumbnailImageView)
         // 80 pixels from top, 57 pixels from left and right
         addConstraintsWithFormat(format: "V:|-25-[v0]|", views: thumbnailImageView)
-        addConstraintsWithFormat(format: "H:|-57-[v0]-57-|", views: thumbnailImageView)
+        addConstraintsWithFormat(format: "H:|-35-[v0]-35-|", views: thumbnailImageView)
         
         // add muscle name
         addSubview(thumbnailLabel)
         // anchor to center of thumbnail imageview
         thumbnailLabel.centerAnchor(to: thumbnailImageView)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError()
     }
 }

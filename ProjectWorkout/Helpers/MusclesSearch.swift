@@ -9,26 +9,43 @@
 import Foundation
 import UIKit
 
-extension MusclesViewController : UISearchBarDelegate {
+extension HomeController : UISearchBarDelegate {
     
     // MARK: Keyboard handling for Muscle View Controller
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        startTyping()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        doneTyping()
+    }
+    
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        searchBar.endEditing(true)
+        doneTyping()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
+        doneTyping()
     }
     
     func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.doneTyping))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
-    @objc func dismissKeyboard() {
+    @objc func startTyping() {
+        searchBar.showsCancelButton = true
+        // Dim background
+        
+    }
+    
+    @objc func doneTyping() {
+        searchBar.text = nil
+        searchBar.showsCancelButton = false
         searchBar.endEditing(true)
     }
+    
     
 }
 

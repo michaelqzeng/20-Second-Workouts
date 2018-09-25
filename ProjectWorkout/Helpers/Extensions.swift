@@ -23,9 +23,51 @@ extension UIView {
             view.translatesAutoresizingMaskIntoConstraints = false
             viewsDictionary[key] = view
         }
-        
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
     }
+    
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = self.layer.bounds
+        maskLayer.path = path.cgPath
+        self.layer.mask = maskLayer
+        self.layer.masksToBounds = true
+    }
+    
+    var safeLeadingAnchor: NSLayoutXAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.leadingAnchor
+        } else {
+            return self.leadingAnchor
+        }
+    }
+    
+    var safeTrailingAnchor: NSLayoutXAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.trailingAnchor
+        } else {
+            return self.trailingAnchor
+        }
+    }
+    
+    var safeTopAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.topAnchor
+        } else {
+            return self.topAnchor
+        }
+    }
+    
+    var safeBottomAnchor: NSLayoutYAxisAnchor {
+        if #available(iOS 11.0, *) {
+            return self.safeAreaLayoutGuide.bottomAnchor
+        } else {
+            return self.bottomAnchor
+        }
+    }
+    
+    
 }
 
 extension UILabel {
@@ -47,14 +89,29 @@ extension UICollectionViewController {
 }
 
 extension String {
-    func convertToNSAtrributredString(size: CGFloat) -> NSAttributedString {
+    func convertToNSAtrributredString(size: CGFloat, color: UIColor) -> NSAttributedString {
         
         let attributes = [NSAttributedStringKey.font: UIFont(name: "Futura", size: size) as Any,
-                          NSAttributedStringKey.foregroundColor: UIColor.white
+                          NSAttributedStringKey.foregroundColor: color
             ] as [NSAttributedStringKey: Any]
         let attributedString = NSAttributedString(string: self, attributes: attributes)
         
         return attributedString
+    }
+}
+
+extension UISearchBar {
+    func changeBarColor(color: UIColor) {
+        for subView in self.subviews {
+            for subViewOne in subView.subviews {
+                subViewOne.backgroundColor = color
+//                if let textField = subViewOne as? UITextField {
+//                    //use the code below if you want to change the color of placeholder
+//                                        let textFieldInsideUISearchBarLabel = textField.value(forKey: "placeholderLabel") as? UILabel
+//                                        textFieldInsideUISearchBarLabel?.textColor = UIColor.blue
+//                }
+            }
+        }
     }
 }
 
