@@ -30,6 +30,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if Defaults.getGender() == "noneSelected" {
+            let vc = GenderController()
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController!.present(vc, animated: true, completion: nil)
+        }
+        
         setupNavBar()
         setupSearchBar()
         setupMoreOptions()
@@ -42,13 +48,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
+        self.navigationItem.searchController = search
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        search.dismiss(animated: false, completion: nil)
+        
     }
     
     private func setupNavBar() {
@@ -61,6 +67,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         searchBar.showsCancelButton = false
         searchBar.delegate = self
         searchBar.changeBarColor(color: UIColor.rgb(red: 232, green: 233, blue: 234))
+        search.hidesNavigationBarDuringPresentation = true
         
         search.searchBar.placeholder = "Search Workouts"
         navigationItem.searchController = search
@@ -131,13 +138,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     // MARK: UICollectionView override delegation methods
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //let cell = collectionView.cellForItem(at: indexPath)
-        //cell?.layer.borderWidth = 200
-        //cell?.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
         
         let layout = UICollectionViewFlowLayout()
         let workoutListVC = WorkoutListViewController(collectionViewLayout: layout)
 //        let workoutListVC = WorkoutListViewController()
+        
+        self.navigationItem.searchController?.isActive = false
+        self.navigationItem.searchController = nil
         
         self.navigationController?.pushViewController(workoutListVC, animated: true)
     }

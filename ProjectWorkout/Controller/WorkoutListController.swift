@@ -42,6 +42,12 @@ class WorkoutListViewController: UICollectionViewController, UICollectionViewDel
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -56,6 +62,7 @@ class WorkoutListViewController: UICollectionViewController, UICollectionViewDel
     private func setupSearchBar() {
         search.searchBar.placeholder = "Search Workouts"
         navigationItem.searchController = search
+        search.hidesNavigationBarDuringPresentation = true
     }
     
     private func setupMoreOptions() {

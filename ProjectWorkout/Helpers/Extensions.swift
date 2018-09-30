@@ -23,7 +23,7 @@ extension UIView {
             view.translatesAutoresizingMaskIntoConstraints = false
             viewsDictionary[key] = view
         }
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
     }
     
     func roundCorners(corners: UIRectCorner, radius: CGFloat) {
@@ -77,6 +77,24 @@ extension UILabel {
         self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
+    
+    func fitTextToBounds() {
+        guard let text = text, let currentFont = font else { return }
+        
+        let bestFittingFont = UIFont.bestFittingFont(for: text, in: bounds, fontDescriptor: currentFont.fontDescriptor, additionalAttributes: basicStringAttributes)
+        font = bestFittingFont
+    }
+    
+    private var basicStringAttributes: [NSAttributedString.Key: Any] {
+        var attribs = [NSAttributedString.Key: Any]()
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = self.textAlignment
+        paragraphStyle.lineBreakMode = self.lineBreakMode
+        attribs[.paragraphStyle] = paragraphStyle
+        
+        return attribs
+    }
 }
 
 extension UICollectionViewController {
@@ -91,9 +109,9 @@ extension UICollectionViewController {
 extension String {
     func convertToNSAtrributredString(size: CGFloat, color: UIColor) -> NSAttributedString {
         
-        let attributes = [NSAttributedStringKey.font: UIFont(name: "Futura", size: size) as Any,
-                          NSAttributedStringKey.foregroundColor: color
-            ] as [NSAttributedStringKey: Any]
+        let attributes = [NSAttributedString.Key.font: UIFont(name: "Futura", size: size) as Any,
+                          NSAttributedString.Key.foregroundColor: color
+            ] as [NSAttributedString.Key: Any]
         let attributedString = NSAttributedString(string: self, attributes: attributes)
         
         return attributedString
@@ -115,3 +133,35 @@ extension UISearchBar {
     }
 }
 
+extension UIFont {
+    
+    /**
+     Will return the best font conforming to the descriptor which will fit in the provided bounds.
+     */
+    static func bestFittingFontSize(for text: String, in bounds: CGRect, fontDescriptor: UIFontDescriptor, additionalAttributes: [NSAttributedString.Key: Any]? = nil) -> CGFloat {
+        let constrainingDimension = min(bounds.width, bounds.height)
+        let properBounds = CGRect(origin: .zero, size: bounds.size)
+        var attributes = additionalAttributes ?? [:]
+        
+        let infiniteBounds = CGSize(width: CGFloat.infinity, height: CGFloat.infinity)
+        var bestFontSize: CGFloat = constrainingDimension
+        
+        for fontSize in stride(from: bestFontSize, through: 0, by: -1) {
+            let newFont = UIFont(descriptor: fontDescriptor, size: fontSize)
+            attributes[.font] = newFont
+            
+            let currentFrame = text.boundingRect(with: infiniteBounds, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes, context: nil)
+            
+            if properBounds.contains(currentFrame) {
+                bestFontSize = fontSize
+                break
+            }
+        }
+        return bestFontSize
+    }
+    
+    static func bestFittingFont(for text: String, in bounds: CGRect, fontDescriptor: UIFontDescriptor, additionalAttributes: [NSAttributedString.Key: Any]? = nil) -> UIFont {
+        let bestSize = bestFittingFontSize(for: text, in: bounds, fontDescriptor: fontDescriptor, additionalAttributes: additionalAttributes)
+        return UIFont(descriptor: fontDescriptor, size: bestSize)
+    }
+}

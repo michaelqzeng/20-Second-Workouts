@@ -22,6 +22,7 @@
 		396BE80C21473F7300B349CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 396BE80B21473F7300B349CF /* Assets.xcassets */; };
 		396BE8182147468100B349CF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BE8172147468100B349CF /* Extensions.swift */; };
 		396BE81B21475A3700B349CF /* MuscleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BE81A21475A3700B349CF /* MuscleCell.swift */; };
+		3988B67C215AE8C1006443F3 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3988B67B215AE8C1006443F3 /* Defaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		396BE81021473F7300B349CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		396BE8172147468100B349CF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		396BE81A21475A3700B349CF /* MuscleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleCell.swift; sourceTree = "<group>"; };
+		3988B67B215AE8C1006443F3 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				396BE8172147468100B349CF /* Extensions.swift */,
 				394F5ACA214DA00A00E37521 /* MusclesSearch.swift */,
 				394F5B0E2154E20B00E37521 /* ScrollView.swift */,
+				3988B67B215AE8C1006443F3 /* Defaults.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 				TargetAttributes = {
 					396BE80021473F7200B349CF = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -197,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				394F5ACB214DA00A00E37521 /* MusclesSearch.swift in Sources */,
+				3988B67C215AE8C1006443F3 /* Defaults.swift in Sources */,
 				396BE81B21475A3700B349CF /* MuscleCell.swift in Sources */,
 				396BE80721473F7200B349CF /* HomeController.swift in Sources */,
 				394F5B1521589C4700E37521 /* ContentController.swift in Sources */,
@@ -353,7 +358,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.michaelzeng.ProjectWorkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -371,7 +376,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.michaelzeng.ProjectWorkout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
