@@ -9,36 +9,54 @@
 import Foundation
 import UIKit
 
-class WorkoutListViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class WorkoutListController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
+    let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
+    let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
     
     let pageLabel = UILabel()
     let spaceBetweenTopSafeAreaAndPageLabel = 10
     let pageLabelSize = 38
-    let search = UISearchController(searchResultsController: nil)
-    
-    var muscles: [Muscle] = {
-        var male_arms = Muscle(imageFileName: "male_arms", muscleName: "Arms")
-        var male_chest = Muscle(imageFileName: "male_chest", muscleName: "Chest")
-        var male_legs = Muscle(imageFileName: "male_legs", muscleName: "Legs")
-        var male_back = Muscle(imageFileName: "male_back", muscleName: "Back")
-        var male_shoudlers = Muscle(imageFileName: "male_shoulders", muscleName: "Shoulders")
-        return [male_legs, male_arms, male_chest, male_back, male_shoudlers]
+    let search: UISearchController = {
+        let search = UISearchController(searchResultsController: nil)
+        search.searchBar.placeholder = "Search Arms"
+        search.hidesNavigationBarDuringPresentation = true
+        return search
     }()
+    
+    
+    
+    var muscles1: [Muscle] = [
+        Muscle(imageFileName: "male_arms_incline_hammer", muscleName: "Incline Hammer"),
+        Muscle(imageFileName: "male_arms_tricep_dips", muscleName: "Tricep Dips")
+    ]
+    
+    var muscles2: [Muscle] = [
+        Muscle(imageFileName: "male_back_chin_up", muscleName: "Chin up"),
+        Muscle(imageFileName: "male_back_pull_up", muscleName: "Pull up")
+    ]
+    
+    var muscles3: [Muscle] = [
+        Muscle(imageFileName: "male_chest_dumbbell_press", muscleName: "Dumbbell Press")
+    ]
+    
+    lazy var sections: [Workout] = [Workout(subgroup: "Incline Chest", muscle: muscles1), Workout(subgroup: "Decline Chest", muscle: muscles2), Workout(subgroup: "Inner Chest", muscle: muscles3)]
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .white  
         setupNavBar()
         setupSearchBar()
-        setupMoreOptions()
+//        setupMoreOptions()
         setupPageLabel()
         setupCollectionView()
-        
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         
     }
     
@@ -50,19 +68,35 @@ class WorkoutListViewController: UICollectionViewController, UICollectionViewDel
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    func favoriteCell(cell: WorkoutCell) {
+        guard let indexPath = collectionView?.indexPath(for: cell) else {return}
         
+        let section = sections[indexPath.section]
+        let workouts = section.muscle
+        let workout = workouts![indexPath.item]
         
+        let isCurFavorited = workout.hasFavorited!
+        
+        workout.hasFavorited = !isCurFavorited
+        
+        cell.favoriteImageView.tintColor = isCurFavorited ? lightGray : brightYellow
+        print(isCurFavorited)
     }
     
     private func setupNavBar() {
         //        navigationController?.hidesBarsOnSwipe = true
         navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        self.navigationController?.navigationBar.barTintColor = .white
+//        navigationController?.view.backgroundColor = .white
+//        let text = "Chest"
+//        self.navigationItem.title = text
     }
     
     private func setupSearchBar() {
-        search.searchBar.placeholder = "Search Workouts"
         navigationItem.searchController = search
-        search.hidesNavigationBarDuringPresentation = true
     }
     
     private func setupMoreOptions() {
@@ -86,8 +120,10 @@ class WorkoutListViewController: UICollectionViewController, UICollectionViewDel
     
     private func setupPageLabel() {
         
-        let text = "Workouts"
-        pageLabel.attributedText = text.convertToNSAtrributredString(size: CGFloat(pageLabelSize), color: UIColor.black)
+        let text = "Arms"
+        let size = (navigationController?.navigationBar.frame.height)! - 10
+        //        pageLabel.text = text
+        pageLabel.attributedText = text.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
         pageLabel.backgroundColor = .white
         pageLabel.sizeToFit()
         navigationItem.titleView = pageLabel
@@ -95,7 +131,9 @@ class WorkoutListViewController: UICollectionViewController, UICollectionViewDel
     
     private func setupCollectionView() {
         // register videocell as our cells for our collectionview
-        collectionView?.register(MuscleCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView?.register(WorkoutCell.self, forCellWithReuseIdentifier: "cellId")
+//        collectionView?.register(ReusableCollectionView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, forCellWithReuseIdentifier: "header")
+        collectionView?.register(ReusableCollectionView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         
         collectionView?.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 255)
         
@@ -112,36 +150,89 @@ class WorkoutListViewController: UICollectionViewController, UICollectionViewDel
         let contentVC = ContentController()
         navigationController?.pushViewController(contentVC, animated: true)
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return muscles.count // 5 items for now, base off Model later
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MuscleCell
-        cell.muscle = muscles[indexPath.item]
-        return cell
-    }
-    
-    
+//
+//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return muscles.count // 5 items for now, base off Model later
+//    }
+//
+//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MuscleCell
+//        cell.muscle = muscles[indexPath.item]
+//        return cell
+//    }
+//
+//
     // define size of each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // conform to 16 by 9 standard. subtract left and right padding
-        var height = (view.frame.width - 35 - 35) * 9 / 16
+//        var height = (view.frame.width - 35 - 35) * 9 / 16
+        let height = view.frame.width * 9/16
         // also add the height of pixel padding from top of each cell
-        height += 25
-        return CGSize(width: view.frame.width, height: height+3)
+//        height += 25
+//        return CGSize(width: view.frame.width, height: height+3)
+        return CGSize(width: view.frame.width, height: height)
     }
-    
+//
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
+
         collectionView?.collectionViewLayout.invalidateLayout()
-        
+
     }
-    
+//
     // remove extra pixel padding between each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        print("sections.count", sections.count)
+        return sections.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("sections[section].muscle!.count", sections[section].muscle!.count)
+        return sections[section].muscle!.count
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! WorkoutCell
+        cell.link = self
+        let section = sections[indexPath.section]
+        let workouts = section.muscle
+        let workout = workouts![indexPath.item]
+
+        cell.muscle = workout
+
+        cell.favoriteImageView.tintColor = workout.hasFavorited! ? brightYellow : lightGray
+        print(workout.hasFavorited!)
+        
+        return cell
+    }
+
+    // Section Header View
+
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
+    {
+        let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! ReusableCollectionView
+        let subgroup = "  " + sections[indexPath.section].subgroup!
+
+        sectionHeaderView.headerLabel.attributedText = subgroup.convertToNSAtrributredString(size: 20, color: .black)
+        print(subgroup)
+
+        return sectionHeaderView
+    }
+
+    // MARK: - UICollectionViewDelegate
+
+//    var selectedImage: UIImage!
+
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+//    {
+////        let category = sections[indexPath.section]
+////        selectedImage = UIImage(named: category.imageNames[indexPath.item])
+////
+////        performSegue(withIdentifier: Storyboard.showDetailVC, sender: nil)
+//    }
 }

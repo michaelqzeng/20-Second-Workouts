@@ -13,7 +13,7 @@ class SettingsCell: BaseCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Favorites"
+        label.text = ""
         label.sizeToFit()
         return label
     }()

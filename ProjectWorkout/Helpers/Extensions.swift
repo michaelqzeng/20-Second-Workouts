@@ -72,8 +72,6 @@ extension UIView {
 
 extension UILabel {
     func centerAnchor(to view: UIView) {
-        self.widthAnchor.constraint(greaterThanOrEqualToConstant: self.frame.width).isActive = true
-        self.heightAnchor.constraint(greaterThanOrEqualToConstant: self.frame.height).isActive = true
         self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
@@ -109,7 +107,7 @@ extension UICollectionViewController {
 extension String {
     func convertToNSAtrributredString(size: CGFloat, color: UIColor) -> NSAttributedString {
         
-        let attributes = [NSAttributedString.Key.font: UIFont(name: "Futura", size: size) as Any,
+        let attributes = [NSAttributedString.Key.font: UIFont(name: "Superclarendon-Black", size: size) as Any,
                           NSAttributedString.Key.foregroundColor: color
             ] as [NSAttributedString.Key: Any]
         let attributedString = NSAttributedString(string: self, attributes: attributes)

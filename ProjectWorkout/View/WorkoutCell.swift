@@ -1,34 +1,17 @@
 //
-//  MuscleCell.swift
+//  WorkoutCell.swift
 //  ProjectWorkout
 //
-//  Created by Michael Zeng on 9/10/18.
+//  Created by Michael Zeng on 10/1/18.
 //  Copyright © 2018 Michael Zeng. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-class BaseCell: UICollectionViewCell {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
+class WorkoutCell: BaseCell {
     
-    func setupViews() {
-        
-    }
-    
-    func setupSections() {
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError()
-    }
-}
-
-class MuscleCell: BaseCell {
+    var link: WorkoutListController?
     
     var muscle: Muscle? {
         didSet{
@@ -52,7 +35,7 @@ class MuscleCell: BaseCell {
     let thumbnailImageView: UIImageView = {
         let imageview = UIImageView()
         imageview.translatesAutoresizingMaskIntoConstraints = false
-//        imageview.backgroundColor = .blue
+        //        imageview.backgroundColor = .blue
         imageview.image = UIImage(named: "male_arms")
         // maintain aspect ratio in cell
         //imageview.contentMode = .scaleAspectFit
@@ -66,9 +49,9 @@ class MuscleCell: BaseCell {
     // View for favorite button
     let favoriteButtonView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-//        let view = UIView()
+        //        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray
+        view.backgroundColor = UIColor.rgb(red: 61, green: 61, blue: 56)
         view.alpha = 0.8
         print(view.frame.height)
         return view
@@ -76,20 +59,23 @@ class MuscleCell: BaseCell {
     
     // Button represented as UIImageview
     let favoriteImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "fav_star"))
+        let imageView = UIImageView()
+        let image = UIImage(named: "fav_star")!.withRenderingMode(.alwaysTemplate)
+        imageView.image = image
         imageView.backgroundColor = .clear
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.alpha = 0.8
         print(imageView.frame.height)
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.layer.cornerRadius = imageView.frame.height/2
-//        imageView.clipsToBounds = true
-//        imageView.layer.masksToBounds = false
+        //        imageView.contentMode = .scaleAspectFit
+        //        imageView.layer.cornerRadius = imageView.frame.height/2
+        //        imageView.clipsToBounds = true
+        //        imageView.layer.masksToBounds = false
         return imageView
     }()
     
     @objc func tapped(_ sender: UITapGestureRecognizer) {
-        print("Selected")
+        print("Favorited")
+        link?.favoriteCell(cell: self)
     }
     
     // name of workout
@@ -111,61 +97,61 @@ class MuscleCell: BaseCell {
     override func setupViews() {
         super.setupViews()
         
-//        self.backgroundColor = .white
+        //        self.backgroundColor = .white
         setupSections()
         setupCell()
         
         
         // add muscle image
-//        addSubview(thumbnailImageView)
+        //        addSubview(thumbnailImageView)
         // 80 pixels from top, 57 pixels from left and right
-//        addConstraintsWithFormat(format: "V:|-25-[v0]|", views: thumbnailImageView)
-//        addConstraintsWithFormat(format: "H:|-35-[v0]-35-|", views: thumbnailImageView)
+        //        addConstraintsWithFormat(format: "V:|-25-[v0]|", views: thumbnailImageView)
+        //        addConstraintsWithFormat(format: "H:|-35-[v0]-35-|", views: thumbnailImageView)
         
         // add muscle name
-//        addSubview(thumbnailLabel)
+        //        addSubview(thumbnailLabel)
         // anchor to center of thumbnail imageview
-//        thumbnailLabel.centerAnchor(to: thumbnailImageView)
+        //        thumbnailLabel.centerAnchor(to: thumbnailImageView)
     }
     
     override func setupSections() {
-//        self.addSubview(cellView)
+        //        self.addSubview(cellView)
     }
     
     private func setupCell() {
-//        cellView.addSubview(thumbnailImageView)
+        //        cellView.addSubview(thumbnailImageView)
         self.addSubview(thumbnailImageView)
         thumbnailImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 5/6).isActive = true
         thumbnailImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 4/5).isActive = true
         thumbnailImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         thumbnailImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-
+        
         self.addSubview(thumbnailLabel)
         thumbnailLabel.centerAnchor(to: thumbnailImageView)
         thumbnailLabel.heightAnchor.constraint(equalTo: thumbnailImageView.heightAnchor, multiplier: 1).isActive = true
         thumbnailLabel.widthAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 1).isActive = true
-
-//        self.addSubview(favoriteButtonView)
-//        favoriteButtonView.widthAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 1/8).isActive = true
-//        favoriteButtonView.heightAnchor.constraint(equalTo: thumbnailImageView.heightAnchor, multiplier: 1/5).isActive = true
-////        favoriteButtonView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor).isActive = true
-//        favoriteButtonView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: -5).isActive = true
-////        favoriteButtonView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor).isActive = true
-//        favoriteButtonView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 5).isActive = true
-//
-//
-//        self.addSubview(favoriteImageView)
-//        favoriteImageView.widthAnchor.constraint(equalTo: favoriteButtonView.widthAnchor, multiplier: 0.65).isActive = true
-//        favoriteImageView.heightAnchor.constraint(equalTo: favoriteButtonView.heightAnchor, multiplier: 0.65).isActive = true
-//        favoriteImageView.centerXAnchor.constraint(equalTo: favoriteButtonView.centerXAnchor).isActive = true
-//        favoriteImageView.centerYAnchor.constraint(equalTo: favoriteButtonView.centerYAnchor).isActive = true
-//
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
-//        favoriteImageView.isUserInteractionEnabled = true
-//        favoriteImageView.addGestureRecognizer(tapGesture)
-//
-//        let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
-//        favoriteButtonView.isUserInteractionEnabled = true
-//        favoriteButtonView.addGestureRecognizer(tapGesture1)
+        
+        self.addSubview(favoriteButtonView)
+        favoriteButtonView.widthAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 1/8).isActive = true
+        favoriteButtonView.heightAnchor.constraint(equalTo: thumbnailImageView.heightAnchor, multiplier: 1/5).isActive = true
+        //        favoriteButtonView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor).isActive = true
+        favoriteButtonView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: -5).isActive = true
+        //        favoriteButtonView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor).isActive = true
+        favoriteButtonView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 5).isActive = true
+        
+        
+        self.addSubview(favoriteImageView)
+        favoriteImageView.widthAnchor.constraint(equalTo: favoriteButtonView.widthAnchor, multiplier: 0.65).isActive = true
+        favoriteImageView.heightAnchor.constraint(equalTo: favoriteButtonView.heightAnchor, multiplier: 0.65).isActive = true
+        favoriteImageView.centerXAnchor.constraint(equalTo: favoriteButtonView.centerXAnchor).isActive = true
+        favoriteImageView.centerYAnchor.constraint(equalTo: favoriteButtonView.centerYAnchor).isActive = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
+        favoriteImageView.isUserInteractionEnabled = true
+        favoriteImageView.addGestureRecognizer(tapGesture)
+        
+        let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
+        favoriteButtonView.isUserInteractionEnabled = true
+        favoriteButtonView.addGestureRecognizer(tapGesture1)
     }
 }

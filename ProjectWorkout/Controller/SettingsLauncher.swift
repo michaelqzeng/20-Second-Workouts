@@ -36,6 +36,9 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
     
     func showSettings() {
         if let window = UIApplication.shared.keyWindow {
+            blackView.tag = 1
+            settingsView.tag = 2
+            
             // Dim background
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissSettings)))
@@ -103,10 +106,17 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
 //                self.settingsView.frame = CGRect(x: 0, y: window.frame.height, width: self.settingsView.frame.width, height: self.settingsView.frame.height)
                 
 //                self.settingsView.trailingAnchor.constraint(equalTo: window.safeTrailingAnchor, constant: self.width).isActive = true
+                let subViews = window.subviews
+                for subview in subViews{
+                    if subview.tag == 1 || subview.tag == 2 {
+                        subview.removeFromSuperview()
+                    }
+                }
             }
         })
     }
     
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return settingOptions.count
     }
@@ -123,12 +133,6 @@ class SettingsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewData
         return CGSize(width: self.settingsView.frame.width, height: height)
     }
     
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//
-//        collectionView?.collectionViewLayout.invalidateLayout()
-//
-//    }
     
 //    init(valueFromWindowTop: CGFloat) {
 //        insetFromWindowTop = valueFromWindowTop
