@@ -174,7 +174,7 @@ class BaseSlidingController: UIViewController {
         // let's go ahead and use Auto Layout
         NSLayoutConstraint.activate([
             redView.topAnchor.constraint(equalTo: view.topAnchor),
-            redView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            redView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor),
             
             blueView.topAnchor.constraint(equalTo: view.topAnchor),
             blueView.trailingAnchor.constraint(equalTo: redView.leadingAnchor),
@@ -202,7 +202,7 @@ class BaseSlidingController: UIViewController {
         
         redView.addSubview(homeView)
         redView.addSubview(darkCoverView)
-//        blueView.addSubview(menuView)
+        blueView.addSubview(menuView)
         
         NSLayoutConstraint.activate([
             // top, leading, bottom, trailing anchors
@@ -211,10 +211,10 @@ class BaseSlidingController: UIViewController {
             homeView.bottomAnchor.constraint(equalTo: redView.bottomAnchor),
             homeView.trailingAnchor.constraint(equalTo: redView.trailingAnchor),
             
-//            menuView.topAnchor.constraint(equalTo: blueView.topAnchor),
-//            menuView.leadingAnchor.constraint(equalTo: blueView.leadingAnchor),
-//            menuView.bottomAnchor.constraint(equalTo: blueView.bottomAnchor),
-//            menuView.trailingAnchor.constraint(equalTo: blueView.trailingAnchor),
+            menuView.topAnchor.constraint(equalTo: blueView.topAnchor),
+            menuView.leadingAnchor.constraint(equalTo: blueView.leadingAnchor),
+            menuView.bottomAnchor.constraint(equalTo: blueView.bottomAnchor),
+            menuView.trailingAnchor.constraint(equalTo: blueView.trailingAnchor),
             
             darkCoverView.topAnchor.constraint(equalTo: redView.topAnchor),
             darkCoverView.leadingAnchor.constraint(equalTo: redView.leadingAnchor),
