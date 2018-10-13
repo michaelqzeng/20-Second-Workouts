@@ -23,8 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        let layout = UICollectionViewFlowLayout()
-        window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
+//        let layout = UICollectionViewFlowLayout()
+//        window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
+        
+        window?.rootViewController = UINavigationController(rootViewController: BaseSlidingController())
         window?.backgroundColor = .white
         
 //        window?.rootViewController = UINavigationController(rootViewController: ContentController())

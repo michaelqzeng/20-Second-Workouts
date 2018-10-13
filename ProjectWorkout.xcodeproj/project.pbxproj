@@ -29,6 +29,12 @@
 		396BE8182147468100B349CF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BE8172147468100B349CF /* Extensions.swift */; };
 		396BE81B21475A3700B349CF /* MuscleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396BE81A21475A3700B349CF /* MuscleCell.swift */; };
 		3988B67C215AE8C1006443F3 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3988B67B215AE8C1006443F3 /* Defaults.swift */; };
+		39A5E0D82171CEF200B19DA9 /* BaseSlidingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A5E0D72171CEF200B19DA9 /* BaseSlidingController.swift */; };
+		39A5E0DB2171CF4B00B19DA9 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A5E0DA2171CF4B00B19DA9 /* MenuController.swift */; };
+		39A5E0DE2171CF9600B19DA9 /* CustomMenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A5E0DD2171CF9600B19DA9 /* CustomMenuHeaderView.swift */; };
+		39A5E0E02171CFC500B19DA9 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A5E0DF2171CFC500B19DA9 /* ProfileImageView.swift */; };
+		39A5E0E22171D00F00B19DA9 /* SpacerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A5E0E12171D00F00B19DA9 /* SpacerView.swift */; };
+		39A5E0E42171D02900B19DA9 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A5E0E32171D02900B19DA9 /* MenuItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +62,12 @@
 		396BE8172147468100B349CF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		396BE81A21475A3700B349CF /* MuscleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleCell.swift; sourceTree = "<group>"; };
 		3988B67B215AE8C1006443F3 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		39A5E0D72171CEF200B19DA9 /* BaseSlidingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSlidingController.swift; sourceTree = "<group>"; };
+		39A5E0DA2171CF4B00B19DA9 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		39A5E0DD2171CF9600B19DA9 /* CustomMenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenuHeaderView.swift; sourceTree = "<group>"; };
+		39A5E0DF2171CFC500B19DA9 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		39A5E0E12171D00F00B19DA9 /* SpacerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerView.swift; sourceTree = "<group>"; };
+		39A5E0E32171D02900B19DA9 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +126,8 @@
 		396BE8162147454F00B349CF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				39A5E0D92171CF2C00B19DA9 /* MenuOptions */,
+				39A5E0D62171CED600B19DA9 /* Base */,
 				396BE80621473F7200B349CF /* HomeController.swift */,
 				394F5B08215209F800E37521 /* SettingsLauncher.swift */,
 				394F5B10215899CB00E37521 /* WorkoutListController.swift */,
@@ -139,12 +153,40 @@
 		396BE81C21475A3C00B349CF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				39A5E0DC2171CF8100B19DA9 /* MenuOptions */,
 				396BE81A21475A3700B349CF /* MuscleCell.swift */,
 				394F5B0A2153551B00E37521 /* SettingsCell.swift */,
 				394731AF2160909E00D93D81 /* ContentCell.swift */,
 				391356662163379500F0F037 /* WorkoutCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		39A5E0D62171CED600B19DA9 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				39A5E0D72171CEF200B19DA9 /* BaseSlidingController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		39A5E0D92171CF2C00B19DA9 /* MenuOptions */ = {
+			isa = PBXGroup;
+			children = (
+				39A5E0DA2171CF4B00B19DA9 /* MenuController.swift */,
+			);
+			path = MenuOptions;
+			sourceTree = "<group>";
+		};
+		39A5E0DC2171CF8100B19DA9 /* MenuOptions */ = {
+			isa = PBXGroup;
+			children = (
+				39A5E0DD2171CF9600B19DA9 /* CustomMenuHeaderView.swift */,
+				39A5E0DF2171CFC500B19DA9 /* ProfileImageView.swift */,
+				39A5E0E12171D00F00B19DA9 /* SpacerView.swift */,
+				39A5E0E32171D02900B19DA9 /* MenuItemCell.swift */,
+			);
+			path = MenuOptions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,21 +260,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39A5E0E02171CFC500B19DA9 /* ProfileImageView.swift in Sources */,
 				394F5ACB214DA00A00E37521 /* MusclesSearch.swift in Sources */,
 				3988B67C215AE8C1006443F3 /* Defaults.swift in Sources */,
 				396BE81B21475A3700B349CF /* MuscleCell.swift in Sources */,
 				391356672163379500F0F037 /* WorkoutCell.swift in Sources */,
 				396BE80721473F7200B349CF /* HomeController.swift in Sources */,
 				394F5B1521589C4700E37521 /* ContentController.swift in Sources */,
+				39A5E0E42171D02900B19DA9 /* MenuItemCell.swift in Sources */,
 				391356652163365800F0F037 /* Workout.swift in Sources */,
 				394F5B0F2154E20B00E37521 /* ScrollView.swift in Sources */,
 				394F5B09215209F800E37521 /* SettingsLauncher.swift in Sources */,
+				39A5E0D82171CEF200B19DA9 /* BaseSlidingController.swift in Sources */,
 				3913566B21645F5A00F0F037 /* ReusableCollectionView.swift in Sources */,
 				394731B02160909E00D93D81 /* ContentCell.swift in Sources */,
 				396BE8182147468100B349CF /* Extensions.swift in Sources */,
+				39A5E0DE2171CF9600B19DA9 /* CustomMenuHeaderView.swift in Sources */,
 				394731AE2160720300D93D81 /* Content.swift in Sources */,
 				394F5B192158A28400E37521 /* GenderController.swift in Sources */,
 				394731B221609DDF00D93D81 /* NSAttributedStringHelper.swift in Sources */,
+				39A5E0E22171D00F00B19DA9 /* SpacerView.swift in Sources */,
+				39A5E0DB2171CF4B00B19DA9 /* MenuController.swift in Sources */,
 				396BE80521473F7200B349CF /* AppDelegate.swift in Sources */,
 				394F5B11215899CB00E37521 /* WorkoutListController.swift in Sources */,
 				394F5B0B2153551B00E37521 /* SettingsCell.swift in Sources */,
