@@ -8,8 +8,12 @@
 
 import Foundation
 import UIKit
+import AVFoundation
+import AVKit
 
 class ContentController: UIViewController {
+    
+    // video variable
     
     let scrollView = UIScrollView()
     let pageLabel: UILabel = {
@@ -17,17 +21,20 @@ class ContentController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    let videoView = UIView()
+    var videoView = UIView()
     weak var collectionView: UICollectionView!
-    var content: [ContentCell] = []
+    var content: [Content] = []
     
     fileprivate var videoHeightV: NSLayoutConstraint?
     fileprivate var videoHeightL: NSLayoutConstraint?
     
     override func viewDidLoad() {
         
+        content.append(contentsOf: [Content(subtitle: "What to do", content: ["Grab dumbbells and rotate shoulders externally, so ears and shoulders are aligned.", "Keep shoulders externally rotated and elbows glued to to the side of your body.", "Keep wrists straight as you curl the barbell throughout its full range of motion; up to shoulders and back down to the starting position."]), Content(subtitle: "Common Mistakes", content: ["Step 1", "Step 2", "Step 3"]), Content(subtitle: "What is incline bench", content: ["First invented in 2000", "Good for moving boxes"])])
+        
+        
 //        setupScrollView()
-//        setupMoreOptions()
+        setupMoreOptions()
         setupPageLabel()
         setupVideo()
 //        setupPageLabel()
@@ -60,6 +67,17 @@ class ContentController: UIViewController {
         videoView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
         videoHeightV = videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16)
         videoHeightL = videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16)
+        
+        let url = Bundle.main.url(forResource: "vid", withExtension: ".mp4")!
+        let player = AVPlayer(url: url)
+        let playerController = AVPlayerViewController()
+        playerController.player = player
+        present(playerController, animated: true) {
+            player.play()
+        }
+        
+        
+        
         
         if UIDevice.current.orientation.isLandscape {
             //            videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 9/16).isActive = true
@@ -113,7 +131,7 @@ class ContentController: UIViewController {
         let button = UIButton(type: .custom)
         button.backgroundColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
-        let moreOptionsImage = UIImage(named: "more_options")?.withRenderingMode(.alwaysOriginal)
+        let moreOptionsImage = UIImage(named: "hamburger")
         button.setImage(moreOptionsImage, for: .normal)
         button.widthAnchor.constraint(equalToConstant: 25).isActive = true
         button.heightAnchor.constraint(equalToConstant: 25).isActive = true
@@ -122,26 +140,22 @@ class ContentController: UIViewController {
         navigationItem.rightBarButtonItems = [moreOptions]
     }
     
-    
-    let settingsLauncher = SettingsLauncher()
     @objc private func handleMoreOptions() {
-        settingsLauncher.showSettings()
+        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingController)?.openMenu()
     }
-    
-    
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView.collectionViewLayout.invalidateLayout()
         
         if UIDevice.current.orientation.isLandscape {
-            print("Landscape")
-            print(self.view.frame.height)
+//            print("Landscape")
+//            print(self.view.frame.height)
             //            videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 9/16).isActive = true
             videoHeightV?.isActive = false
             videoHeightL?.isActive = true
         } else {
-            print("Vertical")
-            print(self.view.frame.width)
+//            print("Vertical")
+//            print(self.view.frame.width)
             //            videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16).isActive = true
             videoHeightL?.isActive = false
             videoHeightV?.isActive = true
@@ -152,12 +166,15 @@ class ContentController: UIViewController {
 
 extension ContentController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return content.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! ContentCell
-        
+        cell.content = content[indexPath.row]
+//        cell.backgroundColor = .black
+//        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 5))
+//        cell.addSubview(image)
         return cell
     }
     
@@ -166,8 +183,17 @@ extension ContentController: UICollectionViewDataSource {
 
 extension ContentController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = view.frame.width * 9/16
-        return CGSize(width: view.frame.width, height: height)
+        var numOfChars = 0
+        for sentence in content[indexPath.row].content! {
+            numOfChars += sentence.count + 100
+        }
+        let numOfLines = numOfChars / 30
+        print(numOfChars, numOfLines)
+        // Every 2 lines amounts to 30 pixels in height
+        let height = (numOfLines/2) * 30
+//        let height = view.frame.width * 9/16
+        print(height)
+        return CGSize(width: view.frame.width, height: CGFloat(height))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

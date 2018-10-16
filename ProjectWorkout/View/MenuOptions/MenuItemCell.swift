@@ -18,10 +18,10 @@ class IconImageView: UIImageView {
 class MenuItemCell: UITableViewCell {
     
     let iconImageView: IconImageView = {
-        let iv = IconImageView()
-        iv.contentMode = .scaleAspectFit
-        iv.image = UIImage(named: "male_arms")
-        return iv
+        let view = IconImageView()
+        view.contentMode = .scaleAspectFit
+        view.image = UIImage(named: "male_arms")
+        return view
     }()
     
     let titleLabel: UILabel = {

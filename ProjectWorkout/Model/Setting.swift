@@ -11,7 +11,7 @@ import UIKit
 
 class Setting: NSObject {
     var settingOptionName: String?
-    
+
     init(settingOptionName: String) {
         self.settingOptionName = settingOptionName
     }

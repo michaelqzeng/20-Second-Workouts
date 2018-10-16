@@ -18,12 +18,14 @@ class BaseSlidingController: UIViewController {
     let redView: RightContainerView = {
         let v = RightContainerView()
         v.translatesAutoresizingMaskIntoConstraints = false
+//        v.backgroundColor = .red
+        
         return v
     }()
     
     let blueView: MenuContainerView = {
         let v = MenuContainerView()
-        v.backgroundColor = .blue
+//        v.backgroundColor = .blue
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -36,6 +38,15 @@ class BaseSlidingController: UIViewController {
         return v
     }()
     
+    var rightViewController: UIViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
+    
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        // Your Logic here
+        rightViewController.view.layoutIfNeeded()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,29 +54,35 @@ class BaseSlidingController: UIViewController {
         
         setupViews()
         
-        // how do we translate our red view
+//         how do we translate our red view
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         view.addGestureRecognizer(panGesture)
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapDismiss))
         darkCoverView.addGestureRecognizer(tapGesture)
     }
+    
     
     @objc fileprivate func handleTapDismiss() {
         closeMenu()
     }
     
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
+        if isMenuOpened == false {
+            return
+        }
         let translation = gesture.translation(in: view)
         var x = translation.x
         
-        x = isMenuOpened ? x + menuWidth : x
-        x = min(menuWidth, x)
-        x = max(0, x)
+        x = isMenuOpened ? x - menuWidth : x
+        x = max(-menuWidth, x)
+        x = min(0, x)
+        
+//        print(x)
         
         redViewLeadingConstraint.constant = x
         redViewTrailingConstraint.constant = x
-        darkCoverView.alpha = x / menuWidth
+        darkCoverView.alpha = abs(x) / menuWidth
         
         if gesture.state == .ended {
             handleEnded(gesture: gesture)
@@ -78,33 +95,39 @@ class BaseSlidingController: UIViewController {
         
         // Cleaning up this section of code to solve for Lesson #10 Challenge of velocity and darkCoverView
         if isMenuOpened {
-            if velocity.x < -velocityThreshold {
+            print("opened")
+//            print("x \(velocity.x)")
+//            print(velocityThreshold)
+            if velocity.x > velocityThreshold {
                 closeMenu()
                 return
             }
-            if abs(translation.x) < menuWidth / 2 {
-                openMenu()
-            } else {
+            if translation.x > menuWidth / 2 {
                 closeMenu()
+            } else {
+                openMenu()
             }
         } else {
-            if velocity.x > velocityThreshold {
+            print("closed")
+//            print("x \(velocity.x)")
+//            print(velocityThreshold)
+            if velocity.x < -velocityThreshold {
                 openMenu()
                 return
             }
             
-            if translation.x < menuWidth / 2 {
-                closeMenu()
-            } else {
+            if abs(translation.x) > menuWidth / 2 {
                 openMenu()
+            } else {
+                closeMenu()
             }
         }
     }
     
     func openMenu() {
         isMenuOpened = true
-        redViewLeadingConstraint.constant = menuWidth
-        redViewTrailingConstraint.constant = menuWidth
+        redViewLeadingConstraint.constant = -menuWidth
+        redViewTrailingConstraint.constant = -menuWidth
         performAnimations()
     }
     
@@ -116,7 +139,9 @@ class BaseSlidingController: UIViewController {
     }
     
     func didSelectMenuItem(indexPath: IndexPath) {
+        print(rightViewController)
         performRightViewCleanUp()
+        print(rightViewController)
         closeMenu()
         
         switch indexPath.row {
@@ -124,12 +149,11 @@ class BaseSlidingController: UIViewController {
             rightViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
         case 1:
 //            rightViewController = UINavigationController(rootViewController: ListsController())
-            print("1")
+            print("Opening List")
         case 2:
 //            rightViewController = BookmarksController()
-            print("2")
+            print("Opening bookmarks")
         default:
-            
             let tabBarController = UITabBarController()
             let momentsController = UIViewController()
             momentsController.navigationItem.title = "Moments"
@@ -146,7 +170,6 @@ class BaseSlidingController: UIViewController {
         redView.bringSubviewToFront(darkCoverView)
     }
     
-    var rightViewController: UIViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
     
     fileprivate func performRightViewCleanUp() {
         rightViewController.view.removeFromSuperview()
@@ -163,7 +186,7 @@ class BaseSlidingController: UIViewController {
     
     var redViewLeadingConstraint: NSLayoutConstraint!
     var redViewTrailingConstraint: NSLayoutConstraint!
-    fileprivate let menuWidth: CGFloat = 300
+    fileprivate let menuWidth: CGFloat = 250
     fileprivate let velocityThreshold: CGFloat = 500
     fileprivate var isMenuOpened = false
     
@@ -176,24 +199,34 @@ class BaseSlidingController: UIViewController {
             redView.topAnchor.constraint(equalTo: view.topAnchor),
             redView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor),
             
+//            blueView.topAnchor.constraint(equalTo: view.topAnchor),
+//            blueView.trailingAnchor.constraint(equalTo: redView.leadingAnchor),
+//            blueView.widthAnchor.constraint(equalToConstant: menuWidth),
+//            blueView.bottomAnchor.constraint(equalTo: redView.bottomAnchor)
+            
             blueView.topAnchor.constraint(equalTo: view.topAnchor),
-            blueView.trailingAnchor.constraint(equalTo: redView.leadingAnchor),
+            blueView.leadingAnchor.constraint(equalTo: redView.trailingAnchor),
             blueView.widthAnchor.constraint(equalToConstant: menuWidth),
             blueView.bottomAnchor.constraint(equalTo: redView.bottomAnchor)
             ])
         
-        redViewLeadingConstraint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
+//        redViewLeadingConstraint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
+        redViewLeadingConstraint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         redViewLeadingConstraint.isActive = true
         
-        redViewTrailingConstraint = redView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+//        redViewTrailingConstraint = redView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        redViewTrailingConstraint = redView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
         redViewTrailingConstraint.isActive = true
         
         setupViewControllers()
     }
     
     fileprivate func setupViewControllers() {
-        let menuController = MenuController()
+//        let homeController = HomeController(collectionViewLayout: UICollectionViewFlowLayout())
+//        homeController.delegate = self
+//        rightViewController = UINavigationController(rootViewController: homeController)
         
+        let menuController = MenuController()
         let homeView = rightViewController.view!
         let menuView = menuController.view!
         
@@ -210,7 +243,7 @@ class BaseSlidingController: UIViewController {
             homeView.leadingAnchor.constraint(equalTo: redView.leadingAnchor),
             homeView.bottomAnchor.constraint(equalTo: redView.bottomAnchor),
             homeView.trailingAnchor.constraint(equalTo: redView.trailingAnchor),
-            
+
             menuView.topAnchor.constraint(equalTo: blueView.topAnchor),
             menuView.leadingAnchor.constraint(equalTo: blueView.leadingAnchor),
             menuView.bottomAnchor.constraint(equalTo: blueView.bottomAnchor),
@@ -221,6 +254,8 @@ class BaseSlidingController: UIViewController {
             darkCoverView.bottomAnchor.constraint(equalTo: redView.bottomAnchor),
             darkCoverView.trailingAnchor.constraint(equalTo: redView.trailingAnchor),
             ])
+        
+        
         
         addChild(rightViewController)
         addChild(menuController)

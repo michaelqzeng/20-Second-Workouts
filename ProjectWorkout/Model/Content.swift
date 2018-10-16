@@ -14,7 +14,7 @@ class Content: NSObject {
         self.subtitle = subtitle
         self.content = content
     }
-    
+
     var subtitle: String?
     var content: [String]?
 }

@@ -101,10 +101,11 @@ class ContentCell: BaseCell {
         subtitleLabel.centerXAnchor.constraint(equalTo: leftSideView.centerXAnchor).isActive = true
         subtitleLabel.centerYAnchor.constraint(equalTo: leftSideView.centerYAnchor).isActive = true
         
-        stepsLabel.heightAnchor.constraint(equalTo: rightSideView.heightAnchor, multiplier: 2/3).isActive = true
-        stepsLabel.widthAnchor.constraint(equalTo: rightSideView.widthAnchor, multiplier: 2/3).isActive = true
+        stepsLabel.heightAnchor.constraint(equalTo: rightSideView.heightAnchor, multiplier: 1).isActive = true
+        stepsLabel.widthAnchor.constraint(equalTo: rightSideView.widthAnchor, multiplier: 1).isActive = true
         stepsLabel.centerXAnchor.constraint(equalTo: rightSideView.centerXAnchor).isActive = true
         stepsLabel.centerYAnchor.constraint(equalTo: rightSideView.centerYAnchor).isActive = true
+        
         
     }
     

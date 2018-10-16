@@ -12,7 +12,7 @@ import UIKit
 class Workout: NSObject {
     var subgroup: String?
     var muscle: [Muscle]?
-    
+
     init(subgroup: String, muscle: [Muscle]) {
         self.subgroup = subgroup
         self.muscle = muscle

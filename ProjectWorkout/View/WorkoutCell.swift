@@ -53,7 +53,7 @@ class WorkoutCell: BaseCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.rgb(red: 61, green: 61, blue: 56)
         view.alpha = 0.8
-        print(view.frame.height)
+//        print(view.frame.height)
         return view
     }()
     
@@ -65,11 +65,6 @@ class WorkoutCell: BaseCell {
         imageView.backgroundColor = .clear
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.alpha = 0.8
-        print(imageView.frame.height)
-        //        imageView.contentMode = .scaleAspectFit
-        //        imageView.layer.cornerRadius = imageView.frame.height/2
-        //        imageView.clipsToBounds = true
-        //        imageView.layer.masksToBounds = false
         return imageView
     }()
     

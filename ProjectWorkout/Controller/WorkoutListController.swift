@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class WorkoutListController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+
     let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
     let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
     let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
@@ -24,67 +24,66 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         search.hidesNavigationBarDuringPresentation = true
         return search
     }()
-    
-    
-    
+
+
+
     var muscles1: [Muscle] = [
         Muscle(imageFileName: "male_arms_incline_hammer", muscleName: "Incline Hammer"),
         Muscle(imageFileName: "male_arms_tricep_dips", muscleName: "Tricep Dips")
     ]
-    
+
     var muscles2: [Muscle] = [
         Muscle(imageFileName: "male_back_chin_up", muscleName: "Chin up"),
         Muscle(imageFileName: "male_back_pull_up", muscleName: "Pull up")
     ]
-    
+
     var muscles3: [Muscle] = [
         Muscle(imageFileName: "male_chest_dumbbell_press", muscleName: "Dumbbell Press")
     ]
-    
+
     lazy var sections: [Workout] = [Workout(subgroup: "Incline Chest", muscle: muscles1), Workout(subgroup: "Decline Chest", muscle: muscles2), Workout(subgroup: "Inner Chest", muscle: muscles3)]
-    
-    
-    
+
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white  
+        view.backgroundColor = .white
         setupNavBar()
         setupSearchBar()
-//        setupMoreOptions()
+        setupMoreOptions()
         setupPageLabel()
         setupCollectionView()
-        
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
+
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-    
+
     func favoriteCell(cell: WorkoutCell) {
         guard let indexPath = collectionView?.indexPath(for: cell) else {return}
-        
+
         let section = sections[indexPath.section]
         let workouts = section.muscle
         let workout = workouts![indexPath.item]
-        
+
         let isCurFavorited = workout.hasFavorited!
-        
+
         workout.hasFavorited = !isCurFavorited
-        
+
         cell.favoriteImageView.tintColor = isCurFavorited ? lightGray : brightYellow
-        print(isCurFavorited)
+//        print(isCurFavorited)
     }
-    
+
     private func setupNavBar() {
         //        navigationController?.hidesBarsOnSwipe = true
         navigationController?.navigationBar.isTranslucent = false
@@ -94,16 +93,16 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 //        let text = "Chest"
 //        self.navigationItem.title = text
     }
-    
+
     private func setupSearchBar() {
         navigationItem.searchController = search
     }
-    
+
     private func setupMoreOptions() {
         let button = UIButton(type: .custom)
         button.backgroundColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
-        let moreOptionsImage = UIImage(named: "more_options")?.withRenderingMode(.alwaysOriginal)
+        let moreOptionsImage = UIImage(named: "hamburger")
         button.setImage(moreOptionsImage, for: .normal)
         button.widthAnchor.constraint(equalToConstant: 25).isActive = true
         button.heightAnchor.constraint(equalToConstant: 25).isActive = true
@@ -111,11 +110,9 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         let moreOptions = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItems = [moreOptions]
     }
-    
-    
-    let settingsLauncher = SettingsLauncher()
+
     @objc private func handleMoreOptions() {
-        settingsLauncher.showSettings()
+        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingController)?.openMenu()
     }
     
     private func setupPageLabel() {
@@ -186,12 +183,12 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print("sections.count", sections.count)
+//        print("sections.count", sections.count)
         return sections.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("sections[section].muscle!.count", sections[section].muscle!.count)
+//        print("sections[section].muscle!.count", sections[section].muscle!.count)
         return sections[section].muscle!.count
     }
 
@@ -206,7 +203,7 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         cell.muscle = workout
 
         cell.favoriteImageView.tintColor = workout.hasFavorited! ? brightYellow : lightGray
-        print(workout.hasFavorited!)
+//        print(workout.hasFavorited!)
         
         return cell
     }
@@ -219,7 +216,7 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         let subgroup = "  " + sections[indexPath.section].subgroup!
 
         sectionHeaderView.headerLabel.attributedText = subgroup.convertToNSAtrributredString(size: 20, color: .black)
-        print(subgroup)
+//        print(subgroup)
 
         return sectionHeaderView
     }

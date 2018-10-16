@@ -22,6 +22,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     let spaceBetweenTopSafeAreaAndPageLabel = 10
     let pageLabelSize = 45
     
+//    weak var delegate: MenuOptionsDelegate?
+    
     var muscles: [Muscle] = {
         var male_arms = Muscle(imageFileName: "male_arms", muscleName: "Arms")
         var male_chest = Muscle(imageFileName: "male_chest", muscleName: "Chest")
@@ -31,13 +33,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return [male_legs, male_arms, male_chest, male_back, male_shoudlers]
     }()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupNavBar()
         setupSearchBar()
-//        setupMoreOptions()
+        setupMoreOptions()
         setupPageLabel()
         setupCollectionView()
         
@@ -49,6 +50,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         self.navigationItem.searchController = search
         collectionView?.reloadData()
+        
+        view.layoutIfNeeded()
         
     }
     
@@ -64,31 +67,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
     }
+
     
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
     }
     
     private func setupNavBar() {
-//        navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.isTranslucent = false
-//        self.navigationController?.navigationBar.prefersLargeTitles = true
-//        self.navigationController?.navigationBar.barTintColor = .white
-//        let text = "Workouts"
-//        self.navigationItem.title = text
-////        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Superclarendon-Black ", size: CGFloat(size))!]
-//
-//        var size = 44
-//        if UIDevice.current.orientation.isLandscape {
-//            size = 32
-//        }
-//        let attrs = [
-//            NSAttributedString.Key.foregroundColor: UIColor.white,
-//            NSAttributedString.Key.font: UIFont(name: "Superclarendon-Black", size: CGFloat(size))!
-//        ]
-//        UINavigationBar.appearance().titleTextAttributes = attrs
     }
     
     private func setupSearchBar() {
@@ -108,8 +95,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let button = UIButton(type: .custom)
         button.backgroundColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
-        let moreOptionsImage = UIImage(named: "more_options")?.withRenderingMode(.alwaysOriginal)
+        let moreOptionsImage = UIImage(named: "hamburger")
         button.setImage(moreOptionsImage, for: .normal)
+//        button.backgroundColor = .red
         button.widthAnchor.constraint(equalToConstant: 25).isActive = true
         button.heightAnchor.constraint(equalToConstant: 25).isActive = true
         button.addTarget(self, action: #selector(handleMoreOptions), for: .touchUpInside)
@@ -117,44 +105,18 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.rightBarButtonItems = [moreOptions]
     }
     
-    
-    let settingsLauncher = SettingsLauncher()
     @objc private func handleMoreOptions() {
-        
-        //let distFromWindowTop = UIApplication.shared.framestatusBarFrame.height
-        settingsLauncher.showSettings()
+//        self.delegate?.openMenu()
+        (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingController)?.openMenu()
     }
     
     private func setupPageLabel() {
-        
-//        whiteView.backgroundColor = .white
-//        view.addSubview(whiteView)
-//        whiteView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": whiteView]))
-//        let spaceBetweenTopSafeAreaInsetsAndWV = spaceBetweenTopSafeAreaAndPageLabel + pageLabelSize + 12
-//        view.addConstraintsWithFormat(format: "V:[v0(\(spaceBetweenTopSafeAreaInsetsAndWV))]", views: whiteView)
-        // whiteView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
-
         let text = "Workouts"
         let size = (navigationController?.navigationBar.frame.height)! - 10
-//        pageLabel.text = text
         pageLabel.attributedText = text.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
         pageLabel.backgroundColor = .white
         pageLabel.sizeToFit()
         navigationItem.titleView = pageLabel
-//        view.addSubview(pageLabel)
-//        pageLabel.translatesAutoresizingMaskIntoConstraints = false
-//        pageLabel.topAnchor.constraint(equalTo: view.safeTopAnchor, constant: CGFloat(spaceBetweenTopSafeAreaAndPageLabel)).isActive = true
-//        pageLabel.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor, constant: 22).isActive = true
-//        pageLabel.sizeToFit()
-//        pageLabel.translatesAutoresizingMaskIntoConstraints = false
-//        pageLabel.textAlignment = .left
-//        pageLabel.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
-        
-//        pageLabel.superview?.addConstraint(NSLayoutConstraint(item: pageLabel, attribute: .centerX, relatedBy: .equal, toItem: pageLabel.superview, attribute: .centerX, multiplier: 1, constant: 0))
-//        pageLabel.superview?.addConstraint(NSLayoutConstraint(item: pageLabel, attribute: .width, relatedBy: .equal, toItem: pageLabel.superview, attribute: .width, multiplier: 1, constant: 0))
-//        pageLabel.superview?.addConstraint(NSLayoutConstraint(item: pageLabel, attribute: .centerY, relatedBy: .equal, toItem: pageLabel.superview, attribute: .centerY, multiplier: 1, constant: 0))
-//        pageLabel.superview?.addConstraint(NSLayoutConstraint(item: pageLabel, attribute: .height, relatedBy: .equal, toItem: pageLabel.superview, attribute: .height, multiplier: 1, constant: 0))
     }
     
     private func setupCollectionView() {
@@ -168,12 +130,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
         collectionView?.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         collectionView?.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
-        
-//        // move collection view under the bar. push it 50 pixels down
-//        collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
-//        // move scroll view under the bar as well, 50 pixels down
-//        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
     }
+    
+    
     
     // MARK: UICollectionView override delegation methods
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -181,7 +140,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         cell.muscle = muscles[indexPath.item]
         let height = cell.frame.height/6
         let width = cell.frame.width
-        print(height, width)
+//        print(height, width)
         let layout = UICollectionViewFlowLayout()
         layout.headerReferenceSize = CGSize(width: width, height: height)
         let workoutListVC = WorkoutListController(collectionViewLayout: layout)
@@ -207,26 +166,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     // define size of each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // conform to 16 by 9 standard. subtract left and right padding
-//        var height = (view.frame.width - 35 - 35) * 9 / 16
-        let height = view.frame.width * 9/16
-        // also add the height of pixel padding from top of each cell
-//        height += 25
-//        return CGSize(width: view.frame.width, height: height+3)
-        return CGSize(width: view.frame.width, height: height)
+        let width = view.frame.width 
+        let height = width * 9/16
+        return CGSize(width: width, height: height)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
+
         collectionView?.collectionViewLayout.invalidateLayout()
-        
-//        var size = 44
-//        if UIDevice.current.orientation.isLandscape {
-//            size = 25
-//        }
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Futura", size: CGFloat(size))!]
-//        navigationController?.setValue(CustomNavigationBar.self, forKey: "navigationBar")
-//        pageLabel.attributedText = pageLabel.text?.convertToNSAtrributredString(size: size!, color: .black)
         
     }
     
@@ -234,18 +182,4 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
-    
-    
-    
-    // MARK: Hide navigation bar on this viewcontroller
-    //    override func viewWillAppear(_ animated: Bool) {
-    //        super.viewWillAppear(animated)
-    //        navigationController?.setNavigationBarHidden(true, animated: animated)
-    //    }
-    //
-    //    override func viewWillDisappear(_ animated: Bool) {
-    //        super.viewWillDisappear(animated)
-    //        navigationController?.setNavigationBarHidden(false, animated: animated)
-    //    }
 }
