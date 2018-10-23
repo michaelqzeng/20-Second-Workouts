@@ -31,7 +31,7 @@ class BaseCell: UICollectionViewCell {
 class MuscleCell: BaseCell {
     
     var muscle: Muscle? {
-        didSet{
+        didSet {
             thumbnailLabel.attributedText =  (muscle?.displayName)!.convertToNSAtrributredString(size: 28, color: UIColor.white)
             thumbnailImageView.image = UIImage(named: (muscle?.muscleImageName)!)
         }
@@ -114,7 +114,6 @@ class MuscleCell: BaseCell {
 //        self.backgroundColor = .white
         setupSections()
         setupCell()
-        
         
         // add muscle image
 //        addSubview(thumbnailImageView)

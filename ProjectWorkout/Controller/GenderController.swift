@@ -139,8 +139,6 @@ class GenderController: UIViewController {
             femaleWidthAnchorB = femaleLabel.trailingAnchor.constraint(equalTo: bottomImageContainerView.trailingAnchor, constant: -1*insetB)
         }
         
-        
-        
         femaleWidthAnchorA?.isActive = true
         
         femaleLabel.addTarget(self, action: #selector(selectFemale(sender:)), for: .touchUpInside)
@@ -152,7 +150,6 @@ class GenderController: UIViewController {
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-
         
         if UIDevice.current.orientation.isLandscape {
             maleWidthAnchorA?.isActive = false

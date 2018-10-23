@@ -24,8 +24,8 @@ class ContentCell: BaseCell {
     }()
     
     var subtitle: String = {
-        let s = ""
-        return s
+        let subtitle = ""
+        return subtitle
     }()
     
     let subtitleSize: CGFloat = 20
@@ -52,8 +52,8 @@ class ContentCell: BaseCell {
     }()
     
     var steps: [String] = {
-        let s = ["a"]
-        return s
+        let steps = ["a"]
+        return steps
     }()
     
     var content: Content? {
@@ -106,8 +106,6 @@ class ContentCell: BaseCell {
         stepsLabel.centerXAnchor.constraint(equalTo: rightSideView.centerXAnchor).isActive = true
         stepsLabel.centerYAnchor.constraint(equalTo: rightSideView.centerYAnchor).isActive = true
         
-        
     }
-    
     
 }

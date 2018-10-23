@@ -14,7 +14,7 @@ class WorkoutCell: BaseCell {
     var link: WorkoutListController?
     
     var muscle: Muscle? {
-        didSet{
+        didSet {
             thumbnailLabel.attributedText =  (muscle?.displayName)!.convertToNSAtrributredString(size: 28, color: UIColor.white)
             thumbnailImageView.image = UIImage(named: (muscle?.muscleImageName)!)
         }
@@ -96,7 +96,6 @@ class WorkoutCell: BaseCell {
         setupSections()
         setupCell()
         
-        
         // add muscle image
         //        addSubview(thumbnailImageView)
         // 80 pixels from top, 57 pixels from left and right
@@ -133,7 +132,6 @@ class WorkoutCell: BaseCell {
         favoriteButtonView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: -5).isActive = true
         //        favoriteButtonView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor).isActive = true
         favoriteButtonView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor, constant: 5).isActive = true
-        
         
         self.addSubview(favoriteImageView)
         favoriteImageView.widthAnchor.constraint(equalTo: favoriteButtonView.widthAnchor, multiplier: 0.65).isActive = true

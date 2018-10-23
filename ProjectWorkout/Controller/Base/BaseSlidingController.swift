@@ -9,37 +9,35 @@
 import Foundation
 import UIKit
 
-class RightContainerView: UIView {}
-class MenuContainerView: UIView {}
-class DarkCoverView: UIView {}
-
 class BaseSlidingController: UIViewController {
     
-    let redView: RightContainerView = {
-        let v = RightContainerView()
-        v.translatesAutoresizingMaskIntoConstraints = false
+    let redView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
 //        v.backgroundColor = .red
-        
-        return v
+        return view
     }()
     
-    let blueView: MenuContainerView = {
-        let v = MenuContainerView()
+    let blueView: UIView = {
+        let view = UIView()
 //        v.backgroundColor = .blue
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
-    let darkCoverView: DarkCoverView = {
-        let v = DarkCoverView()
-        v.backgroundColor = UIColor(white: 0, alpha: 0.7)
-        v.alpha = 0
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
+    let darkCoverView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
-    var rightViewController: UIViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
-    
+    var rightViewController: UIViewController = {
+        let layout = UICollectionViewFlowLayout()
+        let view = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
+        return view
+    }()
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -49,19 +47,17 @@ class BaseSlidingController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
         
         setupViews()
         
-//         how do we translate our red view
+        // pan gesture to track slide, and adjust redview's constraint
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         view.addGestureRecognizer(panGesture)
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapDismiss))
         darkCoverView.addGestureRecognizer(tapGesture)
     }
-    
     
     @objc fileprivate func handleTapDismiss() {
         closeMenu()
@@ -72,17 +68,17 @@ class BaseSlidingController: UIViewController {
             return
         }
         let translation = gesture.translation(in: view)
-        var x = translation.x
+        var translationX = translation.x
         
-        x = isMenuOpened ? x - menuWidth : x
-        x = max(-menuWidth, x)
-        x = min(0, x)
+        translationX = isMenuOpened ? translationX - menuWidth : translationX
+        translationX = max(-menuWidth, translationX)
+        translationX = min(0, translationX)
         
 //        print(x)
         
-        redViewLeadingConstraint.constant = x
-        redViewTrailingConstraint.constant = x
-        darkCoverView.alpha = abs(x) / menuWidth
+        redViewLeadingConstraint.constant = translationX
+        redViewTrailingConstraint.constant = translationX
+        darkCoverView.alpha = abs(translationX) / menuWidth
         
         if gesture.state == .ended {
             handleEnded(gesture: gesture)
@@ -139,14 +135,13 @@ class BaseSlidingController: UIViewController {
     }
     
     func didSelectMenuItem(indexPath: IndexPath) {
-        print(rightViewController)
         performRightViewCleanUp()
-        print(rightViewController)
         closeMenu()
         
         switch indexPath.row {
         case 0:
             rightViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
+            print("Home Screen")
         case 1:
 //            rightViewController = UINavigationController(rootViewController: ListsController())
             print("Opening List")
@@ -170,10 +165,10 @@ class BaseSlidingController: UIViewController {
         redView.bringSubviewToFront(darkCoverView)
     }
     
-    
     fileprivate func performRightViewCleanUp() {
         rightViewController.view.removeFromSuperview()
         rightViewController.removeFromParent()
+        rightViewController.dismiss(animated: true, completion: nil)
     }
     
     fileprivate func performAnimations() {
@@ -197,24 +192,16 @@ class BaseSlidingController: UIViewController {
         // let's go ahead and use Auto Layout
         NSLayoutConstraint.activate([
             redView.topAnchor.constraint(equalTo: view.topAnchor),
-            redView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor),
-            
-//            blueView.topAnchor.constraint(equalTo: view.topAnchor),
-//            blueView.trailingAnchor.constraint(equalTo: redView.leadingAnchor),
-//            blueView.widthAnchor.constraint(equalToConstant: menuWidth),
-//            blueView.bottomAnchor.constraint(equalTo: redView.bottomAnchor)
-            
+            redView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             blueView.topAnchor.constraint(equalTo: view.topAnchor),
             blueView.leadingAnchor.constraint(equalTo: redView.trailingAnchor),
             blueView.widthAnchor.constraint(equalToConstant: menuWidth),
-            blueView.bottomAnchor.constraint(equalTo: redView.bottomAnchor)
+            blueView.bottomAnchor.constraint(equalTo: redView.safeBottomAnchor)
             ])
         
-//        redViewLeadingConstraint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
         redViewLeadingConstraint = redView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         redViewLeadingConstraint.isActive = true
         
-//        redViewTrailingConstraint = redView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         redViewTrailingConstraint = redView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
         redViewTrailingConstraint.isActive = true
         
@@ -222,10 +209,6 @@ class BaseSlidingController: UIViewController {
     }
     
     fileprivate func setupViewControllers() {
-//        let homeController = HomeController(collectionViewLayout: UICollectionViewFlowLayout())
-//        homeController.delegate = self
-//        rightViewController = UINavigationController(rootViewController: homeController)
-        
         let menuController = MenuController()
         let homeView = rightViewController.view!
         let menuView = menuController.view!
@@ -252,10 +235,8 @@ class BaseSlidingController: UIViewController {
             darkCoverView.topAnchor.constraint(equalTo: redView.topAnchor),
             darkCoverView.leadingAnchor.constraint(equalTo: redView.leadingAnchor),
             darkCoverView.bottomAnchor.constraint(equalTo: redView.bottomAnchor),
-            darkCoverView.trailingAnchor.constraint(equalTo: redView.trailingAnchor),
+            darkCoverView.trailingAnchor.constraint(equalTo: redView.trailingAnchor)
             ])
-        
-        
         
         addChild(rightViewController)
         addChild(menuController)

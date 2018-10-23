@@ -6,8 +6,8 @@
 //  Copyright © 2018 Michael Zeng. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import RealmSwift
 
 class Muscle: NSObject {
     var muscleImageName: String?
@@ -20,3 +20,16 @@ class Muscle: NSObject {
         hasFavorited = false
     }
 }
+
+//class Muscle: Object {
+//    @objc dynamic var muscleImageName = ""
+//    @objc dynamic var displayName = ""
+//    @objc dynamic var hasFavorited = false
+//
+//    init(imageFileName: String, muscleName: String) {
+//        muscleImageName = imageFileName
+//        displayName = muscleName
+//        hasFavorited = false
+//    }
+//
+//}

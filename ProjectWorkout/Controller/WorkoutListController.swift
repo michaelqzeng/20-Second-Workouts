@@ -25,8 +25,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         return search
     }()
 
-
-
     var muscles1: [Muscle] = [
         Muscle(imageFileName: "male_arms_incline_hammer", muscleName: "Incline Hammer"),
         Muscle(imageFileName: "male_arms_tricep_dips", muscleName: "Tricep Dips")
@@ -42,8 +40,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     ]
 
     lazy var sections: [Workout] = [Workout(subgroup: "Incline Chest", muscle: muscles1), Workout(subgroup: "Decline Chest", muscle: muscles2), Workout(subgroup: "Inner Chest", muscle: muscles3)]
-
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,13 +81,7 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     }
 
     private func setupNavBar() {
-        //        navigationController?.hidesBarsOnSwipe = true
         navigationController?.navigationBar.isTranslucent = false
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        self.navigationController?.navigationBar.barTintColor = .white
-//        navigationController?.view.backgroundColor = .white
-//        let text = "Chest"
-//        self.navigationItem.title = text
     }
 
     private func setupSearchBar() {
@@ -119,7 +109,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         
         let text = "Arms"
         let size = (navigationController?.navigationBar.frame.height)! - 10
-        //        pageLabel.text = text
         pageLabel.attributedText = text.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
         pageLabel.backgroundColor = .white
         pageLabel.sizeToFit()
@@ -129,7 +118,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     private func setupCollectionView() {
         // register videocell as our cells for our collectionview
         collectionView?.register(WorkoutCell.self, forCellWithReuseIdentifier: "cellId")
-//        collectionView?.register(ReusableCollectionView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, forCellWithReuseIdentifier: "header")
         collectionView?.register(ReusableCollectionView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         
         collectionView?.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 255)
@@ -147,26 +135,9 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         let contentVC = ContentController()
         navigationController?.pushViewController(contentVC, animated: true)
     }
-//
-//    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return muscles.count // 5 items for now, base off Model later
-//    }
-//
-//    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MuscleCell
-//        cell.muscle = muscles[indexPath.item]
-//        return cell
-//    }
-//
-//
     // define size of each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // conform to 16 by 9 standard. subtract left and right padding
-//        var height = (view.frame.width - 35 - 35) * 9 / 16
         let height = view.frame.width * 9/16
-        // also add the height of pixel padding from top of each cell
-//        height += 25
-//        return CGSize(width: view.frame.width, height: height+3)
         return CGSize(width: view.frame.width, height: height)
     }
 //
@@ -176,7 +147,7 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         collectionView?.collectionViewLayout.invalidateLayout()
 
     }
-//
+    
     // remove extra pixel padding between each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
@@ -192,9 +163,10 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         return sections[section].muscle!.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! WorkoutCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as? WorkoutCell else {
+            fatalError("Misconfigured cell type, \(collectionView)!")
+        }
         cell.link = self
         let section = sections[indexPath.section]
         let workouts = section.muscle
@@ -208,11 +180,12 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         return cell
     }
 
-    // Section Header View
+    // MARK: Section Header View
 
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
-    {
-        let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! ReusableCollectionView
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? ReusableCollectionView else {
+            fatalError("Misconfigured cell type, \(collectionView)!")
+        }
         let subgroup = "  " + sections[indexPath.section].subgroup!
 
         sectionHeaderView.headerLabel.attributedText = subgroup.convertToNSAtrributredString(size: 20, color: .black)
@@ -220,16 +193,4 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 
         return sectionHeaderView
     }
-
-    // MARK: - UICollectionViewDelegate
-
-//    var selectedImage: UIImage!
-
-//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-//    {
-////        let category = sections[indexPath.section]
-////        selectedImage = UIImage(named: category.imageNames[indexPath.item])
-////
-////        performSegue(withIdentifier: Storyboard.showDetailVC, sender: nil)
-//    }
 }

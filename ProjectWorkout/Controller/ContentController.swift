@@ -32,7 +32,6 @@ class ContentController: UIViewController {
         
         content.append(contentsOf: [Content(subtitle: "What to do", content: ["Grab dumbbells and rotate shoulders externally, so ears and shoulders are aligned.", "Keep shoulders externally rotated and elbows glued to to the side of your body.", "Keep wrists straight as you curl the barbell throughout its full range of motion; up to shoulders and back down to the starting position."]), Content(subtitle: "Common Mistakes", content: ["Step 1", "Step 2", "Step 3"]), Content(subtitle: "What is incline bench", content: ["First invented in 2000", "Good for moving boxes"])])
         
-        
 //        setupScrollView()
         setupMoreOptions()
         setupPageLabel()
@@ -40,9 +39,7 @@ class ContentController: UIViewController {
 //        setupPageLabel()
         setupCollectionView()
         
-        
         view.backgroundColor = .white
-        
     }
     
     private func setupScrollView() {
@@ -76,9 +73,6 @@ class ContentController: UIViewController {
             player.play()
         }
         
-        
-        
-        
         if UIDevice.current.orientation.isLandscape {
             //            videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 9/16).isActive = true
             videoHeightL?.isActive = true
@@ -86,7 +80,6 @@ class ContentController: UIViewController {
             //            videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16).isActive = true
             videoHeightV?.isActive = true
         }
-        
         
     }
     
@@ -170,14 +163,15 @@ extension ContentController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! ContentCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as? ContentCell else {
+            fatalError("Misconfigured cell type, \(collectionView)!")
+        }
         cell.content = content[indexPath.row]
 //        cell.backgroundColor = .black
 //        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 5))
 //        cell.addSubview(image)
         return cell
     }
-    
     
 }
 

@@ -13,15 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         Defaults.setGender("noneSelected")
-        
-        
         
 //        let layout = UICollectionViewFlowLayout()
 //        window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
@@ -31,14 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        window?.rootViewController = UINavigationController(rootViewController: ContentController())
 //        window?.backgroundColor = .white
-
         
         // Navigation bar at top
         UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 255, green: 255, blue: 255)
         
         // get rid of black bar underneath navigation bar
         UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for:.default)
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         
         return true
     }
@@ -65,6 +61,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
-

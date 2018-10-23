@@ -27,7 +27,7 @@ class MenuController: UITableViewController {
 
     var menuItems = [
         MenuItem(icon: UIImage(named: "male_arms")!, title: "Home"),
-        MenuItem(icon: UIImage(named: "male_arms")!, title: "Bookmarks"),
+        MenuItem(icon: UIImage(named: "male_arms")!, title: "Favorites"),
         MenuItem(icon: UIImage(named: "male_arms")!, title: "")
         ]
 
@@ -41,16 +41,12 @@ class MenuController: UITableViewController {
         return customHeaderView
     }
 
-    //    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    //        return 300
-    //    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let index = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRow(at: index, animated: true)
-        }
+//        if let index = self.tableView.indexPathForSelectedRow {
+//            self.tableView.deselectRow(at: index, animated: true)
+//        }
 
         if Defaults.getGender() == "female" {
             menuItems.popLast()

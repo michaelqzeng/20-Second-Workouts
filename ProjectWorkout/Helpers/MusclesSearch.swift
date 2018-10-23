@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension HomeController : UISearchBarDelegate {
+extension HomeController: UISearchBarDelegate {
     
     // MARK: Keyboard handling for Muscle View Controller
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -46,6 +46,4 @@ extension HomeController : UISearchBarDelegate {
         searchBar.endEditing(true)
     }
     
-    
 }
-

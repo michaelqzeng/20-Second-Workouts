@@ -27,8 +27,8 @@ class CustomMenuHeaderView: UIView {
         // custom components for our header
         nameLabel.text = "More Options"
         nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
-        usernameLabel.text = ""
-        statsLabel.text = "stats"
+        usernameLabel.text = "More Options"
+        statsLabel.text = ""
         profileImageView.image = UIImage(named: "male_arms")
         profileImageView.contentMode = .scaleAspectFit
         profileImageView.layer.cornerRadius = 48 / 2
@@ -54,8 +54,8 @@ class CustomMenuHeaderView: UIView {
         let arrangedSubviews = [
             //            UIView(),
             UIStackView(arrangedSubviews: [profileImageView, rightSpacerView]),
-//            nameLabel,
-//            usernameLabel,
+            nameLabel
+//            usernameLabel
 //            SpacerView(space: 16),
 //            statsLabel
         ]
