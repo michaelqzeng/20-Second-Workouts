@@ -9,27 +9,14 @@
 import UIKit
 import RealmSwift
 
-class Muscle: NSObject {
-    var muscleImageName: String?
-    var displayName: String?
-    var hasFavorited: Bool?
-
-    init(imageFileName: String, muscleName: String) {
-        muscleImageName = imageFileName
-        displayName = muscleName
-        hasFavorited = false
-    }
-}
-
-//class Muscle: Object {
-//    @objc dynamic var muscleImageName = ""
-//    @objc dynamic var displayName = ""
-//    @objc dynamic var hasFavorited = false
+//class Muscle: NSObject {
+//    var muscleImageName: String?
+//    var displayName: String?
+//    var hasFavorited: Bool?
 //
 //    init(imageFileName: String, muscleName: String) {
 //        muscleImageName = imageFileName
 //        displayName = muscleName
 //        hasFavorited = false
 //    }
-//
 //}

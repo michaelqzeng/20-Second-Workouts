@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
@@ -20,21 +21,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     let search = UISearchController(searchResultsController: nil)
     let spaceBetweenTopSafeAreaAndPageLabel = 10
     let pageLabelSize = 45
-    
-//    weak var delegate: MenuOptionsDelegate?
-    
-    var muscles: [Muscle] = {
-        var maleArms = Muscle(imageFileName: "male_arms", muscleName: "Arms")
-        var maleChest = Muscle(imageFileName: "male_chest", muscleName: "Chest")
-        var maleLegs = Muscle(imageFileName: "male_legs", muscleName: "Legs")
-        var maleBack = Muscle(imageFileName: "male_back", muscleName: "Back")
-        var maleShoulders = Muscle(imageFileName: "male_shoulders", muscleName: "Shoulders")
-        return [maleLegs, maleArms, maleChest, maleBack, maleShoulders]
-    }()
 
+//    var managedObjectContext: NSManagedObjectContext? = nil
+    var muscles: [NSManagedObject] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(urls[urls.count-1] as URL)
+        
         setupNavBar()
         setupSearchBar()
         setupMoreOptions()
@@ -45,51 +42,50 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         self.navigationItem.searchController = search
+        
+        if Defaults.getGender() == "male" {
+            muscles = CoreData.retrieveMuscleData(table: "Muscle", gender: "M")
+        } else if Defaults.getGender() == "female" {
+            muscles = CoreData.retrieveMuscleData(table: "Muscle", gender: "F")
+        }
+        
         collectionView?.reloadData()
-        
+
         view.layoutIfNeeded()
-        
+
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if Defaults.getGender() == "noneSelected" {
-            let genderController = GenderController()
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                fatalError("Bad appDelegate!")
-            }
-            appDelegate.window?.rootViewController!.present(genderController, animated: true, completion: nil)
-        }
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-    
+
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
     }
-    
+
     private func setupNavBar() {
         self.navigationController?.navigationBar.isTranslucent = false
     }
-    
+
     private func setupSearchBar() {
         searchBar.placeholder = "Search Workouts"
         searchBar.showsCancelButton = false
         searchBar.delegate = self
         searchBar.changeBarColor(color: UIColor.rgb(red: 232, green: 233, blue: 234))
         search.hidesNavigationBarDuringPresentation = true
-        
+
         search.searchBar.placeholder = "Search Workouts"
         navigationItem.searchController = search
-        
+
         hideKeyboardWhenTappedAround()
     }
-    
+
     private func setupMoreOptions() {
         let button = UIButton(type: .custom)
         button.backgroundColor = .white
@@ -103,12 +99,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let moreOptions = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItems = [moreOptions]
     }
-    
+
     @objc private func handleMoreOptions() {
 //        self.delegate?.openMenu()
         (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingController)?.openMenu()
     }
-    
+
     private func setupPageLabel() {
         let text = "Workouts"
         let size = (navigationController?.navigationBar.frame.height)! - 10
@@ -117,26 +113,26 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         pageLabel.sizeToFit()
         navigationItem.titleView = pageLabel
     }
-    
+
     private func setupCollectionView() {
         // register videocell as our cells for our collectionview
         collectionView?.register(MuscleCell.self, forCellWithReuseIdentifier: "cellId")
-        
+
         collectionView?.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 255)
-        
+
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
         collectionView?.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
         collectionView?.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         collectionView?.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
     }
-    
+
     // MARK: UICollectionView override delegation methods
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as? MuscleCell else {
             fatalError("Misconfigured cell type, \(collectionView)!")
         }
-        cell.muscle = muscles[indexPath.item]
+        let muscle = muscles[indexPath.item]
         let height = cell.frame.height/6
         let width = cell.frame.width
 //        print(height, width)
@@ -144,40 +140,45 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         layout.headerReferenceSize = CGSize(width: width, height: height)
         let workoutListVC = WorkoutListController(collectionViewLayout: layout)
 //        let workoutListVC = WorkoutListViewController()
-        
+        // pass muscle type data into workout list
+        workoutListVC.muscleType = muscle.value(forKey: "displayName") as? String
+
         self.navigationItem.searchController?.isActive = false
         self.navigationItem.searchController = nil
-        
+
         self.navigationController?.pushViewController(workoutListVC, animated: true)
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return muscles.count // 5 items for now, base off Model later
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as? MuscleCell else {
             fatalError("Misconfigured cell type, \(collectionView)!")
         }
-        cell.muscle = muscles[indexPath.item]
+        let muscle = muscles[indexPath.item]
+//        print(muscle)
+        cell.displayName = muscle.value(forKeyPath: "displayName") as? String
+        cell.imageName = muscle.value(forKeyPath: "imageName") as? String
         return cell
     }
-    
+
     // define size of each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // conform to 16 by 9 standard. subtract left and right padding
-        let width = view.frame.width 
+        let width = view.frame.width
         let height = width * 9/16
         return CGSize(width: width, height: height)
     }
-    
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
         collectionView?.collectionViewLayout.invalidateLayout()
-        
+
     }
-    
+
     // remove extra pixel padding between each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0

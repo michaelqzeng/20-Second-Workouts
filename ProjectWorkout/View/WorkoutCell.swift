@@ -13,10 +13,33 @@ class WorkoutCell: BaseCell {
     
     var link: WorkoutListController?
     
-    var muscle: Muscle? {
+    let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
+    let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
+    let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
+    
+//    var muscle: Muscle? {
+//        didSet {
+//            thumbnailLabel.attributedText =  (muscle?.displayName)!.convertToNSAtrributredString(size: 28, color: UIColor.white)
+////            thumbnailImageView.image = UIImage(named: (muscle?.muscleImageName)!)
+//        }
+//    }
+
+    var displayName: String? {
         didSet {
-            thumbnailLabel.attributedText =  (muscle?.displayName)!.convertToNSAtrributredString(size: 28, color: UIColor.white)
-            thumbnailImageView.image = UIImage(named: (muscle?.muscleImageName)!)
+            thumbnailLabel.attributedText = displayName?.convertToNSAtrributredString(size: 28, color: UIColor.white)
+        }
+    }
+    
+    var imageName: String? {
+        didSet {
+//            thumbnailImageView.image = UIImage(named: imageName ?? "male_arms") // add default image here later for failed loads
+            thumbnailImageView.image = UIImage(named: "male_arms") // debugging image for workout
+        }
+    }
+    
+    var hasFavorited: String? {
+        didSet {
+            self.favoriteImageView.tintColor = hasFavorited == "TRUE" ? brightYellow : lightGray
         }
     }
     

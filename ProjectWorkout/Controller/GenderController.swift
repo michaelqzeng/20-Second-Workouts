@@ -42,6 +42,7 @@ class GenderController: UIViewController {
     
     let topImageContainerView = UIView()
     let bottomImageContainerView = UIView()
+    
     override func viewDidLoad() {
         view.backgroundColor = .white
         

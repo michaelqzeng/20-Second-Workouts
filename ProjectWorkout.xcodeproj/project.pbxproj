@@ -35,10 +35,10 @@
 		39A5E0E02171CFC500B19DA9 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A5E0DF2171CFC500B19DA9 /* ProfileImageView.swift */; };
 		39A5E0E22171D00F00B19DA9 /* SpacerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A5E0E12171D00F00B19DA9 /* SpacerView.swift */; };
 		39A5E0E42171D02900B19DA9 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A5E0E32171D02900B19DA9 /* MenuItemCell.swift */; };
-		39C3D85C217ED7C1006D4AAB /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C3D85A217ED7C0006D4AAB /* Realm.framework */; };
-		39C3D85D217ED7C1006D4AAB /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39C3D85A217ED7C0006D4AAB /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		39C3D85E217ED7C1006D4AAB /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C3D85B217ED7C0006D4AAB /* RealmSwift.framework */; };
-		39C3D85F217ED7C1006D4AAB /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39C3D85B217ED7C0006D4AAB /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		39C3D8B921828A0A006D4AAB /* ProjectWorkout.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 39C3D8B721828A0A006D4AAB /* ProjectWorkout.xcdatamodeld */; };
+		39C3D8BB218292DD006D4AAB /* Workout.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39C3D8BA218292DD006D4AAB /* Workout.plist */; };
+		39C3D8C0218364E2006D4AAB /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C3D8BF218364E2006D4AAB /* CoreData.swift */; };
+		39C3D8C22183762B006D4AAB /* Muscle.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39C3D8C12183762B006D4AAB /* Muscle.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,8 +48,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				39C3D85F217ED7C1006D4AAB /* RealmSwift.framework in Embed Frameworks */,
-				39C3D85D217ED7C1006D4AAB /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,8 +85,10 @@
 		39A5E0DF2171CFC500B19DA9 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		39A5E0E12171D00F00B19DA9 /* SpacerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerView.swift; sourceTree = "<group>"; };
 		39A5E0E32171D02900B19DA9 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
-		39C3D85A217ED7C0006D4AAB /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../Downloads/realm-swift-3.11.1/ios/swift-4.2/Realm.framework"; sourceTree = "<group>"; };
-		39C3D85B217ED7C0006D4AAB /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/realm-swift-3.11.1/ios/swift-4.2/RealmSwift.framework"; sourceTree = "<group>"; };
+		39C3D8B821828A0A006D4AAB /* ProjectWorkout.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectWorkout.xcdatamodel; sourceTree = "<group>"; };
+		39C3D8BA218292DD006D4AAB /* Workout.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workout.plist; sourceTree = "<group>"; };
+		39C3D8BF218364E2006D4AAB /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
+		39C3D8C12183762B006D4AAB /* Muscle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Muscle.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,8 +96,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39C3D85E217ED7C1006D4AAB /* RealmSwift.framework in Frameworks */,
-				39C3D85C217ED7C1006D4AAB /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,8 +116,6 @@
 		396BE7F821473F7200B349CF = {
 			isa = PBXGroup;
 			children = (
-				39C3D85A217ED7C0006D4AAB /* Realm.framework */,
-				39C3D85B217ED7C0006D4AAB /* RealmSwift.framework */,
 				3918199A217441BB00174E20 /* vid.mp4 */,
 				396BE80321473F7200B349CF /* ProjectWorkout */,
 				396BE80221473F7200B349CF /* Products */,
@@ -138,6 +134,7 @@
 		396BE80321473F7200B349CF /* ProjectWorkout */ = {
 			isa = PBXGroup;
 			children = (
+				39C3D8BE218364BE006D4AAB /* CoreData */,
 				3934F1D3214CB8A5004ADF39 /* Model */,
 				396BE81C21475A3C00B349CF /* View */,
 				396BE8192147468800B349CF /* Helpers */,
@@ -215,6 +212,17 @@
 			path = MenuOptions;
 			sourceTree = "<group>";
 		};
+		39C3D8BE218364BE006D4AAB /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				39C3D8C12183762B006D4AAB /* Muscle.plist */,
+				39C3D8BA218292DD006D4AAB /* Workout.plist */,
+				39C3D8B721828A0A006D4AAB /* ProjectWorkout.xcdatamodeld */,
+				39C3D8BF218364E2006D4AAB /* CoreData.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		39F3C8742175929F00F506D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +293,8 @@
 			files = (
 				3918199B217441C000174E20 /* vid.mp4 in Resources */,
 				396BE80C21473F7300B349CF /* Assets.xcassets in Resources */,
+				39C3D8C22183762B006D4AAB /* Muscle.plist in Resources */,
+				39C3D8BB218292DD006D4AAB /* Workout.plist in Resources */,
 				396BE80A21473F7200B349CF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +330,7 @@
 				394F5ACB214DA00A00E37521 /* MusclesSearch.swift in Sources */,
 				3988B67C215AE8C1006443F3 /* Defaults.swift in Sources */,
 				396BE81B21475A3700B349CF /* MuscleCell.swift in Sources */,
+				39C3D8C0218364E2006D4AAB /* CoreData.swift in Sources */,
 				391356672163379500F0F037 /* WorkoutCell.swift in Sources */,
 				396BE80721473F7200B349CF /* HomeController.swift in Sources */,
 				394F5B1521589C4700E37521 /* ContentController.swift in Sources */,
@@ -329,6 +340,7 @@
 				39A5E0D82171CEF200B19DA9 /* BaseSlidingController.swift in Sources */,
 				3913566B21645F5A00F0F037 /* ReusableCollectionView.swift in Sources */,
 				394731B02160909E00D93D81 /* ContentCell.swift in Sources */,
+				39C3D8B921828A0A006D4AAB /* ProjectWorkout.xcdatamodeld in Sources */,
 				396BE8182147468100B349CF /* Extensions.swift in Sources */,
 				39A5E0DE2171CF9600B19DA9 /* CustomMenuHeaderView.swift in Sources */,
 				394731AE2160720300D93D81 /* Content.swift in Sources */,
@@ -534,6 +546,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		39C3D8B721828A0A006D4AAB /* ProjectWorkout.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				39C3D8B821828A0A006D4AAB /* ProjectWorkout.xcdatamodel */,
+			);
+			currentVersion = 39C3D8B821828A0A006D4AAB /* ProjectWorkout.xcdatamodel */;
+			path = ProjectWorkout.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 396BE7F921473F7200B349CF /* Project object */;
 }

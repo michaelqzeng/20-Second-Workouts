@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class BaseSlidingController: UIViewController {
     
@@ -45,11 +46,23 @@ class BaseSlidingController: UIViewController {
         rightViewController.view.layoutIfNeeded()
     }
     
+//    var managedObjectContext: NSManagedObjectContext? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+//        if Defaults.getGender() == "male" || Defaults.getGender() == "female" {
+//            setupViews()
+//        } else {
+//            perform(#selector(showGenderController), with: nil, afterDelay: 0.01)
+//        }
+        if Defaults.getGender() == "noneSelected" {
+            perform(#selector(showGenderController), with: nil, afterDelay: 0.01)
+        }
         setupViews()
+
+        // reverse above
         
         // pan gesture to track slide, and adjust redview's constraint
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
@@ -57,6 +70,11 @@ class BaseSlidingController: UIViewController {
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapDismiss))
         darkCoverView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func showGenderController() {
+        let genderVC = GenderController()
+        present(genderVC, animated: true, completion: nil)
     }
     
     @objc fileprivate func handleTapDismiss() {

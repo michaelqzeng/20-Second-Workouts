@@ -30,10 +30,15 @@ class BaseCell: UICollectionViewCell {
 
 class MuscleCell: BaseCell {
     
-    var muscle: Muscle? {
+    var displayName: String? {
         didSet {
-            thumbnailLabel.attributedText =  (muscle?.displayName)!.convertToNSAtrributredString(size: 28, color: UIColor.white)
-            thumbnailImageView.image = UIImage(named: (muscle?.muscleImageName)!)
+            thumbnailLabel.attributedText =  displayName?.convertToNSAtrributredString(size: 28, color: UIColor.white)
+        }
+    }
+    
+    var imageName: String? {
+        didSet {
+            thumbnailImageView.image = UIImage(named: imageName ?? "male_arms") // add default image name later
         }
     }
     

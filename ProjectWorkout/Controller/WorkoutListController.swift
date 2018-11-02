@@ -8,9 +8,10 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class WorkoutListController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
+    
     let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
     let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
     let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
@@ -24,22 +25,11 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         search.hidesNavigationBarDuringPresentation = true
         return search
     }()
-
-    var muscles1: [Muscle] = [
-        Muscle(imageFileName: "male_arms_incline_hammer", muscleName: "Incline Hammer"),
-        Muscle(imageFileName: "male_arms_tricep_dips", muscleName: "Tricep Dips")
-    ]
-
-    var muscles2: [Muscle] = [
-        Muscle(imageFileName: "male_back_chin_up", muscleName: "Chin up"),
-        Muscle(imageFileName: "male_back_pull_up", muscleName: "Pull up")
-    ]
-
-    var muscles3: [Muscle] = [
-        Muscle(imageFileName: "male_chest_dumbbell_press", muscleName: "Dumbbell Press")
-    ]
-
-    lazy var sections: [Workout] = [Workout(subgroup: "Incline Chest", muscle: muscles1), Workout(subgroup: "Decline Chest", muscle: muscles2), Workout(subgroup: "Inner Chest", muscle: muscles3)]
+    
+    lazy var subgroups: [String] = {
+        var subgroups = CoreData.retrieveWorkoutSubgroups(for: self.muscleType ?? "Arms") // insert default value here later
+        return subgroups
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +42,13 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 
     }
     override func viewWillAppear(_ animated: Bool) {
+//        if Defaults.getGender() == "male" {
+//            workouts = CoreData.retrieveWorkoutData(gender: "M", muscle: self.muscleType ?? "Arms") // insert default value here later
+//        } else if Defaults.getGender() == "female" {
+//            workouts = CoreData.retrieveWorkoutData(gender: "F", muscle: self.muscleType ?? "Arms") // insert default value here later
+//        }
+        
+        collectionView?.reloadData()
         super.viewWillAppear(animated)
 
     }
@@ -68,15 +65,19 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     func favoriteCell(cell: WorkoutCell) {
         guard let indexPath = collectionView?.indexPath(for: cell) else {return}
 
-        let section = sections[indexPath.section]
-        let workouts = section.muscle
-        let workout = workouts![indexPath.item]
+        let workout = workouts[indexPath.section][indexPath.item]
 
-        let isCurFavorited = workout.hasFavorited!
+        let isCurFavorited = workout.value(forKey: "hasFavorited") as? String
 
-        workout.hasFavorited = !isCurFavorited
+        // update favorited data
+        if isCurFavorited == "TRUE" {
+            CoreData.updateFavoriteData(workout: workout, to: "FALSE")
+        } else if isCurFavorited == "FALSE" {
+            CoreData.updateFavoriteData(workout: workout, to: "TRUE")
+        }
 
-        cell.favoriteImageView.tintColor = isCurFavorited ? lightGray : brightYellow
+        // switch the color of the favorited cell upon click
+        cell.favoriteImageView.tintColor = isCurFavorited == "TRUE" ? lightGray : brightYellow
 //        print(isCurFavorited)
     }
 
@@ -105,16 +106,22 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingController)?.openMenu()
     }
     
+    var muscleType: String?
+    
     private func setupPageLabel() {
-        
-        let text = "Arms"
         let size = (navigationController?.navigationBar.frame.height)! - 10
-        pageLabel.attributedText = text.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
+        if let muscleType = muscleType {
+            pageLabel.attributedText = muscleType.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
+        } else {
+            self.muscleType = "Default"
+            pageLabel.attributedText = self.muscleType!.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
+        }
+        
         pageLabel.backgroundColor = .white
         pageLabel.sizeToFit()
         navigationItem.titleView = pageLabel
     }
-    
+
     private func setupCollectionView() {
         // register videocell as our cells for our collectionview
         collectionView?.register(WorkoutCell.self, forCellWithReuseIdentifier: "cellId")
@@ -130,17 +137,20 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     }
     
     // MARK: UICollectionView override delegation methods
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected workout")
-        let contentVC = ContentController()
-        navigationController?.pushViewController(contentVC, animated: true)
-    }
+    
+    // Go to selected workout cell
+//    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        print("Selected workout")
+//        let contentVC = ContentController()
+//        navigationController?.pushViewController(contentVC, animated: true)
+//    }
+    
     // define size of each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = view.frame.width * 9/16
         return CGSize(width: view.frame.width, height: height)
     }
-//
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
@@ -153,14 +163,27 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         return 0
     }
     
+    var workouts: [[NSManagedObject]] = []
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
 //        print("sections.count", sections.count)
-        return sections.count
+        print(subgroups)
+        return subgroups.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        print("sections[section].muscle!.count", sections[section].muscle!.count)
-        return sections[section].muscle!.count
+//        return sections[section].muscle!.count
+        var count = 0
+        var workoutsForSubgroup: [NSManagedObject] = []
+        if Defaults.getGender() == "male" {
+            workoutsForSubgroup = CoreData.retrieveWorkoutsForSubgroup(subgroup: subgroups[section], gender: "M")
+        } else if Defaults.getGender() == "female" {
+            workoutsForSubgroup = CoreData.retrieveWorkoutsForSubgroup(subgroup: subgroups[section], gender: "F")
+        }
+        workouts.append(workoutsForSubgroup)
+        count = workoutsForSubgroup.count
+        return count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -168,25 +191,25 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
             fatalError("Misconfigured cell type, \(collectionView)!")
         }
         cell.link = self
-        let section = sections[indexPath.section]
-        let workouts = section.muscle
-        let workout = workouts![indexPath.item]
-
-        cell.muscle = workout
-
-        cell.favoriteImageView.tintColor = workout.hasFavorited! ? brightYellow : lightGray
+        
+        let workout = workouts[indexPath.section][indexPath.item]
+        cell.displayName = workout.value(forKeyPath: "displayName") as? String
+        cell.imageName = workout.value(forKeyPath: "imageName") as? String
+        cell.hasFavorited = workout.value(forKey: "hasFavorited") as? String
+//        print(cell.displayName!)
 //        print(workout.hasFavorited!)
         
         return cell
     }
 
     // MARK: Section Header View
-
+    
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? ReusableCollectionView else {
             fatalError("Misconfigured cell type, \(collectionView)!")
         }
-        let subgroup = "  " + sections[indexPath.section].subgroup!
+//        let subgroup = "  " + sections[indexPath.section].subgroup!
+        let subgroup = "  " + subgroups[indexPath.section]
 
         sectionHeaderView.headerLabel.attributedText = subgroup.convertToNSAtrributredString(size: 20, color: .black)
 //        print(subgroup)
