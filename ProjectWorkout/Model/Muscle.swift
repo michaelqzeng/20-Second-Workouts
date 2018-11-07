@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 //class Muscle: NSObject {
 //    var muscleImageName: String?

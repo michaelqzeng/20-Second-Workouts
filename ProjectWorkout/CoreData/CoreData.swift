@@ -13,8 +13,27 @@ import UIKit
 struct CoreData {
     
     static func preloadData() {
+//        deleteAllData(entityName: "Muscle")
         loadMuscleData()
+//        deleteAllData(entityName: "Workout")
         loadWorkoutData()
+    }
+    
+    static func deleteAllData(entityName: String) {
+        // swiftlint:disable:next force_cast
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let context = delegate.persistentContainer.viewContext
+        
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+            print("Deleted all data for table \(entityName)...")
+        } catch {
+            print ("There was an error")
+        }
     }
     
     static func loadMuscleData() {
@@ -238,7 +257,7 @@ struct CoreData {
     }
     
     static func retrieveWorkoutsForSubgroup(subgroup: String, gender: String) -> [NSManagedObject] {
-        print("Retrieving workouts for \(subgroup) for gender \(gender)")
+        print("Retrieving workouts for subgroup \(subgroup) for gender \(gender)")
         
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return []}
@@ -262,17 +281,101 @@ struct CoreData {
         } catch {
             print("Failed")
             result = []
+            // swiftlint:disable:next force_cast
+            return result as! [Workout]
         }
         
         // swiftlint:disable:next force_cast
         let temp = result as! [Workout!]
         for tem in temp {
-            // swiftlint:disable:next force_cast
             print(tem?.displayName!)
         }
 
         // swiftlint:disable:next force_cast
         return result as! [Workout]
+    }
+    
+    static func retrieveFavoritedWorkoutsForMuscle(muscle: String, gender: String) -> [NSManagedObject] {
+        print("Retrieving favorited workouts for muscle group \(muscle) for gender \(gender)")
+        
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return []}
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        //Prepare the request of type NSFetchRequest  for the entity
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Workout")
+        
+        let genderPredicate = NSPredicate(format: "gender = %@", gender)
+        let subgroupPredicate = NSPredicate(format: "muscleGroup = %@", muscle)
+        let favoritePredicate = NSPredicate(format: "hasFavorited = %@", "TRUE")
+        let andPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [genderPredicate, subgroupPredicate, favoritePredicate])
+        
+        fetchRequest.predicate = andPredicate
+        
+        var result: [Any]
+        
+        do {
+            result = try managedContext.fetch(fetchRequest)
+        } catch {
+            print("Failed")
+            result = []
+            // swiftlint:disable:next force_cast
+            return result as! [Workout]
+        }
+        
+        // swiftlint:disable:next force_cast
+        let temp = result as! [Workout!]
+        for tem in temp {
+            print(tem?.displayName!)
+        }
+        
+        // swiftlint:disable:next force_cast
+        return result as! [Workout]
+    }
+    
+    static func retrieveFavoritedWorkoutsMuscleGroups(gender: String) -> [String] {
+        //As we know that container is set up in the AppDelegates so we need to refer that container.
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return []}
+        
+        //We need to create a context from this container
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        //Prepare the request of type NSFetchRequest  for the entity
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Workout")
+        
+        //        fetchRequest.fetchLimit = 1
+        //        fetchRequest.predicate = NSPredicate(format: "subgroup = %@", "M")
+        //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+        
+        fetchRequest.propertiesToFetch = ["muscleGroup"]
+        
+        let genderPredicate = NSPredicate(format: "gender = %@", gender)
+        let favoritePredicate = NSPredicate(format: "hasFavorited = %@", "TRUE")
+        let andPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [genderPredicate, favoritePredicate])
+        
+        fetchRequest.predicate = andPredicate
+        fetchRequest.returnsDistinctResults = true
+        fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
+        
+        var result: [Any]
+        var muscleGroups: [String] = []
+        
+        do {
+            print("Retrieving muscle groups for Workout table)")
+            result = try managedContext.fetch(fetchRequest)
+            
+            for res in result {
+                // swiftlint:disable:next force_cast
+                let sub = (res as AnyObject).value(forKey: "muscleGroup") as! String
+                muscleGroups.append(sub)
+            }
+        } catch {
+            print("Failed")
+            result = []
+        }
+        return muscleGroups
     }
     
     static func updateFavoriteData(workout: NSManagedObject, to newValue: String) {
@@ -284,18 +387,13 @@ struct CoreData {
         let managedContext = appDelegate.persistentContainer.viewContext
         
         workout.setValue(newValue, forKey: "hasFavorited")
-        do{
+        do {
             try managedContext.save()
-        }
-        catch
-        {
+        } catch {
             print(error)
         }
         
     }
-
-    
-    
 //    static func updateData() {
 //
 //        //As we know that container is set up in the AppDelegates so we need to refer that container.

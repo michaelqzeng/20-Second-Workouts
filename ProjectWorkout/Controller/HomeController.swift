@@ -135,7 +135,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let muscle = muscles[indexPath.item]
         let height = cell.frame.height/6
         let width = cell.frame.width
-//        print(height, width)
+//        print("------------", height, width)
         let layout = UICollectionViewFlowLayout()
         layout.headerReferenceSize = CGSize(width: width, height: height)
         let workoutListVC = WorkoutListController(collectionViewLayout: layout)

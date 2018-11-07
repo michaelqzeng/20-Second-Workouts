@@ -11,6 +11,7 @@
 		391356672163379500F0F037 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391356662163379500F0F037 /* WorkoutCell.swift */; };
 		3913566B21645F5A00F0F037 /* ReusableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3913566A21645F5A00F0F037 /* ReusableCollectionView.swift */; };
 		3918199B217441C000174E20 /* vid.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3918199A217441BB00174E20 /* vid.mp4 */; };
+		39246236218FBC69002285DA /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39246235218FBC69002285DA /* Firebase.swift */; };
 		3934F1D2214CB89B004ADF39 /* Muscle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934F1D1214CB89B004ADF39 /* Muscle.swift */; };
 		394731AE2160720300D93D81 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394731AD2160720300D93D81 /* Content.swift */; };
 		394731B02160909E00D93D81 /* ContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394731AF2160909E00D93D81 /* ContentCell.swift */; };
@@ -39,10 +40,13 @@
 		39C3D8BB218292DD006D4AAB /* Workout.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39C3D8BA218292DD006D4AAB /* Workout.plist */; };
 		39C3D8C0218364E2006D4AAB /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C3D8BF218364E2006D4AAB /* CoreData.swift */; };
 		39C3D8C22183762B006D4AAB /* Muscle.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39C3D8C12183762B006D4AAB /* Muscle.plist */; };
+		39D21E37218FA7FD0026F5A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39D21E36218FA7FD0026F5A6 /* GoogleService-Info.plist */; };
+		39FB56D2218D45B90089D1AD /* FavoritesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FB56D1218D45B90089D1AD /* FavoritesListController.swift */; };
+		E6CB4AE4833E1335658FE570 /* Pods_ProjectWorkout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F150D81DBC21F5303D702B6 /* Pods_ProjectWorkout.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		39C3D859217ED7AF006D4AAB /* Embed Frameworks */ = {
+		392E0F76218D07FA00BC0B11 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -55,10 +59,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F150D81DBC21F5303D702B6 /* Pods_ProjectWorkout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectWorkout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		21FCC0AB85200DF5C3647705 /* Pods-ProjectWorkout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectWorkout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ProjectWorkout/Pods-ProjectWorkout.debug.xcconfig"; sourceTree = "<group>"; };
+		24FEEE7BB311C98473239DA0 /* Pods-ProjectWorkout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectWorkout.release.xcconfig"; path = "Pods/Target Support Files/Pods-ProjectWorkout/Pods-ProjectWorkout.release.xcconfig"; sourceTree = "<group>"; };
 		391356642163365800F0F037 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		391356662163379500F0F037 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
 		3913566A21645F5A00F0F037 /* ReusableCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCollectionView.swift; sourceTree = "<group>"; };
 		3918199A217441BB00174E20 /* vid.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = vid.mp4; path = ../../Downloads/vid.mp4; sourceTree = "<group>"; };
+		39246235218FBC69002285DA /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		392E0F66218D061600BC0B11 /* BMPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BMPlayer.framework; path = Carthage/Build/iOS/BMPlayer.framework; sourceTree = "<group>"; };
 		3934F1D1214CB89B004ADF39 /* Muscle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Muscle.swift; sourceTree = "<group>"; };
 		394731AD2160720300D93D81 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		394731AF2160909E00D93D81 /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
@@ -89,6 +98,8 @@
 		39C3D8BA218292DD006D4AAB /* Workout.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workout.plist; sourceTree = "<group>"; };
 		39C3D8BF218364E2006D4AAB /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		39C3D8C12183762B006D4AAB /* Muscle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Muscle.plist; sourceTree = "<group>"; };
+		39D21E36218FA7FD0026F5A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		39FB56D1218D45B90089D1AD /* FavoritesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,12 +107,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6CB4AE4833E1335658FE570 /* Pods_ProjectWorkout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		39246230218FBBCA002285DA /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				39246235218FBC69002285DA /* Firebase.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		3934F1D3214CB8A5004ADF39 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +140,7 @@
 				396BE80321473F7200B349CF /* ProjectWorkout */,
 				396BE80221473F7200B349CF /* Products */,
 				39F3C8742175929F00F506D8 /* Frameworks */,
+				ED728C2BE4855294F2C71CDD /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,6 +155,8 @@
 		396BE80321473F7200B349CF /* ProjectWorkout */ = {
 			isa = PBXGroup;
 			children = (
+				39246230218FBBCA002285DA /* Firebase */,
+				39D21E36218FA7FD0026F5A6 /* GoogleService-Info.plist */,
 				39C3D8BE218364BE006D4AAB /* CoreData */,
 				3934F1D3214CB8A5004ADF39 /* Model */,
 				396BE81C21475A3C00B349CF /* View */,
@@ -156,6 +179,7 @@
 				394F5B10215899CB00E37521 /* WorkoutListController.swift */,
 				394F5B1421589C4700E37521 /* ContentController.swift */,
 				394F5B182158A28400E37521 /* GenderController.swift */,
+				39FB56D1218D45B90089D1AD /* FavoritesListController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -226,8 +250,19 @@
 		39F3C8742175929F00F506D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				392E0F66218D061600BC0B11 /* BMPlayer.framework */,
+				1F150D81DBC21F5303D702B6 /* Pods_ProjectWorkout.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ED728C2BE4855294F2C71CDD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				21FCC0AB85200DF5C3647705 /* Pods-ProjectWorkout.debug.xcconfig */,
+				24FEEE7BB311C98473239DA0 /* Pods-ProjectWorkout.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,11 +272,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 396BE81321473F7300B349CF /* Build configuration list for PBXNativeTarget "ProjectWorkout" */;
 			buildPhases = (
+				213F69A60B9019634BA422EB /* [CP] Check Pods Manifest.lock */,
 				396BE7FD21473F7200B349CF /* Sources */,
 				396BE7FE21473F7200B349CF /* Frameworks */,
 				396BE7FF21473F7200B349CF /* Resources */,
 				39F3C87E217694D700F506D8 /* ShellScript */,
-				39C3D859217ED7AF006D4AAB /* Embed Frameworks */,
+				392E0F76218D07FA00BC0B11 /* Embed Frameworks */,
+				39F42430948482314AB1DE00 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -296,12 +333,35 @@
 				39C3D8C22183762B006D4AAB /* Muscle.plist in Resources */,
 				39C3D8BB218292DD006D4AAB /* Workout.plist in Resources */,
 				396BE80A21473F7200B349CF /* Main.storyboard in Resources */,
+				39D21E37218FA7FD0026F5A6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		213F69A60B9019634BA422EB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ProjectWorkout-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		39F3C87E217694D700F506D8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -318,6 +378,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		39F42430948482314AB1DE00 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ProjectWorkout/Pods-ProjectWorkout-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ProjectWorkout/Pods-ProjectWorkout-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -337,6 +423,7 @@
 				39A5E0E42171D02900B19DA9 /* MenuItemCell.swift in Sources */,
 				391356652163365800F0F037 /* Workout.swift in Sources */,
 				394F5B0F2154E20B00E37521 /* ScrollView.swift in Sources */,
+				39246236218FBC69002285DA /* Firebase.swift in Sources */,
 				39A5E0D82171CEF200B19DA9 /* BaseSlidingController.swift in Sources */,
 				3913566B21645F5A00F0F037 /* ReusableCollectionView.swift in Sources */,
 				394731B02160909E00D93D81 /* ContentCell.swift in Sources */,
@@ -345,6 +432,7 @@
 				39A5E0DE2171CF9600B19DA9 /* CustomMenuHeaderView.swift in Sources */,
 				394731AE2160720300D93D81 /* Content.swift in Sources */,
 				394F5B192158A28400E37521 /* GenderController.swift in Sources */,
+				39FB56D2218D45B90089D1AD /* FavoritesListController.swift in Sources */,
 				394731B221609DDF00D93D81 /* NSAttributedStringHelper.swift in Sources */,
 				39A5E0E22171D00F00B19DA9 /* SpacerView.swift in Sources */,
 				39A5E0DB2171CF4B00B19DA9 /* MenuController.swift in Sources */,
@@ -486,11 +574,15 @@
 		};
 		396BE81421473F7300B349CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21FCC0AB85200DF5C3647705 /* Pods-ProjectWorkout.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7H96CVZH99;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ProjectWorkout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -506,11 +598,15 @@
 		};
 		396BE81521473F7300B349CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24FEEE7BB311C98473239DA0 /* Pods-ProjectWorkout.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7H96CVZH99;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ProjectWorkout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (

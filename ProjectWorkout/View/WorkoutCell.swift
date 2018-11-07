@@ -12,6 +12,7 @@ import UIKit
 class WorkoutCell: BaseCell {
     
     var link: WorkoutListController?
+    var favoritesListLink: FavoritesListController?
     
     let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
     let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)

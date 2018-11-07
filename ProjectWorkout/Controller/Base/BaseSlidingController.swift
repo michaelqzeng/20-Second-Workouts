@@ -161,8 +161,13 @@ class BaseSlidingController: UIViewController {
             rightViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
             print("Home Screen")
         case 1:
-//            rightViewController = UINavigationController(rootViewController: ListsController())
-            print("Opening List")
+            let height = CGFloat(38.8125)
+            let width = CGFloat(414.0)
+            //        print(height, width)
+            let layout = UICollectionViewFlowLayout()
+            layout.headerReferenceSize = CGSize(width: width, height: height)
+            rightViewController = UINavigationController(rootViewController: FavoritesListController(collectionViewLayout: layout))
+            print("Opening Favorites List")
         case 2:
 //            rightViewController = BookmarksController()
             print("Opening bookmarks")

@@ -10,10 +10,13 @@ import Foundation
 import UIKit
 import AVFoundation
 import AVKit
+import CoreData
+import WebKit
 
 class ContentController: UIViewController {
     
-    // video variable
+    // workout variable
+    var workout: NSManagedObject?
     
     let scrollView = UIScrollView()
     let pageLabel: UILabel = {
@@ -21,7 +24,9 @@ class ContentController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var videoView = UIView()
+//    var videoView = UIView()
+//    var videoView = UIWebView()
+    var videoView: WKWebView!
     weak var collectionView: UICollectionView!
     var content: [Content] = []
     
@@ -34,9 +39,9 @@ class ContentController: UIViewController {
         
 //        setupScrollView()
         setupMoreOptions()
-        setupPageLabel()
-        setupVideo()
 //        setupPageLabel()
+        setupVideo()
+        setupPageLabel()
         setupCollectionView()
         
         view.backgroundColor = .white
@@ -53,25 +58,46 @@ class ContentController: UIViewController {
         scrollView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
     }
     
+    var playerController: AVPlayerViewController?
+    
     private func setupVideo() {
+        let webViewConfiguration = WKWebViewConfiguration()
+        webViewConfiguration.allowsInlineMediaPlayback = true
+        videoView = WKWebView(frame: CGRect.zero, configuration: webViewConfiguration)
+        let myURL = URL(string: "https://www.youtube.com/embed/Swqye9QIKTs?playsinline=1")
+        let youtubeRequest = URLRequest(url: myURL!)
+        
         view.addSubview(videoView)
-        videoView.backgroundColor = .blue
+        videoView.backgroundColor = .black
         
         videoView.translatesAutoresizingMaskIntoConstraints = false
-//        videoView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
-        videoView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor, constant: 5).isActive = true
+        videoView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
+//        videoView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor, constant: 5).isActive = true
         videoView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
         videoView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
         videoHeightV = videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16)
         videoHeightL = videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16)
         
-        let url = Bundle.main.url(forResource: "vid", withExtension: ".mp4")!
-        let player = AVPlayer(url: url)
-        let playerController = AVPlayerViewController()
-        playerController.player = player
-        present(playerController, animated: true) {
-            player.play()
-        }
+        videoView.load(youtubeRequest)
+        
+//        let url = NSURL(string: "https://firebasestorage.googleapis.com/v0/b/projectworkout-84fca.appspot.com/o/Male%2FArms%2FBicep%2FMale%20-%20Arms%20-%20Barbell%20Bicep%20Curl.MOV?alt=media&token=adad6c23-11e5-42eb-9e8a-b8cc2aa0aaa6")
+//        let player = AVPlayer(url: url! as URL)
+//        playerController = AVPlayerViewController()
+//        playerController?.player = player
+//        player.isMuted = true
+//        playerController?.view.frame = videoView.bounds
+//        self.addChild(playerController!)
+//        videoView.addSubview((playerController?.view)!)
+//        playerController?.didMove(toParent: self)
+
+//        let url = "https://www.youtube.com/embed/Swqye9QIKTs"
+//        let width = view.frame.width
+//        let height = view.frame.height
+//        print("height ", height, "width ", width)
+//        let embedHTML = "<html><body><iframe src=\"\(url)?playsinline=1\" width=\"'\(width)'\" height=\"'\(height*9/16)'\" allowfullscreen></iframe></body></html>"
+//        videoView.allowsInlineMediaPlayback = true
+//        videoView.loadHTMLString(embedHTML, baseURL: Bundle.main.bundleURL)
+//        videoView.scrollView.isScrollEnabled = false
         
         if UIDevice.current.orientation.isLandscape {
             //            videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 9/16).isActive = true
@@ -85,17 +111,19 @@ class ContentController: UIViewController {
     
     private func setupPageLabel() {
         
-        let text = "Incline Bench"
-        let size = (navigationController?.navigationBar.frame.height)! - 10
+        // swiftlint:disable:next force_cast
+        let text = self.workout?.value(forKey: "displayName") as! String
+//        let size = (navigationController?.navigationBar.frame.height)! - 10
+        let size = CGFloat(20)
         pageLabel.attributedText = text.convertToNSAtrributredString(size: size, color: UIColor.black)
         pageLabel.backgroundColor = .white
         pageLabel.textAlignment = .center
         view.addSubview(pageLabel)
-//        pageLabel.topAnchor.constraint(equalTo: videoView.bottomAnchor).isActive = true
+        pageLabel.topAnchor.constraint(equalTo: videoView.bottomAnchor).isActive = true
         pageLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
         
         pageLabel.sizeToFit()
-        pageLabel.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
+//        pageLabel.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         pageLabel.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
         pageLabel.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
 
@@ -106,8 +134,8 @@ class ContentController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(collectionView)
         
-//        collectionView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor).isActive = true
-        collectionView.topAnchor.constraint(equalTo: videoView.bottomAnchor).isActive = true
+        collectionView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor).isActive = true
+//        collectionView.topAnchor.constraint(equalTo: videoView.bottomAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
@@ -182,11 +210,11 @@ extension ContentController: UICollectionViewDelegate {
             numOfChars += sentence.count + 100
         }
         let numOfLines = numOfChars / 30
-        print(numOfChars, numOfLines)
+//        print(numOfChars, numOfLines)
         // Every 2 lines amounts to 30 pixels in height
         let height = (numOfLines/2) * 30
 //        let height = view.frame.width * 9/16
-        print(height)
+//        print(height)
         return CGSize(width: view.frame.width, height: CGFloat(height))
     }
     
