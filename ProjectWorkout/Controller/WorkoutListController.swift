@@ -152,11 +152,18 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         let height = view.frame.width * 9/16
         return CGSize(width: view.frame.width, height: height)
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if workouts.isEmpty == false {
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        collectionView?.collectionViewLayout.invalidateLayout()
+//        collectionView?.collectionViewLayout.invalidateLayout()
 
     }
     

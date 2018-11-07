@@ -87,6 +87,25 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
         (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingController)?.openMenu()
     }
     
+    func favoriteCell(cell: WorkoutCell) {
+        guard let indexPath = collectionView?.indexPath(for: cell) else {return}
+        
+        let workout = workouts[indexPath.section][indexPath.item]
+        
+        let isCurFavorited = workout.value(forKey: "hasFavorited") as? String
+        
+        // update favorited data
+        if isCurFavorited == "TRUE" {
+            CoreData.updateFavoriteData(workout: workout, to: "FALSE")
+        } else if isCurFavorited == "FALSE" {
+            CoreData.updateFavoriteData(workout: workout, to: "TRUE")
+        }
+        
+        // switch the color of the favorited cell upon click
+        cell.favoriteImageView.tintColor = isCurFavorited == "TRUE" ? lightGray : brightYellow
+        //        print(isCurFavorited)
+    }
+    
     var muscleType: String?
     
     private func setupPageLabel() {
@@ -134,10 +153,17 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
         return CGSize(width: view.frame.width, height: height)
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if workouts.isEmpty == false {
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        collectionView?.collectionViewLayout.invalidateLayout()
+//        collectionView?.collectionViewLayout.invalidateLayout()
         
     }
     

@@ -63,6 +63,8 @@ class ContentController: UIViewController {
     private func setupVideo() {
         let webViewConfiguration = WKWebViewConfiguration()
         webViewConfiguration.allowsInlineMediaPlayback = true
+        let width = view.frame.width
+        let height = width*9/16
         videoView = WKWebView(frame: CGRect.zero, configuration: webViewConfiguration)
         let myURL = URL(string: "https://www.youtube.com/embed/Swqye9QIKTs?playsinline=1")
         let youtubeRequest = URLRequest(url: myURL!)
@@ -165,8 +167,13 @@ class ContentController: UIViewController {
         (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingController)?.openMenu()
     }
     
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+//        collectionView.collectionViewLayout.invalidateLayout()
         
         if UIDevice.current.orientation.isLandscape {
 //            print("Landscape")

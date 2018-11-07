@@ -95,6 +95,7 @@ class WorkoutCell: BaseCell {
     @objc func tapped(_ sender: UITapGestureRecognizer) {
         print("Favorited")
         link?.favoriteCell(cell: self)
+        favoritesListLink?.favoriteCell(cell: self)
     }
     
     // name of workout

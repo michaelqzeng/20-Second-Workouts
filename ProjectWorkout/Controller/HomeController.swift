@@ -172,10 +172,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return CGSize(width: width, height: height)
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if muscles.isEmpty == false {
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        collectionView?.collectionViewLayout.invalidateLayout()
+//        collectionView?.collectionViewLayout.invalidateLayout()
 
     }
 
