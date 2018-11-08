@@ -25,8 +25,7 @@ class CustomMenuHeaderView: UIView {
     
     fileprivate func setupComponentProps() {
         // custom components for our header
-        nameLabel.text = "More Options"
-        nameLabel.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        nameLabel.attributedText = "More Options".convertToNSAtrributredString(size: 20, color: .black)
         usernameLabel.text = "More Options"
         statsLabel.text = ""
         profileImageView.image = UIImage(named: "male_arms")

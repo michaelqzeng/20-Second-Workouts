@@ -107,7 +107,7 @@ extension UICollectionViewController {
 extension String {
     func convertToNSAtrributredString(size: CGFloat, color: UIColor) -> NSAttributedString {
         
-        let attributes = [NSAttributedString.Key.font: UIFont(name: "Superclarendon-Black", size: size) as Any,
+        let attributes = [NSAttributedString.Key.font: UIFont(name: "Avenir-Heavy", size: size) as Any,
                           NSAttributedString.Key.foregroundColor: color
             ] as [NSAttributedString.Key: Any]
         let attributedString = NSAttributedString(string: self, attributes: attributes)

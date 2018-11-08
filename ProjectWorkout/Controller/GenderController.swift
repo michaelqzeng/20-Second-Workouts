@@ -28,7 +28,7 @@ class GenderController: UIViewController {
         let maleOption = UIButton()
 //        maleOption.backgroundColor = .white
         maleOption.translatesAutoresizingMaskIntoConstraints = false
-        maleOption.setAttributedTitle("Male".convertToNSAtrributredString(size: 30, color: .white), for: .normal)
+        maleOption.setAttributedTitle("Male".convertToNSAtrributredString(size: 40, color: .white), for: .normal)
         return maleOption
     }()
     
@@ -36,7 +36,7 @@ class GenderController: UIViewController {
         let femaleOption = UIButton()
 //        femaleOption.backgroundColor = .white
         femaleOption.translatesAutoresizingMaskIntoConstraints = false
-        femaleOption.setAttributedTitle("Female".convertToNSAtrributredString(size: 30, color: .white), for: .normal)
+        femaleOption.setAttributedTitle("Female".convertToNSAtrributredString(size: 40, color: .white), for: .normal)
         return femaleOption
     }()
     

@@ -287,9 +287,9 @@ struct CoreData {
         
         // swiftlint:disable:next force_cast
         let temp = result as! [Workout!]
-        for tem in temp {
-            print(tem?.displayName!)
-        }
+//        for tem in temp {
+//            print(tem?.displayName!)
+//        }
 
         // swiftlint:disable:next force_cast
         return result as! [Workout]

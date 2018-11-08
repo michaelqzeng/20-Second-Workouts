@@ -30,9 +30,11 @@ class BaseCell: UICollectionViewCell {
 
 class MuscleCell: BaseCell {
     
+    let size = CGFloat(35)
+    
     var displayName: String? {
         didSet {
-            thumbnailLabel.attributedText =  displayName?.convertToNSAtrributredString(size: 28, color: UIColor.white)
+            thumbnailLabel.attributedText =  displayName?.convertToNSAtrributredString(size: size, color: UIColor.white)
         }
     }
     

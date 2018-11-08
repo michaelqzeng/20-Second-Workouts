@@ -21,7 +21,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     let pageLabelSize = 38
     let search: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
-        search.searchBar.placeholder = "Search Arms"
         search.hidesNavigationBarDuringPresentation = true
         return search
     }()
@@ -55,7 +54,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -87,8 +85,34 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 
     private func setupSearchBar() {
         navigationItem.searchController = search
+        search.searchBar.placeholder = "Search \(self.muscleType ?? "") Workouts"
+        search.obscuresBackgroundDuringPresentation = false
+        search.searchResultsUpdater = self
+        definesPresentationContext = true
+    }
+    
+    func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return search.searchBar.text?.isEmpty ?? true
     }
 
+    var filteredWorkouts = [NSManagedObject]()
+
+    func filterContentForSearchText(_ searchText: String) {
+        filteredWorkouts = searchableWorkouts.filter({( workout: NSManagedObject) -> Bool in
+            let temp = workout.value(forKey: "displayName") as? String ?? ""
+//            print(temp)
+            return temp.lowercased().contains(searchText.lowercased())
+        })
+//        print(filteredWorkouts)
+        collectionView?.reloadData()
+    }
+    
+    func isFiltering() -> Bool {
+        print(search.isActive && !searchBarIsEmpty())
+        return search.isActive && !searchBarIsEmpty()
+    }
+    
     private func setupMoreOptions() {
         let button = UIButton(type: .custom)
         button.backgroundColor = .white
@@ -140,7 +164,13 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     
     // Go to selected workout cell
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let workout = workouts[indexPath.section][indexPath.item]
+        let workout: NSManagedObject
+        
+        if isFiltering() {
+            workout = searchableWorkouts[indexPath.row]
+        } else {
+            workout = workouts[indexPath.section][indexPath.item]
+        }
         print("Selected workout \(workout)")
         let contentVC = ContentController()
         contentVC.workout = workout
@@ -173,26 +203,45 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     }
     
     var workouts: [[NSManagedObject]] = []
+    var searchableWorkouts: [NSManagedObject] = []
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
 //        print("sections.count", sections.count)
-        print(subgroups)
+//        print(subgroups)
+        if isFiltering() {
+            for item in searchableWorkouts {
+                print(item.value(forKey: "displayName"))
+            }
+            return 1
+        }
+        // reset previously filtered workouts
+        searchableWorkouts = []
         return subgroups.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        print("sections[section].muscle!.count", sections[section].muscle!.count)
 //        return sections[section].muscle!.count
-        var count = 0
-        var workoutsForSubgroup: [NSManagedObject] = []
-        if Defaults.getGender() == "male" {
-            workoutsForSubgroup = CoreData.retrieveWorkoutsForSubgroup(subgroup: subgroups[section], gender: "M")
-        } else if Defaults.getGender() == "female" {
-            workoutsForSubgroup = CoreData.retrieveWorkoutsForSubgroup(subgroup: subgroups[section], gender: "F")
+        if isFiltering() {
+            print(filteredWorkouts.count)
+//            print(filteredWorkouts)
+            return filteredWorkouts.count
+        } else {
+            var count = 0
+            var workoutsForSubgroup: [NSManagedObject] = []
+            if Defaults.getGender() == "male" {
+                workoutsForSubgroup = CoreData.retrieveWorkoutsForSubgroup(subgroup: subgroups[section], gender: "M")
+            } else if Defaults.getGender() == "female" {
+                workoutsForSubgroup = CoreData.retrieveWorkoutsForSubgroup(subgroup: subgroups[section], gender: "F")
+            }
+//            for item in workoutsForSubgroup {
+//                print(item.value(forKey: "displayName"))
+//            }
+            workouts.append(workoutsForSubgroup)
+            searchableWorkouts.append(contentsOf: workoutsForSubgroup)
+            count = workoutsForSubgroup.count
+            return count
         }
-        workouts.append(workoutsForSubgroup)
-        count = workoutsForSubgroup.count
-        return count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -201,7 +250,12 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         }
         cell.link = self
         
-        let workout = workouts[indexPath.section][indexPath.item]
+        let workout: NSManagedObject
+        if isFiltering() {
+            workout = filteredWorkouts[indexPath.item]
+        } else {
+            workout = workouts[indexPath.section][indexPath.item]
+        }
         cell.displayName = workout.value(forKeyPath: "displayName") as? String
         cell.imageName = workout.value(forKeyPath: "imageName") as? String
         cell.hasFavorited = workout.value(forKey: "hasFavorited") as? String
@@ -218,11 +272,22 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
             fatalError("Misconfigured cell type, \(collectionView)!")
         }
 //        let subgroup = "  " + sections[indexPath.section].subgroup!
-        let subgroup = "  " + subgroups[indexPath.section]
-
-        sectionHeaderView.headerLabel.attributedText = subgroup.convertToNSAtrributredString(size: 20, color: .black)
+        if isFiltering() {
+            sectionHeaderView.headerLabel.attributedText = "  Result".convertToNSAtrributredString(size: 25, color: .black)
+        } else {
+            let subgroup = "  " + subgroups[indexPath.section]
+            
+            sectionHeaderView.headerLabel.attributedText = subgroup.convertToNSAtrributredString(size: 25, color: .black)
+        }
 //        print(subgroup)
 
         return sectionHeaderView
+    }
+}
+
+extension WorkoutListController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdating Delegate
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
     }
 }

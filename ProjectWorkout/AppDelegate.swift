@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CoreData.preloadData()
         
         // Load FireBase
-        FirebaseApp.configure()
+//        FirebaseApp.configure()
         
 //        Firebase.getURL()
         

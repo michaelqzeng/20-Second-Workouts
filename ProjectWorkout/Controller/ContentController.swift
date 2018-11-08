@@ -63,8 +63,6 @@ class ContentController: UIViewController {
     private func setupVideo() {
         let webViewConfiguration = WKWebViewConfiguration()
         webViewConfiguration.allowsInlineMediaPlayback = true
-        let width = view.frame.width
-        let height = width*9/16
         videoView = WKWebView(frame: CGRect.zero, configuration: webViewConfiguration)
         let myURL = URL(string: "https://www.youtube.com/embed/Swqye9QIKTs?playsinline=1")
         let youtubeRequest = URLRequest(url: myURL!)
@@ -75,10 +73,10 @@ class ContentController: UIViewController {
         videoView.translatesAutoresizingMaskIntoConstraints = false
         videoView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
 //        videoView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor, constant: 5).isActive = true
-        videoView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
-        videoView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
+        videoView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        videoView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         videoHeightV = videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16)
-        videoHeightL = videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16)
+        videoHeightL = videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1)
         
         videoView.load(youtubeRequest)
         
@@ -104,17 +102,20 @@ class ContentController: UIViewController {
         if UIDevice.current.orientation.isLandscape {
             //            videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 9/16).isActive = true
             videoHeightL?.isActive = true
+            navigationController?.navigationBar.isHidden = true
         } else {
             //            videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16).isActive = true
             videoHeightV?.isActive = true
+            navigationController?.navigationBar.isHidden = false
         }
         
     }
     
     private func setupPageLabel() {
         
-        // swiftlint:disable:next force_cast
-        let text = self.workout?.value(forKey: "displayName") as! String
+        let name = self.workout?.value(forKey: "displayName") as? String ?? ""
+        let subgroup = self.workout?.value(forKey: "subgroup") as? String ?? ""
+        let text = name + "  ||  " + subgroup
 //        let size = (navigationController?.navigationBar.frame.height)! - 10
         let size = CGFloat(20)
         pageLabel.attributedText = text.convertToNSAtrributredString(size: size, color: UIColor.black)
@@ -181,12 +182,14 @@ class ContentController: UIViewController {
             //            videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 9/16).isActive = true
             videoHeightV?.isActive = false
             videoHeightL?.isActive = true
+            navigationController?.navigationBar.isHidden = true
         } else {
 //            print("Vertical")
 //            print(self.view.frame.width)
             //            videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16).isActive = true
             videoHeightL?.isActive = false
             videoHeightV?.isActive = true
+            navigationController?.navigationBar.isHidden = false
         }
         
     }

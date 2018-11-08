@@ -27,7 +27,7 @@ class WorkoutCell: BaseCell {
 
     var displayName: String? {
         didSet {
-            thumbnailLabel.attributedText = displayName?.convertToNSAtrributredString(size: 28, color: UIColor.white)
+            thumbnailLabel.attributedText = displayName?.convertToNSAtrributredString(size: 35, color: UIColor.white)
         }
     }
     

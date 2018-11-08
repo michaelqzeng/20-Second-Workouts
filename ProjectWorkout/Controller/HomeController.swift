@@ -74,13 +74,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     private func setupSearchBar() {
-        searchBar.placeholder = "Search Workouts"
+        searchBar.placeholder = "Search Muscles"
         searchBar.showsCancelButton = false
         searchBar.delegate = self
         searchBar.changeBarColor(color: UIColor.rgb(red: 232, green: 233, blue: 234))
         search.hidesNavigationBarDuringPresentation = true
 
-        search.searchBar.placeholder = "Search Workouts"
         navigationItem.searchController = search
 
         hideKeyboardWhenTappedAround()
@@ -107,7 +106,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     private func setupPageLabel() {
         let text = "Workouts"
-        let size = (navigationController?.navigationBar.frame.height)! - 10
+        let size = (navigationController?.navigationBar.frame.height)! - 7
         pageLabel.attributedText = text.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
         pageLabel.backgroundColor = .white
         pageLabel.sizeToFit()

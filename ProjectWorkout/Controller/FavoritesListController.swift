@@ -39,6 +39,7 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         setupNavBar()
         setupSearchBar()
         setupMoreOptions()
@@ -110,12 +111,7 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
     
     private func setupPageLabel() {
         let size = (navigationController?.navigationBar.frame.height)! - 10
-        if let muscleType = muscleType {
-            pageLabel.attributedText = muscleType.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
-        } else {
-            self.muscleType = "Default"
-            pageLabel.attributedText = self.muscleType!.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
-        }
+        pageLabel.attributedText = "Favorites".convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
         
         pageLabel.backgroundColor = .white
         pageLabel.sizeToFit()
