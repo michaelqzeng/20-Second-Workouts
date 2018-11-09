@@ -115,12 +115,14 @@ class ContentController: UIViewController {
         
         let name = self.workout?.value(forKey: "displayName") as? String ?? ""
         let subgroup = self.workout?.value(forKey: "subgroup") as? String ?? ""
-        let text = name + "  ||  " + subgroup
+        let text = name + " - " + subgroup
 //        let size = (navigationController?.navigationBar.frame.height)! - 10
-        let size = CGFloat(20)
+        let size = CGFloat(27)
         pageLabel.attributedText = text.convertToNSAtrributredString(size: size, color: UIColor.black)
         pageLabel.backgroundColor = .white
         pageLabel.textAlignment = .center
+        pageLabel.lineBreakMode = .byWordWrapping
+        pageLabel.numberOfLines = 0
         view.addSubview(pageLabel)
         pageLabel.topAnchor.constraint(equalTo: videoView.bottomAnchor).isActive = true
         pageLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true

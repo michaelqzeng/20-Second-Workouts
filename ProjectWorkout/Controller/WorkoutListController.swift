@@ -21,7 +21,7 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     let pageLabelSize = 38
     let search: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
-        search.hidesNavigationBarDuringPresentation = true
+//        search.hidesNavigationBarDuringPresentation = true
         return search
     }()
     
@@ -41,19 +41,20 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 
     }
     override func viewWillAppear(_ animated: Bool) {
-//        if Defaults.getGender() == "male" {
-//            workouts = CoreData.retrieveWorkoutData(gender: "M", muscle: self.muscleType ?? "Arms") // insert default value here later
-//        } else if Defaults.getGender() == "female" {
-//            workouts = CoreData.retrieveWorkoutData(gender: "F", muscle: self.muscleType ?? "Arms") // insert default value here later
-//        }
+        super.viewWillAppear(animated)
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.hidesSearchBarWhenScrolling = false
+        }
         
         collectionView?.reloadData()
-        super.viewWillAppear(animated)
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if #available(iOS 11.0, *) {
+            navigationItem.hidesSearchBarWhenScrolling = true
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -209,9 +210,9 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 //        print("sections.count", sections.count)
 //        print(subgroups)
         if isFiltering() {
-            for item in searchableWorkouts {
-                print(item.value(forKey: "displayName"))
-            }
+//            for item in searchableWorkouts {
+//                print(item.value(forKey: "displayName"))
+//            }
             return 1
         }
         // reset previously filtered workouts

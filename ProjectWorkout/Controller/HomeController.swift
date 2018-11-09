@@ -14,11 +14,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
     let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
     let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
-    
-    let searchBar = UISearchBar()
     let whiteView = UIView()
     let pageLabel = UILabel()
-    let search = UISearchController(searchResultsController: nil)
+    let search: UISearchController = {
+        let search = UISearchController(searchResultsController: nil)
+        //        search.hidesNavigationBarDuringPresentation = true
+        return search
+    }()
     let spaceBetweenTopSafeAreaAndPageLabel = 10
     let pageLabelSize = 45
 
@@ -33,7 +35,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         print(urls[urls.count-1] as URL)
         
         setupNavBar()
-        setupSearchBar()
+//        setupSearchBar()
         setupMoreOptions()
         setupPageLabel()
         setupCollectionView()
@@ -42,13 +44,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        self.navigationItem.searchController = search
         
         if Defaults.getGender() == "male" {
             muscles = CoreData.retrieveMuscleData(table: "Muscle", gender: "M")
         } else if Defaults.getGender() == "female" {
             muscles = CoreData.retrieveMuscleData(table: "Muscle", gender: "F")
+        }
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.hidesSearchBarWhenScrolling = false
         }
         
         collectionView?.reloadData()
@@ -59,14 +63,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.hidesSearchBarWhenScrolling = true
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-    }
-
-    override func willMove(toParent parent: UIViewController?) {
-        super.willMove(toParent: parent)
     }
 
     private func setupNavBar() {
@@ -74,15 +78,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     private func setupSearchBar() {
-        searchBar.placeholder = "Search Muscles"
-        searchBar.showsCancelButton = false
-        searchBar.delegate = self
-        searchBar.changeBarColor(color: UIColor.rgb(red: 232, green: 233, blue: 234))
-        search.hidesNavigationBarDuringPresentation = true
-
         navigationItem.searchController = search
+        search.searchBar.placeholder = "Search Muscles"
+        search.obscuresBackgroundDuringPresentation = false
+//        search.searchResultsUpdater = self
+        definesPresentationContext = true
 
-        hideKeyboardWhenTappedAround()
     }
 
     private func setupMoreOptions() {

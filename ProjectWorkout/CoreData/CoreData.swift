@@ -164,7 +164,8 @@ struct CoreData {
         
         //        fetchRequest.fetchLimit = 1
                 fetchRequest.predicate = NSPredicate(format: "gender = %@", gender)
-        //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
+                let sortDescriptor = NSSortDescriptor(key: "displayName", ascending: true)
+                fetchRequest.sortDescriptors = [sortDescriptor]
         
         var result: [Any]
         
@@ -201,6 +202,9 @@ struct CoreData {
         let muscleGroupPredicate = NSPredicate(format: "muscleGroup = %@", muscle)
         let andPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [genderPredicate, muscleGroupPredicate])
         
+        let sortDescriptor = NSSortDescriptor(key: "displayName", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
         fetchRequest.predicate = andPredicate
         
         var result: [Any]
@@ -233,6 +237,9 @@ struct CoreData {
         
         fetchRequest.predicate = NSPredicate(format: "muscleGroup = %@", muscle)
         fetchRequest.propertiesToFetch = ["subgroup"]
+        
+        let sortDescriptor = NSSortDescriptor(key: "displayName", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         
         fetchRequest.returnsDistinctResults = true
         fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
@@ -267,6 +274,9 @@ struct CoreData {
         
         //Prepare the request of type NSFetchRequest  for the entity
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Workout")
+        
+        let sortDescriptor = NSSortDescriptor(key: "displayName", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
 
         let genderPredicate = NSPredicate(format: "gender = %@", gender)
         let subgroupPredicate = NSPredicate(format: "subgroup = %@", subgroup)
@@ -285,8 +295,7 @@ struct CoreData {
             return result as! [Workout]
         }
         
-        // swiftlint:disable:next force_cast
-        let temp = result as! [Workout!]
+//        let temp = result as! [Workout!]
 //        for tem in temp {
 //            print(tem?.displayName!)
 //        }
@@ -312,6 +321,9 @@ struct CoreData {
         let favoritePredicate = NSPredicate(format: "hasFavorited = %@", "TRUE")
         let andPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [genderPredicate, subgroupPredicate, favoritePredicate])
         
+        let sortDescriptor = NSSortDescriptor(key: "displayName", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
         fetchRequest.predicate = andPredicate
         
         var result: [Any]
@@ -325,11 +337,10 @@ struct CoreData {
             return result as! [Workout]
         }
         
-        // swiftlint:disable:next force_cast
-        let temp = result as! [Workout!]
-        for tem in temp {
-            print(tem?.displayName!)
-        }
+//        let temp = result as! [Workout!]
+//        for tem in temp {
+//            print(tem?.displayName!)
+//        }
         
         // swiftlint:disable:next force_cast
         return result as! [Workout]
@@ -354,6 +365,9 @@ struct CoreData {
         let genderPredicate = NSPredicate(format: "gender = %@", gender)
         let favoritePredicate = NSPredicate(format: "hasFavorited = %@", "TRUE")
         let andPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [genderPredicate, favoritePredicate])
+        
+        let sortDescriptor = NSSortDescriptor(key: "displayName", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         
         fetchRequest.predicate = andPredicate
         fetchRequest.returnsDistinctResults = true
@@ -392,7 +406,6 @@ struct CoreData {
         } catch {
             print(error)
         }
-        
     }
 //    static func updateData() {
 //

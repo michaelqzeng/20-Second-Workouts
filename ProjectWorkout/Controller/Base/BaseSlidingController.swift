@@ -158,28 +158,42 @@ class BaseSlidingController: UIViewController {
         
         switch indexPath.row {
         case 0:
-            rightViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
             print("Home Screen")
+            rightViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
+            
         case 1:
+            print("Opening Favorites List")
             let height = CGFloat(38.8125)
             let width = CGFloat(414.0)
             //        print(height, width)
             let layout = UICollectionViewFlowLayout()
             layout.headerReferenceSize = CGSize(width: width, height: height)
             rightViewController = UINavigationController(rootViewController: FavoritesListController(collectionViewLayout: layout))
-            print("Opening Favorites List")
+            
         case 2:
-//            rightViewController = BookmarksController()
-            print("Opening bookmarks")
+            print("Switching Gender")
+            if Defaults.getGender() == "male" {
+                print("Switching to female")
+                Defaults.setGender("female")
+            } else if Defaults.getGender() == "female" {
+                print("Switching to female")
+                Defaults.setGender("male")
+            } else {
+                print("No gender previously chosen. Defaulting to male")
+                Defaults.setGender("male")
+            }
+            rightViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
+            
         default:
-            let tabBarController = UITabBarController()
-            let momentsController = UIViewController()
-            momentsController.navigationItem.title = "Moments"
-            momentsController.view.backgroundColor = .orange
-            let navController = UINavigationController(rootViewController: momentsController)
-            navController.tabBarItem.title = "Moments"
-            tabBarController.viewControllers = [navController]
-            rightViewController = tabBarController
+//            let tabBarController = UITabBarController()
+//            let momentsController = UIViewController()
+//            momentsController.navigationItem.title = "Moments"
+//            momentsController.view.backgroundColor = .orange
+//            let navController = UINavigationController(rootViewController: momentsController)
+//            navController.tabBarItem.title = "Moments"
+//            tabBarController.viewControllers = [navController]
+//            rightViewController = tabBarController
+            rightViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
         }
         
         redView.addSubview(rightViewController.view)

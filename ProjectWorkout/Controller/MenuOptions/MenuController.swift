@@ -28,7 +28,7 @@ class MenuController: UITableViewController {
     var menuItems = [
         MenuItem(icon: UIImage(named: "male_arms")!, title: "Home"),
         MenuItem(icon: UIImage(named: "male_arms")!, title: "Favorites"),
-        MenuItem(icon: UIImage(named: "male_arms")!, title: "")
+        MenuItem(icon: UIImage(named: "male_arms")!, title: "Switch Genders")
         ]
 
     override func viewDidLoad() {
@@ -47,15 +47,6 @@ class MenuController: UITableViewController {
 //        if let index = self.tableView.indexPathForSelectedRow {
 //            self.tableView.deselectRow(at: index, animated: true)
 //        }
-
-        if Defaults.getGender() == "female" {
-            menuItems.popLast()
-            menuItems.append(MenuItem(icon: UIImage(named: "male_arms")!, title: "Switch to Male"))
-        } else {
-            menuItems.popLast()
-            menuItems.append(MenuItem(icon: UIImage(named: "male_arms")!, title: "Switch to Female"))
-        }
-
         tableView.reloadData()
     }
 

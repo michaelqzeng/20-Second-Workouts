@@ -155,6 +155,7 @@
 		396BE80321473F7200B349CF /* ProjectWorkout */ = {
 			isa = PBXGroup;
 			children = (
+				39CEC6952195658600778A2B /* ContentData */,
 				39246230218FBBCA002285DA /* Firebase */,
 				39D21E36218FA7FD0026F5A6 /* GoogleService-Info.plist */,
 				39C3D8BE218364BE006D4AAB /* CoreData */,
@@ -245,6 +246,13 @@
 				39C3D8BF218364E2006D4AAB /* CoreData.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		39CEC6952195658600778A2B /* ContentData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ContentData;
 			sourceTree = "<group>";
 		};
 		39F3C8742175929F00F506D8 /* Frameworks */ = {

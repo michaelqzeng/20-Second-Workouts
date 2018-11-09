@@ -11,39 +11,39 @@ import UIKit
 
 extension HomeController: UISearchBarDelegate {
     
-    // MARK: Keyboard handling for Muscle View Controller
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        startTyping()
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        doneTyping()
-    }
-    
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        doneTyping()
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        doneTyping()
-    }
-    
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.doneTyping))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func startTyping() {
-        searchBar.showsCancelButton = true
-        // Dim background
-        
-    }
-    
-    @objc func doneTyping() {
-        searchBar.text = nil
-        searchBar.showsCancelButton = false
-        searchBar.endEditing(true)
-    }
+//    // MARK: Keyboard handling for Muscle View Controller
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        startTyping()
+//    }
+//
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        doneTyping()
+//    }
+//
+//    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        doneTyping()
+//    }
+//
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        doneTyping()
+//    }
+//
+//    func hideKeyboardWhenTappedAround() {
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.doneTyping))
+//        tap.cancelsTouchesInView = false
+//        view.addGestureRecognizer(tap)
+//    }
+//
+//    @objc func startTyping() {
+//        search.searchBar.showsCancelButton = true
+//        // Dim background
+//
+//    }
+//
+//    @objc func doneTyping() {
+//        search.searchBar.text = nil
+//        search.searchBar.showsCancelButton = false
+//        search.searchBar.endEditing(true)
+//    }
     
 }
