@@ -18,31 +18,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+//        let url = Bundle.main.url(forResource: "POC", withExtension: "json")!
+//        do {
+//            let jsonData = try Data(contentsOf: url)
+//            if let json = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any] {
+//                print(json)
+//            } else {
+//                print("Use dummy back-up data")
+//            }
+////            let currencies = json["Currencies"] as! [String: [String:Any]]
+////
+////            for (key, currency) in currencies {
+////                let currencyName = currency["name"] as! String
+////                let currencySymbol = currency["symbol_native"] as! String
+////
+////                print(key) // == `code`
+////                print(currencyName)
+////                print(currencySymbol)
+////            }
+//        }
+//        catch {
+//            print(error)
+//        }
+        
         // Load out preloaded Coredata data
         CoreData.preloadData()
-        
+
         // Load FireBase
 //        FirebaseApp.configure()
-        
+
 //        Firebase.getURL()
-        
+
 //        let context = self.persistentContainer.viewContext
-        
+
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         Defaults.setGender("noneSelected")
-        
+
 //        let layout = UICollectionViewFlowLayout()
 //        window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
         window?.rootViewController = BaseSlidingController()
         window?.backgroundColor = .white
-        
+
 //        window?.rootViewController = UINavigationController(rootViewController: ContentController())
 //        window?.backgroundColor = .white
-        
+
         // Navigation bar at top
         UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 255, green: 255, blue: 255)
-        
+
         // get rid of black bar underneath navigation bar
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)

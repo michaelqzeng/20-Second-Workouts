@@ -40,6 +40,7 @@
 		39C3D8BB218292DD006D4AAB /* Workout.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39C3D8BA218292DD006D4AAB /* Workout.plist */; };
 		39C3D8C0218364E2006D4AAB /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C3D8BF218364E2006D4AAB /* CoreData.swift */; };
 		39C3D8C22183762B006D4AAB /* Muscle.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39C3D8C12183762B006D4AAB /* Muscle.plist */; };
+		39CEC6972195EE9200778A2B /* POC.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6962195EE9200778A2B /* POC.json */; };
 		39D21E37218FA7FD0026F5A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39D21E36218FA7FD0026F5A6 /* GoogleService-Info.plist */; };
 		39FB56D2218D45B90089D1AD /* FavoritesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FB56D1218D45B90089D1AD /* FavoritesListController.swift */; };
 		E6CB4AE4833E1335658FE570 /* Pods_ProjectWorkout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F150D81DBC21F5303D702B6 /* Pods_ProjectWorkout.framework */; };
@@ -98,6 +99,7 @@
 		39C3D8BA218292DD006D4AAB /* Workout.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workout.plist; sourceTree = "<group>"; };
 		39C3D8BF218364E2006D4AAB /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		39C3D8C12183762B006D4AAB /* Muscle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Muscle.plist; sourceTree = "<group>"; };
+		39CEC6962195EE9200778A2B /* POC.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POC.json; sourceTree = "<group>"; };
 		39D21E36218FA7FD0026F5A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		39FB56D1218D45B90089D1AD /* FavoritesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -251,6 +253,7 @@
 		39CEC6952195658600778A2B /* ContentData */ = {
 			isa = PBXGroup;
 			children = (
+				39CEC6962195EE9200778A2B /* POC.json */,
 			);
 			path = ContentData;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39CEC6972195EE9200778A2B /* POC.json in Resources */,
 				3918199B217441C000174E20 /* vid.mp4 in Resources */,
 				396BE80C21473F7300B349CF /* Assets.xcassets in Resources */,
 				39C3D8C22183762B006D4AAB /* Muscle.plist in Resources */,
