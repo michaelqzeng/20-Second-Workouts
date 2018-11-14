@@ -65,7 +65,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 
     func favoriteCell(cell: WorkoutCell) {
         guard let indexPath = collectionView?.indexPath(for: cell) else {return}
-
         let workout = workouts[indexPath.section][indexPath.item]
 
         let isCurFavorited = workout.value(forKey: "hasFavorited") as? String
@@ -79,7 +78,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 
         // switch the color of the favorited cell upon click
         cell.favoriteImageView.tintColor = isCurFavorited == "TRUE" ? lightGray : brightYellow
-//        print(isCurFavorited)
     }
 
     private func setupNavBar() {
@@ -104,10 +102,8 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     func filterContentForSearchText(_ searchText: String) {
         filteredWorkouts = searchableWorkouts.filter({( workout: NSManagedObject) -> Bool in
             let temp = workout.value(forKey: "displayName") as? String ?? ""
-//            print(temp)
             return temp.lowercased().contains(searchText.lowercased())
         })
-//        print(filteredWorkouts)
         collectionView?.reloadData()
     }
     
@@ -144,11 +140,8 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
             pageLabel.attributedText = self.muscleType!.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
         }
         
-//        pageLabel.backgroundColor = .green
         pageLabel.sizeToFit()
         navigationItem.titleView = pageLabel
-//        navigationController?.navigationBar.backItem?.title = "Back to \(muscleType ?? "Muscle")"
-//        navigationItem.title = muscleType
     }
 
     private func setupCollectionView() {

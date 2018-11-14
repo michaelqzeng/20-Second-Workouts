@@ -18,6 +18,9 @@ class WorkoutCell: BaseCell {
     let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
     let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
     
+//    let pageLabelSize = UIScreen.main.bounds.height/18
+    let pageLabelSize = CGFloat(35)
+    
 //    var muscle: Muscle? {
 //        didSet {
 //            thumbnailLabel.attributedText =  (muscle?.displayName)!.convertToNSAtrributredString(size: 28, color: UIColor.white)
@@ -27,7 +30,7 @@ class WorkoutCell: BaseCell {
 
     var displayName: String? {
         didSet {
-            thumbnailLabel.attributedText = displayName?.convertToNSAtrributredString(size: 35, color: UIColor.white)
+            thumbnailLabel.attributedText = displayName?.convertToNSAtrributredString(size: pageLabelSize, color: UIColor.white)
         }
     }
     
@@ -72,12 +75,11 @@ class WorkoutCell: BaseCell {
     
     // View for favorite button
     let favoriteButtonView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let view = UIView(frame: CGRect.zero)
         //        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.rgb(red: 61, green: 61, blue: 56)
         view.alpha = 0.8
-//        print(view.frame.height)
         return view
     }()
     
@@ -151,8 +153,8 @@ class WorkoutCell: BaseCell {
         thumbnailLabel.widthAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 1).isActive = true
         
         self.addSubview(favoriteButtonView)
-        favoriteButtonView.widthAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 1/8).isActive = true
-        favoriteButtonView.heightAnchor.constraint(equalTo: thumbnailImageView.heightAnchor, multiplier: 1/5).isActive = true
+        favoriteButtonView.widthAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 1/6).isActive = true
+        favoriteButtonView.heightAnchor.constraint(equalTo: thumbnailImageView.heightAnchor, multiplier: 11/36).isActive = true
         //        favoriteButtonView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor).isActive = true
         favoriteButtonView.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor, constant: -5).isActive = true
         //        favoriteButtonView.topAnchor.constraint(equalTo: thumbnailImageView.topAnchor).isActive = true

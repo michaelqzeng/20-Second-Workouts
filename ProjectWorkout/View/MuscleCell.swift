@@ -30,6 +30,7 @@ class BaseCell: UICollectionViewCell {
 
 class MuscleCell: BaseCell {
     
+//    let size = UIScreen.main.bounds.height/18
     let size = CGFloat(35)
     
     var displayName: String? {

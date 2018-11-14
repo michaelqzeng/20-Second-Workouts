@@ -13,9 +13,9 @@ import UIKit
 struct CoreData {
     
     static func preloadData() {
-//        deleteAllData(entityName: "Muscle")
+        deleteAllData(entityName: "Muscle")
         loadMuscleData()
-//        deleteAllData(entityName: "Workout")
+        deleteAllData(entityName: "Workout")
         loadWorkoutData()
     }
     

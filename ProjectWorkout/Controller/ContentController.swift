@@ -18,6 +18,10 @@ class ContentController: UIViewController {
     // workout variable
     var workout: NSManagedObject?
     
+    let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
+    let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
+    let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
+    
     let scrollView = UIScrollView()
     let pageLabel: UILabel = {
         let label = UILabel()
@@ -45,6 +49,7 @@ class ContentController: UIViewController {
         setupVideo()
         setupPageLabel()
         setupCollectionView()
+        setupFavButton()
         
         view.backgroundColor = .white
     }
@@ -67,7 +72,6 @@ class ContentController: UIViewController {
         webViewConfiguration.allowsInlineMediaPlayback = true
         videoView = WKWebView(frame: CGRect.zero, configuration: webViewConfiguration)
         let myURL = URL(string: "https://www.youtube.com/embed/\(videoLink)?playsinline=1")
-//        print(myURL)
         let youtubeRequest = URLRequest(url: myURL!)
         
         view.addSubview(videoView)
@@ -75,7 +79,6 @@ class ContentController: UIViewController {
         
         videoView.translatesAutoresizingMaskIntoConstraints = false
         videoView.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
-//        videoView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor, constant: 5).isActive = true
         videoView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         videoView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         videoHeightV = videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16)
@@ -83,31 +86,10 @@ class ContentController: UIViewController {
         
         videoView.load(youtubeRequest)
         
-//        let url = NSURL(string: "https://firebasestorage.googleapis.com/v0/b/projectworkout-84fca.appspot.com/o/Male%2FArms%2FBicep%2FMale%20-%20Arms%20-%20Barbell%20Bicep%20Curl.MOV?alt=media&token=adad6c23-11e5-42eb-9e8a-b8cc2aa0aaa6")
-//        let player = AVPlayer(url: url! as URL)
-//        playerController = AVPlayerViewController()
-//        playerController?.player = player
-//        player.isMuted = true
-//        playerController?.view.frame = videoView.bounds
-//        self.addChild(playerController!)
-//        videoView.addSubview((playerController?.view)!)
-//        playerController?.didMove(toParent: self)
-
-//        let url = "https://www.youtube.com/embed/Swqye9QIKTs"
-//        let width = view.frame.width
-//        let height = view.frame.height
-//        print("height ", height, "width ", width)
-//        let embedHTML = "<html><body><iframe src=\"\(url)?playsinline=1\" width=\"'\(width)'\" height=\"'\(height*9/16)'\" allowfullscreen></iframe></body></html>"
-//        videoView.allowsInlineMediaPlayback = true
-//        videoView.loadHTMLString(embedHTML, baseURL: Bundle.main.bundleURL)
-//        videoView.scrollView.isScrollEnabled = false
-        
         if UIDevice.current.orientation.isLandscape {
-            //            videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 9/16).isActive = true
             videoHeightL?.isActive = true
             navigationController?.navigationBar.isHidden = true
         } else {
-            //            videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16).isActive = true
             videoHeightV?.isActive = true
             navigationController?.navigationBar.isHidden = false
         }
@@ -118,11 +100,45 @@ class ContentController: UIViewController {
     lazy var muscleSubgroup = self.workout?.value(forKey: "subgroup") as? String ?? ""
     lazy var videoLink = self.workout?.value(forKey: "videoLink") as? String ?? ""
     lazy var muscleGroup = self.workout?.value(forKey: "muscleGroup") as? String ?? ""
+    lazy var hasFavorited = self.workout?.value(forKey: "hasFavorited") as? String ?? "FALSE"
+    
+    // Button represented as UIImageview
+    let favoriteButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        return button
+    }()
+    
+    @objc func favoriteCell(_ sender: UIButton) {
+        let isCurFavorited = self.workout?.value(forKey: "hasFavorited") as? String ?? "FALSE"
+        
+        // update favorited data
+        if isCurFavorited == "TRUE" {
+            CoreData.updateFavoriteData(workout: self.workout!, to: "FALSE")
+        } else if isCurFavorited == "FALSE" {
+            CoreData.updateFavoriteData(workout: self.workout!, to: "TRUE")
+        }
+        
+        // switch the color of the favorited cell upon click
+        sender.tintColor = isCurFavorited == "TRUE" ? lightGray : brightYellow
+    }
+    
+    private func setupFavButton() {
+        favoriteButton.setImage(UIImage(named: "fav_star")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        favoriteButton.imageView?.contentMode = .scaleAspectFit
+        favoriteButton.addTarget(self, action: #selector(favoriteCell(_:)), for: .touchUpInside)
+        favoriteButton.backgroundColor = .clear
+        if hasFavorited == "FALSE" {
+            favoriteButton.tintColor = lightGray
+        } else {
+            favoriteButton.tintColor = brightYellow
+        }
+        favoriteButton.alpha = 0.8
+        self.navigationItem.titleView = favoriteButton
+    }
     
     private func setupPageLabel() {
         
         let text = specificWorkoutName + " - " + muscleSubgroup
-//        let size = (navigationController?.navigationBar.frame.height)! - 10
         let size = CGFloat(27)
         pageLabel.attributedText = text.convertToNSAtrributredString(size: size, color: UIColor.black)
         pageLabel.backgroundColor = .white
@@ -134,7 +150,6 @@ class ContentController: UIViewController {
         pageLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
         
         pageLabel.sizeToFit()
-//        pageLabel.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
         pageLabel.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
         pageLabel.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
 

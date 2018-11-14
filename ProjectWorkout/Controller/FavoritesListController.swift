@@ -16,11 +16,8 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
     let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
     
     let pageLabel = UILabel()
-    let spaceBetweenTopSafeAreaAndPageLabel = 10
-    let pageLabelSize = 38
     let search: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
-//        search.hidesNavigationBarDuringPresentation = true
         return search
     }()
     
@@ -172,9 +169,15 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
         } else {
             workout = workouts[indexPath.section][indexPath.item]
         }
-        print("Selected workout \(workout)")
+        
         let contentVC = ContentController()
         contentVC.workout = workout
+        
+        // Change the back button look
+        let backItem = UIBarButtonItem()
+        backItem.title = "Favorites "
+        navigationItem.backBarButtonItem = backItem
+        
         navigationController?.pushViewController(contentVC, animated: true)
     }
     
@@ -207,12 +210,7 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
     var searchableWorkouts: [NSManagedObject] = []
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        //        print("sections.count", sections.count)
-        //        print(subgroups)
         if isFiltering() {
-            //            for item in searchableWorkouts {
-            //                print(item.value(forKey: "displayName"))
-            //            }
             return 1
         }
         // reset previously filtered workouts
@@ -221,11 +219,8 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        print("sections[section].muscle!.count", sections[section].muscle!.count)
-        //        return sections[section].muscle!.count
         if isFiltering() {
             print(filteredWorkouts.count)
-            //            print(filteredWorkouts)
             return filteredWorkouts.count
         } else {
             var count = 0
@@ -235,9 +230,6 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
             } else if Defaults.getGender() == "female" {
                 workoutsForSubgroup = CoreData.retrieveFavoritedWorkoutsForMuscle(muscle: muscleGroups[section], gender: "F")
             }
-            //            for item in workoutsForSubgroup {
-            //                print(item.value(forKey: "displayName"))
-            //            }
             workouts.append(workoutsForSubgroup)
             searchableWorkouts.append(contentsOf: workoutsForSubgroup)
             count = workoutsForSubgroup.count
@@ -272,7 +264,6 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
         guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? ReusableCollectionView else {
             fatalError("Misconfigured cell type, \(collectionView)!")
         }
-        //        let subgroup = "  " + sections[indexPath.section].subgroup!
         if isFiltering() {
             sectionHeaderView.headerLabel.attributedText = "  Result".convertToNSAtrributredString(size: 25, color: .black)
         } else {

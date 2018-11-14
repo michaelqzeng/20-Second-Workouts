@@ -22,8 +22,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return search
     }()
     let spaceBetweenTopSafeAreaAndPageLabel = 10
-    let pageLabelSize = 38
-
+    
 //    var managedObjectContext: NSManagedObjectContext? = nil
     var muscles: [NSManagedObject] = []
     
@@ -135,26 +134,23 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let muscle = muscles[indexPath.item]
         let height = cell.frame.height/6
         let width = cell.frame.width
-//        print("------------", height, width)
         let layout = UICollectionViewFlowLayout()
         layout.headerReferenceSize = CGSize(width: width, height: height)
         let workoutListVC = WorkoutListController(collectionViewLayout: layout)
-//        let workoutListVC = WorkoutListViewController()
         // pass muscle type data into workout list
         workoutListVC.muscleType = muscle.value(forKey: "displayName") as? String
-
-//        self.navigationItem.searchController?.isActive = false
-//        self.navigationItem.searchController = nil
 
         // Change the back button look
         let backItem = UIBarButtonItem()
         navigationItem.backBarButtonItem = backItem
         backItem.title = "Muscles "
+        
+        // Push Workout List VC
         self.navigationController?.pushViewController(workoutListVC, animated: true)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return muscles.count // 5 items for now, base off Model later
+        return muscles.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -162,7 +158,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             fatalError("Misconfigured cell type, \(collectionView)!")
         }
         let muscle = muscles[indexPath.item]
-//        print(muscle)
         cell.displayName = muscle.value(forKeyPath: "displayName") as? String
         cell.imageName = muscle.value(forKeyPath: "imageName") as? String
         return cell
