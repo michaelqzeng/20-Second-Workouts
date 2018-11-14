@@ -28,15 +28,16 @@ class ContentController: UIViewController {
 //    var videoView = UIWebView()
     var videoView: WKWebView!
     weak var collectionView: UICollectionView!
-    var content: [Content] = []
+    lazy var content: [Content] = {
+        var content = Json.parseFile(muscleSubgroup: self.muscleSubgroup, specificWorkout: self.specificWorkoutName)
+//        content.reverse()
+        return content
+    }()
     
     fileprivate var videoHeightV: NSLayoutConstraint?
     fileprivate var videoHeightL: NSLayoutConstraint?
     
     override func viewDidLoad() {
-        
-        content.append(contentsOf: [Content(subtitle: "What to do", content: ["Grab dumbbells and rotate shoulders externally, so ears and shoulders are aligned.", "Keep shoulders externally rotated and elbows glued to to the side of your body.", "Keep wrists straight as you curl the barbell throughout its full range of motion; up to shoulders and back down to the starting position."]), Content(subtitle: "Common Mistakes", content: ["Step 1", "Step 2", "Step 3"])])
-//
         
 //        setupScrollView()
         setupMoreOptions()
@@ -47,7 +48,7 @@ class ContentController: UIViewController {
         
         view.backgroundColor = .white
     }
-    
+
     private func setupScrollView() {
         self.view.addSubview(scrollView)
         scrollView.backgroundColor = .white
@@ -65,7 +66,8 @@ class ContentController: UIViewController {
         let webViewConfiguration = WKWebViewConfiguration()
         webViewConfiguration.allowsInlineMediaPlayback = true
         videoView = WKWebView(frame: CGRect.zero, configuration: webViewConfiguration)
-        let myURL = URL(string: "https://www.youtube.com/embed/Swqye9QIKTs?playsinline=1")
+        let myURL = URL(string: "https://www.youtube.com/embed/\(videoLink)?playsinline=1")
+//        print(myURL)
         let youtubeRequest = URLRequest(url: myURL!)
         
         view.addSubview(videoView)
@@ -112,11 +114,14 @@ class ContentController: UIViewController {
         
     }
     
+    lazy var specificWorkoutName = self.workout?.value(forKey: "displayName") as? String ?? ""
+    lazy var muscleSubgroup = self.workout?.value(forKey: "subgroup") as? String ?? ""
+    lazy var videoLink = self.workout?.value(forKey: "videoLink") as? String ?? ""
+    lazy var muscleGroup = self.workout?.value(forKey: "muscleGroup") as? String ?? ""
+    
     private func setupPageLabel() {
         
-        let name = self.workout?.value(forKey: "displayName") as? String ?? ""
-        let subgroup = self.workout?.value(forKey: "subgroup") as? String ?? ""
-        let text = name + " - " + subgroup
+        let text = specificWorkoutName + " - " + muscleSubgroup
 //        let size = (navigationController?.navigationBar.frame.height)! - 10
         let size = CGFloat(27)
         pageLabel.attributedText = text.convertToNSAtrributredString(size: size, color: UIColor.black)
@@ -165,6 +170,7 @@ class ContentController: UIViewController {
         button.addTarget(self, action: #selector(handleMoreOptions), for: .touchUpInside)
         let moreOptions = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItems = [moreOptions]
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back to \(muscleGroup)", style: UIBarButtonItem.Style.plain, target: nil, action: nil)
     }
     
     @objc private func handleMoreOptions() {

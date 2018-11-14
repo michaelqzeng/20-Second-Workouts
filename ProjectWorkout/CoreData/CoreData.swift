@@ -105,7 +105,7 @@ struct CoreData {
             arr = NSArray(contentsOfFile: path)
             let dataArr = ((arr as? [[String: Any]])!)
             for dict in dataArr {
-                print(dict)
+//                print(dict)
                 // swiftlint:disable:next force_cast
                 let workoutEntity = NSEntityDescription.insertNewObject(forEntityName: "Workout", into: managedContext) as! Workout
                 workoutEntity.hasFavorited = dict["hasFavorited"] as? String
@@ -114,6 +114,7 @@ struct CoreData {
                 workoutEntity.displayName = dict["displayName"] as? String
                 workoutEntity.subgroup = dict["subgroup"] as? String
                 workoutEntity.muscleGroup = dict["muscleGroup"] as? String
+                workoutEntity.videoLink = dict["videoLink"] as? String
             }
         }
         
@@ -181,46 +182,6 @@ struct CoreData {
         return result as! [Muscle]
     }
     
-    static func retrieveWorkoutData(gender: String, muscle: String) -> [NSManagedObject] {
-        //As we know that container is set up in the AppDelegates so we need to refer that container.
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return []}
-        
-        //We need to create a context from this container
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        //Prepare the request of type NSFetchRequest  for the entity
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Workout")
-//
-//        //        fetchRequest.fetchLimit = 1
-//        fetchRequest.predicate = NSPredicate(format: "gender = %@", gender)
-//        fetchRequest.predicate = NSPredicate(format: "muscleGroup = %@", muscle)
-//        //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
-        
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Workout")
-        
-        let genderPredicate = NSPredicate(format: "gender = %@", gender)
-        let muscleGroupPredicate = NSPredicate(format: "muscleGroup = %@", muscle)
-        let andPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [genderPredicate, muscleGroupPredicate])
-        
-        let sortDescriptor = NSSortDescriptor(key: "displayName", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        fetchRequest.predicate = andPredicate
-        
-        var result: [Any]
-        
-        do {
-            print("Retrieving  \(muscle) data from table Workout table")
-            result = try managedContext.fetch(fetchRequest)
-        } catch {
-            print("Failed")
-            result = []
-        }
-        
-        // swiftlint:disable:next force_cast
-        return result as! [Workout]
-    }
-    
     static func retrieveWorkoutSubgroups(for muscle: String) -> [String] {
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return []}
@@ -238,7 +199,7 @@ struct CoreData {
         fetchRequest.predicate = NSPredicate(format: "muscleGroup = %@", muscle)
         fetchRequest.propertiesToFetch = ["subgroup"]
         
-        let sortDescriptor = NSSortDescriptor(key: "displayName", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "subgroup", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         fetchRequest.returnsDistinctResults = true
@@ -254,6 +215,7 @@ struct CoreData {
             for res in result {
                 // swiftlint:disable:next force_cast
                 let sub = (res as AnyObject).value(forKey: "subgroup") as! String
+                print(res)
                 subgroups.append(sub)
             }
         } catch {
@@ -366,7 +328,7 @@ struct CoreData {
         let favoritePredicate = NSPredicate(format: "hasFavorited = %@", "TRUE")
         let andPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [genderPredicate, favoritePredicate])
         
-        let sortDescriptor = NSSortDescriptor(key: "displayName", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "muscleGroup", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         fetchRequest.predicate = andPredicate

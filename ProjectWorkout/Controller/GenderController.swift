@@ -63,7 +63,7 @@ class GenderController: UIViewController {
         
         imageViewBackground.translatesAutoresizingMaskIntoConstraints = false
         imageViewBackground.contentMode = .scaleAspectFill
-        imageViewBackground.topAnchor.constraint(equalTo: view.safeTopAnchor).isActive = true
+        imageViewBackground.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         imageViewBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         imageViewBackground.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
         imageViewBackground.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
@@ -73,6 +73,7 @@ class GenderController: UIViewController {
 //        topImageContainerView.backgroundColor = .blue
         self.view.addSubview(topImageContainerView)
         
+//        topImageContainerView.backgroundColor = .green
         topImageContainerView.translatesAutoresizingMaskIntoConstraints = false
         topImageContainerView.topAnchor.constraint(equalTo: self.view.safeTopAnchor).isActive = true
         topImageContainerView.leadingAnchor.constraint(equalTo: self.view.safeLeadingAnchor).isActive = true

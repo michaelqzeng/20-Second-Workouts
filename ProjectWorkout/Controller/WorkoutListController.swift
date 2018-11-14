@@ -46,8 +46,9 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         if #available(iOS 11.0, *) {
             navigationItem.hidesSearchBarWhenScrolling = false
         }
-        
-        collectionView?.reloadData()
+        pageLabel.sizeToFit()
+//        navigationItem.titleView = pageLabel
+//        collectionView?.reloadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -59,6 +60,7 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+//        navigationItem.titleView = nil
     }
 
     func favoriteCell(cell: WorkoutCell) {
@@ -142,9 +144,11 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
             pageLabel.attributedText = self.muscleType!.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
         }
         
-        pageLabel.backgroundColor = .white
+//        pageLabel.backgroundColor = .green
         pageLabel.sizeToFit()
         navigationItem.titleView = pageLabel
+//        navigationController?.navigationBar.backItem?.title = "Back to \(muscleType ?? "Muscle")"
+//        navigationItem.title = muscleType
     }
 
     private func setupCollectionView() {
@@ -175,6 +179,12 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         print("Selected workout \(workout)")
         let contentVC = ContentController()
         contentVC.workout = workout
+        
+        // Change the back button look
+        let backItem = UIBarButtonItem()
+        backItem.title = "\(muscleType ?? "Muscle") "
+        navigationItem.backBarButtonItem = backItem
+        
         navigationController?.pushViewController(contentVC, animated: true)
     }
     

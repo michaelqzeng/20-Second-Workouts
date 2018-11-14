@@ -10,7 +10,6 @@
 		391356652163365800F0F037 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391356642163365800F0F037 /* Workout.swift */; };
 		391356672163379500F0F037 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391356662163379500F0F037 /* WorkoutCell.swift */; };
 		3913566B21645F5A00F0F037 /* ReusableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3913566A21645F5A00F0F037 /* ReusableCollectionView.swift */; };
-		3918199B217441C000174E20 /* vid.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3918199A217441BB00174E20 /* vid.mp4 */; };
 		39246236218FBC69002285DA /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39246235218FBC69002285DA /* Firebase.swift */; };
 		3934F1D2214CB89B004ADF39 /* Muscle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934F1D1214CB89B004ADF39 /* Muscle.swift */; };
 		394731AE2160720300D93D81 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394731AD2160720300D93D81 /* Content.swift */; };
@@ -40,10 +39,24 @@
 		39C3D8BB218292DD006D4AAB /* Workout.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39C3D8BA218292DD006D4AAB /* Workout.plist */; };
 		39C3D8C0218364E2006D4AAB /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C3D8BF218364E2006D4AAB /* CoreData.swift */; };
 		39C3D8C22183762B006D4AAB /* Muscle.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39C3D8C12183762B006D4AAB /* Muscle.plist */; };
-		39CEC6972195EE9200778A2B /* POC.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6962195EE9200778A2B /* POC.json */; };
+		39CEC6992196619100778A2B /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CEC6982196619100778A2B /* Json.swift */; };
+		39CEC69D21967E4E00778A2B /* Biceps.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC69C21967E4E00778A2B /* Biceps.json */; };
+		39CEC69F219A872A00778A2B /* Calves.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC69E219A872A00778A2B /* Calves.json */; };
+		39CEC6A1219A8A8A00778A2B /* Front Delts.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6A0219A8A8A00778A2B /* Front Delts.json */; };
+		39CEC6A3219A8A9000778A2B /* Glutes.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6A2219A8A8F00778A2B /* Glutes.json */; };
+		39CEC6A5219A8A9500778A2B /* Hamstrings.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6A4219A8A9500778A2B /* Hamstrings.json */; };
+		39CEC6A7219A8A9F00778A2B /* Lower Abs.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6A6219A8A9F00778A2B /* Lower Abs.json */; };
+		39CEC6A9219A8AA300778A2B /* Lower Chest.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6A8219A8AA300778A2B /* Lower Chest.json */; };
+		39CEC6AB219A8AA800778A2B /* Medial Chest.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6AA219A8AA800778A2B /* Medial Chest.json */; };
+		39CEC6AD219A8AAC00778A2B /* Obliques.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6AC219A8AAC00778A2B /* Obliques.json */; };
+		39CEC6AF219A8AB100778A2B /* Quads.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6AE219A8AB000778A2B /* Quads.json */; };
+		39CEC6B1219A8AB500778A2B /* Traps.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6B0219A8AB500778A2B /* Traps.json */; };
+		39CEC6B3219A8AB900778A2B /* Triceps.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6B2219A8AB900778A2B /* Triceps.json */; };
+		39CEC6B5219A8ABD00778A2B /* Upper Abs.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6B4219A8ABD00778A2B /* Upper Abs.json */; };
+		39CEC6B7219A8AC200778A2B /* Upper Back.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6B6219A8AC200778A2B /* Upper Back.json */; };
+		39CEC6B9219A8AC600778A2B /* Upper Chest.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6B8219A8AC600778A2B /* Upper Chest.json */; };
 		39D21E37218FA7FD0026F5A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39D21E36218FA7FD0026F5A6 /* GoogleService-Info.plist */; };
 		39FB56D2218D45B90089D1AD /* FavoritesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FB56D1218D45B90089D1AD /* FavoritesListController.swift */; };
-		E6CB4AE4833E1335658FE570 /* Pods_ProjectWorkout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F150D81DBC21F5303D702B6 /* Pods_ProjectWorkout.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,15 +73,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F150D81DBC21F5303D702B6 /* Pods_ProjectWorkout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectWorkout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		21FCC0AB85200DF5C3647705 /* Pods-ProjectWorkout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectWorkout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ProjectWorkout/Pods-ProjectWorkout.debug.xcconfig"; sourceTree = "<group>"; };
-		24FEEE7BB311C98473239DA0 /* Pods-ProjectWorkout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectWorkout.release.xcconfig"; path = "Pods/Target Support Files/Pods-ProjectWorkout/Pods-ProjectWorkout.release.xcconfig"; sourceTree = "<group>"; };
 		391356642163365800F0F037 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		391356662163379500F0F037 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
 		3913566A21645F5A00F0F037 /* ReusableCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCollectionView.swift; sourceTree = "<group>"; };
-		3918199A217441BB00174E20 /* vid.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = vid.mp4; path = ../../Downloads/vid.mp4; sourceTree = "<group>"; };
 		39246235218FBC69002285DA /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
-		392E0F66218D061600BC0B11 /* BMPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BMPlayer.framework; path = Carthage/Build/iOS/BMPlayer.framework; sourceTree = "<group>"; };
 		3934F1D1214CB89B004ADF39 /* Muscle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Muscle.swift; sourceTree = "<group>"; };
 		394731AD2160720300D93D81 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		394731AF2160909E00D93D81 /* ContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCell.swift; sourceTree = "<group>"; };
@@ -99,7 +107,22 @@
 		39C3D8BA218292DD006D4AAB /* Workout.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workout.plist; sourceTree = "<group>"; };
 		39C3D8BF218364E2006D4AAB /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		39C3D8C12183762B006D4AAB /* Muscle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Muscle.plist; sourceTree = "<group>"; };
-		39CEC6962195EE9200778A2B /* POC.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POC.json; sourceTree = "<group>"; };
+		39CEC6982196619100778A2B /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
+		39CEC69C21967E4E00778A2B /* Biceps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Biceps.json; sourceTree = "<group>"; };
+		39CEC69E219A872A00778A2B /* Calves.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Calves.json; sourceTree = "<group>"; };
+		39CEC6A0219A8A8A00778A2B /* Front Delts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Front Delts.json"; sourceTree = "<group>"; };
+		39CEC6A2219A8A8F00778A2B /* Glutes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Glutes.json; sourceTree = "<group>"; };
+		39CEC6A4219A8A9500778A2B /* Hamstrings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Hamstrings.json; sourceTree = "<group>"; };
+		39CEC6A6219A8A9F00778A2B /* Lower Abs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Lower Abs.json"; sourceTree = "<group>"; };
+		39CEC6A8219A8AA300778A2B /* Lower Chest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Lower Chest.json"; sourceTree = "<group>"; };
+		39CEC6AA219A8AA800778A2B /* Medial Chest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Medial Chest.json"; sourceTree = "<group>"; };
+		39CEC6AC219A8AAC00778A2B /* Obliques.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Obliques.json; sourceTree = "<group>"; };
+		39CEC6AE219A8AB000778A2B /* Quads.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Quads.json; sourceTree = "<group>"; };
+		39CEC6B0219A8AB500778A2B /* Traps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Traps.json; sourceTree = "<group>"; };
+		39CEC6B2219A8AB900778A2B /* Triceps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Triceps.json; sourceTree = "<group>"; };
+		39CEC6B4219A8ABD00778A2B /* Upper Abs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Upper Abs.json"; sourceTree = "<group>"; };
+		39CEC6B6219A8AC200778A2B /* Upper Back.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Upper Back.json"; sourceTree = "<group>"; };
+		39CEC6B8219A8AC600778A2B /* Upper Chest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Upper Chest.json"; sourceTree = "<group>"; };
 		39D21E36218FA7FD0026F5A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		39FB56D1218D45B90089D1AD /* FavoritesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,7 +132,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6CB4AE4833E1335658FE570 /* Pods_ProjectWorkout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,11 +160,10 @@
 		396BE7F821473F7200B349CF = {
 			isa = PBXGroup;
 			children = (
-				3918199A217441BB00174E20 /* vid.mp4 */,
+				39CEC6BB219A8AF100778A2B /* JSON Backend */,
 				396BE80321473F7200B349CF /* ProjectWorkout */,
 				396BE80221473F7200B349CF /* Products */,
 				39F3C8742175929F00F506D8 /* Frameworks */,
-				ED728C2BE4855294F2C71CDD /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -253,27 +274,38 @@
 		39CEC6952195658600778A2B /* ContentData */ = {
 			isa = PBXGroup;
 			children = (
-				39CEC6962195EE9200778A2B /* POC.json */,
+				39CEC6982196619100778A2B /* Json.swift */,
 			);
 			path = ContentData;
+			sourceTree = "<group>";
+		};
+		39CEC6BB219A8AF100778A2B /* JSON Backend */ = {
+			isa = PBXGroup;
+			children = (
+				39CEC6B8219A8AC600778A2B /* Upper Chest.json */,
+				39CEC6B6219A8AC200778A2B /* Upper Back.json */,
+				39CEC6B4219A8ABD00778A2B /* Upper Abs.json */,
+				39CEC6B2219A8AB900778A2B /* Triceps.json */,
+				39CEC6B0219A8AB500778A2B /* Traps.json */,
+				39CEC6AE219A8AB000778A2B /* Quads.json */,
+				39CEC6AC219A8AAC00778A2B /* Obliques.json */,
+				39CEC6AA219A8AA800778A2B /* Medial Chest.json */,
+				39CEC6A8219A8AA300778A2B /* Lower Chest.json */,
+				39CEC6A6219A8A9F00778A2B /* Lower Abs.json */,
+				39CEC6A4219A8A9500778A2B /* Hamstrings.json */,
+				39CEC6A2219A8A8F00778A2B /* Glutes.json */,
+				39CEC6A0219A8A8A00778A2B /* Front Delts.json */,
+				39CEC69E219A872A00778A2B /* Calves.json */,
+				39CEC69C21967E4E00778A2B /* Biceps.json */,
+			);
+			path = "JSON Backend";
 			sourceTree = "<group>";
 		};
 		39F3C8742175929F00F506D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				392E0F66218D061600BC0B11 /* BMPlayer.framework */,
-				1F150D81DBC21F5303D702B6 /* Pods_ProjectWorkout.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		ED728C2BE4855294F2C71CDD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				21FCC0AB85200DF5C3647705 /* Pods-ProjectWorkout.debug.xcconfig */,
-				24FEEE7BB311C98473239DA0 /* Pods-ProjectWorkout.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,13 +315,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 396BE81321473F7300B349CF /* Build configuration list for PBXNativeTarget "ProjectWorkout" */;
 			buildPhases = (
-				213F69A60B9019634BA422EB /* [CP] Check Pods Manifest.lock */,
 				396BE7FD21473F7200B349CF /* Sources */,
 				396BE7FE21473F7200B349CF /* Frameworks */,
 				396BE7FF21473F7200B349CF /* Resources */,
 				39F3C87E217694D700F506D8 /* ShellScript */,
 				392E0F76218D07FA00BC0B11 /* Embed Frameworks */,
-				39F42430948482314AB1DE00 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -339,41 +369,32 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39CEC6972195EE9200778A2B /* POC.json in Resources */,
-				3918199B217441C000174E20 /* vid.mp4 in Resources */,
+				39CEC6AB219A8AA800778A2B /* Medial Chest.json in Resources */,
+				39CEC69D21967E4E00778A2B /* Biceps.json in Resources */,
+				39CEC6B5219A8ABD00778A2B /* Upper Abs.json in Resources */,
 				396BE80C21473F7300B349CF /* Assets.xcassets in Resources */,
 				39C3D8C22183762B006D4AAB /* Muscle.plist in Resources */,
+				39CEC6A7219A8A9F00778A2B /* Lower Abs.json in Resources */,
+				39CEC6A9219A8AA300778A2B /* Lower Chest.json in Resources */,
+				39CEC6B7219A8AC200778A2B /* Upper Back.json in Resources */,
+				39CEC6A5219A8A9500778A2B /* Hamstrings.json in Resources */,
+				39CEC6AF219A8AB100778A2B /* Quads.json in Resources */,
+				39CEC6AD219A8AAC00778A2B /* Obliques.json in Resources */,
 				39C3D8BB218292DD006D4AAB /* Workout.plist in Resources */,
 				396BE80A21473F7200B349CF /* Main.storyboard in Resources */,
+				39CEC6B3219A8AB900778A2B /* Triceps.json in Resources */,
+				39CEC6A1219A8A8A00778A2B /* Front Delts.json in Resources */,
+				39CEC6B1219A8AB500778A2B /* Traps.json in Resources */,
+				39CEC69F219A872A00778A2B /* Calves.json in Resources */,
 				39D21E37218FA7FD0026F5A6 /* GoogleService-Info.plist in Resources */,
+				39CEC6A3219A8A9000778A2B /* Glutes.json in Resources */,
+				39CEC6B9219A8AC600778A2B /* Upper Chest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		213F69A60B9019634BA422EB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ProjectWorkout-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		39F3C87E217694D700F506D8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -390,32 +411,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		39F42430948482314AB1DE00 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ProjectWorkout/Pods-ProjectWorkout-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ProjectWorkout/Pods-ProjectWorkout-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -445,6 +440,7 @@
 				394731AE2160720300D93D81 /* Content.swift in Sources */,
 				394F5B192158A28400E37521 /* GenderController.swift in Sources */,
 				39FB56D2218D45B90089D1AD /* FavoritesListController.swift in Sources */,
+				39CEC6992196619100778A2B /* Json.swift in Sources */,
 				394731B221609DDF00D93D81 /* NSAttributedStringHelper.swift in Sources */,
 				39A5E0E22171D00F00B19DA9 /* SpacerView.swift in Sources */,
 				39A5E0DB2171CF4B00B19DA9 /* MenuController.swift in Sources */,
@@ -586,7 +582,6 @@
 		};
 		396BE81421473F7300B349CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21FCC0AB85200DF5C3647705 /* Pods-ProjectWorkout.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -610,7 +605,6 @@
 		};
 		396BE81521473F7300B349CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24FEEE7BB311C98473239DA0 /* Pods-ProjectWorkout.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

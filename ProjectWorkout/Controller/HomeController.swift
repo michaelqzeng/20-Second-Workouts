@@ -22,7 +22,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return search
     }()
     let spaceBetweenTopSafeAreaAndPageLabel = 10
-    let pageLabelSize = 45
+    let pageLabelSize = 38
 
 //    var managedObjectContext: NSManagedObjectContext? = nil
     var muscles: [NSManagedObject] = []
@@ -143,9 +143,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         // pass muscle type data into workout list
         workoutListVC.muscleType = muscle.value(forKey: "displayName") as? String
 
-        self.navigationItem.searchController?.isActive = false
-        self.navigationItem.searchController = nil
+//        self.navigationItem.searchController?.isActive = false
+//        self.navigationItem.searchController = nil
 
+        // Change the back button look
+        let backItem = UIBarButtonItem()
+        navigationItem.backBarButtonItem = backItem
+        backItem.title = "Muscles "
         self.navigationController?.pushViewController(workoutListVC, animated: true)
     }
 
