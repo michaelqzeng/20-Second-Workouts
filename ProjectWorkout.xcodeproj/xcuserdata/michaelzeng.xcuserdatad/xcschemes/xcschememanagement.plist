@@ -12,7 +12,35 @@
 		<key>ProjectWorkout.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>SiriIntegration.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>SiriIntegrationUI.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>396357C5219CFC2100B54BB8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>396357CE219CFC2100B54BB8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>396BE80021473F7200B349CF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
