@@ -241,7 +241,7 @@ extension ContentController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var numOfChars = 0
         for sentence in content[indexPath.row].content! {
-            numOfChars += sentence.count + 100
+            numOfChars += sentence.count + 70
         }
         let numOfLines = numOfChars / 30
 //        print(numOfChars, numOfLines)

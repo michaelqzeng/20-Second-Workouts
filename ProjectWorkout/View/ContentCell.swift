@@ -105,7 +105,6 @@ class ContentCell: BaseCell {
         stepsLabel.widthAnchor.constraint(equalTo: rightSideView.widthAnchor, multiplier: 1).isActive = true
         stepsLabel.centerXAnchor.constraint(equalTo: rightSideView.centerXAnchor).isActive = true
         stepsLabel.centerYAnchor.constraint(equalTo: rightSideView.centerYAnchor).isActive = true
-        
     }
     
 }

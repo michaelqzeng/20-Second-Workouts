@@ -26,7 +26,16 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     }()
     
     lazy var subgroups: [String] = {
-        var subgroups = CoreData.retrieveWorkoutSubgroups(for: self.muscleType ?? "Arms") // insert default value here later
+        var subgroups: [String] = []
+        if Defaults.getGender() == "male" {
+            subgroups = CoreData.retrieveWorkoutSubgroups(for: self.muscleType ?? "Arms", gender: "M") // insert default value here later
+        } else if Defaults.getGender() == "female" {
+            subgroups = CoreData.retrieveWorkoutSubgroups(for: self.muscleType ?? "Arms", gender: "F") // insert default value here later
+        }
+        print("returned result")
+        for item in subgroups {
+            print(item)
+        }
         return subgroups
     }()
 
@@ -99,11 +108,19 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 
     var filteredWorkouts = [NSManagedObject]()
 
+    // Filter by search text
     func filterContentForSearchText(_ searchText: String) {
+        filteredWorkouts = []
         filteredWorkouts = searchableWorkouts.filter({( workout: NSManagedObject) -> Bool in
             let temp = workout.value(forKey: "displayName") as? String ?? ""
+            print(temp.lowercased())
+            print(searchText.lowercased())
+            print(temp.lowercased().contains(searchText.lowercased()))
             return temp.lowercased().contains(searchText.lowercased())
         })
+        for item in filteredWorkouts {
+            print(item)
+        }
         collectionView?.reloadData()
     }
     
@@ -165,7 +182,7 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         let workout: NSManagedObject
         
         if isFiltering() {
-            workout = searchableWorkouts[indexPath.row]
+            workout = filteredWorkouts[indexPath.row]
         } else {
             workout = workouts[indexPath.section][indexPath.item]
         }
@@ -213,9 +230,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 //        print("sections.count", sections.count)
 //        print(subgroups)
         if isFiltering() {
-//            for item in searchableWorkouts {
-//                print(item.value(forKey: "displayName"))
-//            }
             return 1
         }
         // reset previously filtered workouts

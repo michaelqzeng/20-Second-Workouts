@@ -165,7 +165,7 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
         let workout: NSManagedObject
         
         if isFiltering() {
-            workout = searchableWorkouts[indexPath.row]
+            workout = filteredWorkouts[indexPath.row]
         } else {
             workout = workouts[indexPath.section][indexPath.item]
         }

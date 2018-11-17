@@ -33,6 +33,6 @@ struct Json {
             print(error)
             contents.append(Content(subtitle: "Null", content: ["Null"]))
         }
-        return contents
+        return contents.sorted(by: { $0.subtitle! > $1.subtitle! })
     }
 }

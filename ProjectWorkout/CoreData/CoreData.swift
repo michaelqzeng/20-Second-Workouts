@@ -182,7 +182,7 @@ struct CoreData {
         return result as! [Muscle]
     }
     
-    static func retrieveWorkoutSubgroups(for muscle: String) -> [String] {
+    static func retrieveWorkoutSubgroups(for muscle: String, gender: String) -> [String] {
         //As we know that container is set up in the AppDelegates so we need to refer that container.
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return []}
         
@@ -196,7 +196,12 @@ struct CoreData {
 //        fetchRequest.predicate = NSPredicate(format: "subgroup = %@", "M")
 //        fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "email", ascending: false)]
         
-        fetchRequest.predicate = NSPredicate(format: "muscleGroup = %@", muscle)
+        let genderPredicate = NSPredicate(format: "gender = %@", gender)
+        let musclePredicate = NSPredicate(format: "muscleGroup = %@", muscle)
+        let andPredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [genderPredicate, musclePredicate])
+        
+        fetchRequest.predicate = andPredicate
+    
         fetchRequest.propertiesToFetch = ["subgroup"]
         
         let sortDescriptor = NSSortDescriptor(key: "subgroup", ascending: true)
@@ -221,6 +226,10 @@ struct CoreData {
         } catch {
             print("Failed")
             result = []
+        }
+        print("Core data")
+        for item in subgroups {
+            print(item)
         }
         return subgroups
     }
