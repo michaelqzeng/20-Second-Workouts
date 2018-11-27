@@ -1,24 +1,27 @@
 {
           "Side Lateral Raise": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Stand with a dumbbell in each hand at your sides, with palms facing each other. This is starting position",
+                "Exhale and raise dumbbells up to shoulder length, until arms are parallel with floor. Have slight bend on elbow, with hands slightly tilted forward",
+                "Inhale and return to starting position"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Swing body to generate momentum"
               ]
           },
           "Dumbbell Shoulder Press": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Sit in a bench that has back support, while holding a dumbbell in each hand on your thighs",
+                "Using your thighs, kick up dumbbells one-at-a-time to head height, and rotate dummbells so palms face forward",
+                "Your elbows are directly underneath your wrists, and your arms are about 30-45º from your chest. This is starting position",
+                "Exhale and push dumbbells straight up above the head, almost fully extending arms. Hold for a second",
+                "Inhale and slowly return to starting position"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Flare out your elbows. Keep your arms 30-45º from chest",
+                "Allow elbows to be anywhere but DIRECTLY underneath wrists",
+                "Overarch your back",
+                "Push through shoulder pain"
               ]
           }
 }

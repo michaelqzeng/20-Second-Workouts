@@ -1,46 +1,52 @@
 {
-          "Dumbbell Overhead Tricep Press": {
-            "What to do": [
-                "Step 1",
-                "Step 2"
-              ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
-              ]
-          },
+    "Seated Triceps Press": {
+        "What to do": [
+            "Sit upright, place dumbbell on top of shoulder",
+            "Overlap hands around dumbbell, press into overhead position",
+            "Inhale and slowly lower dumbbell behind head by unlocking elbows",
+            "Once forearms are parallel (or a little below) with the ground, drive dumbbell back to starting point by extending elbows and flexing the triceps"
+        ],
+        "Do NOT": [
+            "Overextend your lumbar (lower) spine",
+            "Jut your neck forward"
+        ]
+    },
+
           "Skull Crusher": {
-            "What to do": [
-                "Step 1",
-                "Step 2"
+              "What to do": [
+                  "Lay on the bench holding the barbell shoulder width apart",
+                  "Focus on three main points of contact: tailbone, shoulders, and head",
+                  "Lower barbell towards forehead while keeping elbows in line with shoulders",
+                  "Push the barbell up until tricpes are fully extended"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+              "Do NOT": [
+                  "Do not flare your elbows out wide",
+                  "Don’t let your shoulders and upper arms become loose. Keep them tight"
               ]
           },
           "Tricep Rope Pushdown": {
               "What to do": [
-                  "Step 1",
-                  "Step 2"
+                  "Face and grip the rope with palms facing each other, tilting torso 30º to 40º towards rope",
+                  "Keep upper arms at the sides of body, pull down until forearms are pointing towards pulley. This is the starting position",
+                  "Moving only forearms, exhale and pull rope down until entire arm is perpendicular to ground",
+                  "Hold for a second and squeeze at bottom, then inhale and bring rope slowly back up to starting position"
               ],
-              "Common Mistakes": [
-                  "Step 1",
-                  "Step 2",
-                  "Step 3"
+              "Do NOT": [
+                  "Bend over at back or shoulders to push weight down",
+                  "Allow elbows to flare outward when pushing down"
               ]
           },
           "Tricep Dumbbell Kickback": {
               "What to do": [
-                  "Step 1",
-                  "Step 2"
+                  "Place hand and knee from the same side on bench, keeping back straight and almost parallel to ground. Keep head up",
+                  "Grab dumbbell with opposite hand, palm facing towards body. Keep elbow at side",
+                  "Pick dumbbell up until upper arm is parallel with ground, and forearm is perpendicular with ground. This is the starting position",
+                  "Flexing triceps, exhale and extend arm backwards until entire arm is level with shoulder",
+                  "Hold for a second and squeeze, then inhale and bring forearm back to starting position"
               ],
-              "Common Mistakes": [
-                  "Step 1",
-                  "Step 2",
-                  "Step 3"
+              "Do NOT": [
+                  "Have your upper arm be anything but horizontal",
+                  "Sacrifice form for heavier weight"
               ]
           }
 }

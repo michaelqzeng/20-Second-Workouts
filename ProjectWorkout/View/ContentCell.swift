@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ContentCell: BaseCell {
+class ContentCell: UITableViewCell {
     
     let leftSideView: UIView = {
         let view = UIView()
@@ -63,13 +63,22 @@ class ContentCell: BaseCell {
         }
     }
     
-    override func setupViews() {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupViews() {
 //        self.backgroundColor = .green
         setupSections()
         setupContent()
     }
     
-    override func setupSections() {
+    func setupSections() {
         self.addSubview(leftSideView)
         self.addSubview(rightSideView)
         leftSideView.topAnchor.constraint(equalTo: self.safeTopAnchor).isActive = true
@@ -96,9 +105,11 @@ class ContentCell: BaseCell {
         let stringArray = ["first row", "second row", "third row"]
         stepsLabel.attributedText = NSAttributedStringHelper.createBulletedList(fromStringArray: stringArray, font: UIFont(name: "Helvetica", size: stepsSize))
         
+//        subtitleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         subtitleLabel.heightAnchor.constraint(equalTo: leftSideView.heightAnchor, multiplier: 1).isActive = true
         subtitleLabel.widthAnchor.constraint(equalTo: leftSideView.widthAnchor, multiplier: 1).isActive = true
         subtitleLabel.centerXAnchor.constraint(equalTo: leftSideView.centerXAnchor).isActive = true
+//        subtitleLabel.topAnchor.constraint(equalTo: leftSideView.topAnchor).isActive = true
         subtitleLabel.centerYAnchor.constraint(equalTo: leftSideView.centerYAnchor).isActive = true
         
         stepsLabel.heightAnchor.constraint(equalTo: rightSideView.heightAnchor, multiplier: 1).isActive = true

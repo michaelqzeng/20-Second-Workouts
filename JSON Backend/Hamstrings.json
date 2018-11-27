@@ -1,46 +1,54 @@
 {
-          "Free Weight Squat": {
-            "What to do": [
-                "Step 1",
-                "Step 2"
-              ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
-              ]
-          },
+            "Free Weight Squat": {
+                "What to do": [
+                    "With palms facing up, vertically hold a dumbbell next to your chest",
+                    "Stand with feet about shoulder-width apart, toes pointing out about 30º. Bring shoulder blades together to maintain a tall, neutral spine",
+                    "Inhale, squeeze glutes, push knees out and sit back through your hips until they are past your knees",
+                    "Exhale and push back up until hips are fully extended"
+                ],
+                "Do NOT": [
+                    "Let your knees collapse in at any time",
+                    "Hold dumbbells too far forward. Make sure to hold dumbbells close to chest",
+                    "Let feet rotate externally too far out"
+                ]
+            },
           "Barbell Squat": {
               "What to do": [
-                  "Step 1",
-                  "Step 2"
+                  "Set up the squat rack so that the bar is a few inches lower than your shoulders",
+                  "Squeeze your shoulder blades together, raise your chest, and position yourself diretly underneath the center of bar so that it is high up on your shoulders, at the base of your neck",
+                  "Place hands on bar with a medium grip, just outside shoulders. Feet are shoulder-width apart, and turned out to about 30º",
+                  "Unrack the bar by squatting up, keeping heels on floor. Walk back by taking a step with each leg",
+                  "Inhale and squat down as far as you can while maintaining form and control. The bar should move in a vertical line over your mid-foot. Your knees should should be moving progressively further apart, and your chest should be at 45º",
+                  "Exhale and squat back up by moving your hips and chest straight up (not forward) and pushing your knees out. The bar should move in a vertical line over your mid-foot again. At the top, lock your knees and hips"
               ],
-              "Common Mistakes": [
-                  "Step 1",
-                  "Step 2",
-                  "Step 3"
+              "Do NOT": [
+                  "Workout through pain",
+                  "Use your neck to hold the bar",
+                  "Allow knees to cave in while squatting",
+                  "Round your lower back. Make sure toes and knees are out, and feet and shoulder-width apart",
+                  "Lean forward, or allow heels to come up"
               ]
           },
           "Bulgarian Split Squat": {
               "What to do": [
-                  "Step 1",
-                  "Step 2"
+                  "Find an elevated surface about knee height",
+                  "Get into a forward lunge position with back foot on elevated surface. Have torso upright, core braced, and hips square to your body. Leading leg should be around half a meter in front of back foot",
+                  "Inhale and lower yourself until your front thigh is about parallel to the ground, and back knee almost touches the floor. Keep your front knee in line with your toes",
+                  "Exhale and drive back up through your front heel"
               ],
-              "Common Mistakes": [
-                  "Step 1",
-                  "Step 2",
-                  "Step 3"
+              "Do NOT": [
+                  "Stand too close, or too far from bench. Experiment with what distance works. Standing too close will tax quads more, and can give knee pain. Standing too far will tax hip flexors more, and can strain groin"
               ]
           },
           "Romanian Dead Lift": {
               "What to do": [
-                  "Step 1",
-                  "Step 2"
+                  "Step to bar so shin is just touching barbell. Feet are shoulder-width apart. Pinch shoulders back and keep chest up. Maintain a straight lower back.",
+                  "Bend down and grab bar with overhand grip slightly outside legs. Pick up bar into deadlift position",
+                  "Inhale and lower bar by pushing hips backwards with slight knee bend",
+                  "Once you feel a stretch in hamstrings, exhale and push hips forward to lift bar up. Lock and squeeze hamstrings and glutes"
               ],
-              "Common Mistakes": [
-                  "Step 1",
-                  "Step 2",
-                  "Step 3"
+              "Do NOT": [
+                  "Use back to pull up bar. Push hips forward"
               ]
           }
 }

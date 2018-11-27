@@ -14,31 +14,32 @@ class CustomMenuHeaderView: UIView {
     let nameLabel = UILabel()
     let usernameLabel = UILabel()
     let statsLabel = UILabel()
-    let profileImageView = ProfileImageView()
+//    let profileImageView = ProfileImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
         setupComponentProps()
         setupStackView()
     }
     
     fileprivate func setupComponentProps() {
         // custom components for our header
-        nameLabel.attributedText = "More Options".convertToNSAtrributredString(size: 20, color: .black)
-        usernameLabel.text = "More Options"
+        nameLabel.attributedText = "Options".convertToNSAtrributredString(size: 28, color: .black)
+//        usernameLabel.text = "More Options"
+        nameLabel.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
         statsLabel.text = ""
-        profileImageView.image = UIImage(named: "male_arms")
-        profileImageView.contentMode = .scaleAspectFit
-        profileImageView.layer.cornerRadius = 48 / 2
-        profileImageView.clipsToBounds = true
-        profileImageView.backgroundColor = .red
+//        profileImageView.image = UIImage(named: "male_arms")
+//        profileImageView.contentMode = .scaleAspectFit
+//        profileImageView.layer.cornerRadius = 48 / 2
+//        profileImageView.clipsToBounds = true
+//        profileImageView.backgroundColor = .red
         
         setupStatsAttributedText()
     }
     
     fileprivate func setupStatsAttributedText() {
-        statsLabel.font = UIFont.systemFont(ofSize: 14)
+        statsLabel.font = UIFont.systemFont(ofSize: 0)
         let attributedText = NSMutableAttributedString(string: " ", attributes: [.font: UIFont.systemFont(ofSize: 18, weight: .medium)])
         attributedText.append(NSAttributedString(string: "  ", attributes: [.foregroundColor: UIColor.black]))
         attributedText.append(NSAttributedString(string: " ", attributes: [.font: UIFont.systemFont(ofSize: 17, weight: .medium)]))
@@ -52,7 +53,7 @@ class CustomMenuHeaderView: UIView {
         let rightSpacerView = UIView()
         let arrangedSubviews = [
             //            UIView(),
-            UIStackView(arrangedSubviews: [profileImageView, rightSpacerView]),
+            UIStackView(arrangedSubviews: [rightSpacerView]),
             nameLabel
 //            usernameLabel
 //            SpacerView(space: 16),

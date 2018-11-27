@@ -74,6 +74,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     private func setupNavBar() {
         self.navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 191, green: 192, blue: 193)
     }
 
     private func setupSearchBar() {
@@ -91,7 +92,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         button.translatesAutoresizingMaskIntoConstraints = false
         let moreOptionsImage = UIImage(named: "hamburger")
         button.setImage(moreOptionsImage, for: .normal)
-//        button.backgroundColor = .red
+        button.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
         button.widthAnchor.constraint(equalToConstant: 25).isActive = true
         button.heightAnchor.constraint(equalToConstant: 25).isActive = true
         button.addTarget(self, action: #selector(handleMoreOptions), for: .touchUpInside)
@@ -105,10 +106,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     private func setupPageLabel() {
-        let text = "Workouts"
+        let text = "Home"
         let size = (navigationController?.navigationBar.frame.height)! - 7
         pageLabel.attributedText = text.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
-        pageLabel.backgroundColor = .white
+        pageLabel.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
         pageLabel.sizeToFit()
         navigationItem.titleView = pageLabel
     }
@@ -143,7 +144,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         // Change the back button look
         let backItem = UIBarButtonItem()
         navigationItem.backBarButtonItem = backItem
-        backItem.title = "Muscles "
+        backItem.title = "Home "
         
         // Push Workout List VC
         self.navigationController?.pushViewController(workoutListVC, animated: true)

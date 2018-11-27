@@ -11,7 +11,7 @@ import UIKit
 
 class IconImageView: UIImageView {
     override var intrinsicContentSize: CGSize {
-        return .init(width: 44, height: 44)
+        return .init(width: 27, height: 27)
     }
 }
 
@@ -45,7 +45,7 @@ class MenuItemCell: UITableViewCell {
         stackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = .init(top: 8, left: 12, bottom: 8, right: 12)
+        stackView.layoutMargins = .init(top: 17, left: 12, bottom: 17, right: 12)
     }
     
     required init?(coder aDecoder: NSCoder) {

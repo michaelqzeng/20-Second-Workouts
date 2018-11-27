@@ -185,14 +185,6 @@ class BaseSlidingController: UIViewController {
             rightViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
             
         default:
-//            let tabBarController = UITabBarController()
-//            let momentsController = UIViewController()
-//            momentsController.navigationItem.title = "Moments"
-//            momentsController.view.backgroundColor = .orange
-//            let navController = UINavigationController(rootViewController: momentsController)
-//            navController.tabBarItem.title = "Moments"
-//            tabBarController.viewControllers = [navController]
-//            rightViewController = tabBarController
             rightViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
         }
         

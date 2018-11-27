@@ -54,6 +54,8 @@
 		39CEC6B7219A8AC200778A2B /* Upper Back.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6B6219A8AC200778A2B /* Upper Back.json */; };
 		39CEC6B9219A8AC600778A2B /* Upper Chest.json in Resources */ = {isa = PBXBuildFile; fileRef = 39CEC6B8219A8AC600778A2B /* Upper Chest.json */; };
 		39D21E37218FA7FD0026F5A6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39D21E36218FA7FD0026F5A6 /* GoogleService-Info.plist */; };
+		39D6D8FF21A4B45F002E13A7 /* Lower Back.json in Resources */ = {isa = PBXBuildFile; fileRef = 39D6D8FE21A4B45E002E13A7 /* Lower Back.json */; };
+		39D6D90121A5CBE7002E13A7 /* Forearms.json in Resources */ = {isa = PBXBuildFile; fileRef = 39D6D90021A5CBE7002E13A7 /* Forearms.json */; };
 		39FB56D2218D45B90089D1AD /* FavoritesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FB56D1218D45B90089D1AD /* FavoritesListController.swift */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +122,8 @@
 		39CEC6B6219A8AC200778A2B /* Upper Back.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Upper Back.json"; sourceTree = "<group>"; };
 		39CEC6B8219A8AC600778A2B /* Upper Chest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Upper Chest.json"; sourceTree = "<group>"; };
 		39D21E36218FA7FD0026F5A6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		39D6D8FE21A4B45E002E13A7 /* Lower Back.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Lower Back.json"; sourceTree = "<group>"; };
+		39D6D90021A5CBE7002E13A7 /* Forearms.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Forearms.json; sourceTree = "<group>"; };
 		39FB56D1218D45B90089D1AD /* FavoritesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesListController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,6 +280,7 @@
 		39CEC6BB219A8AF100778A2B /* JSON Backend */ = {
 			isa = PBXGroup;
 			children = (
+				39D6D8FE21A4B45E002E13A7 /* Lower Back.json */,
 				39CEC6B8219A8AC600778A2B /* Upper Chest.json */,
 				39CEC6B6219A8AC200778A2B /* Upper Back.json */,
 				39CEC6B4219A8ABD00778A2B /* Upper Abs.json */,
@@ -291,6 +296,7 @@
 				39CEC6A0219A8A8A00778A2B /* Front Delts.json */,
 				39CEC69E219A872A00778A2B /* Calves.json */,
 				39CEC69C21967E4E00778A2B /* Biceps.json */,
+				39D6D90021A5CBE7002E13A7 /* Forearms.json */,
 			);
 			path = "JSON Backend";
 			sourceTree = "<group>";
@@ -367,11 +373,13 @@
 				39CEC69D21967E4E00778A2B /* Biceps.json in Resources */,
 				39CEC6B5219A8ABD00778A2B /* Upper Abs.json in Resources */,
 				396BE80C21473F7300B349CF /* Assets.xcassets in Resources */,
+				39D6D8FF21A4B45F002E13A7 /* Lower Back.json in Resources */,
 				39C3D8C22183762B006D4AAB /* Muscle.plist in Resources */,
 				39CEC6A7219A8A9F00778A2B /* Lower Abs.json in Resources */,
 				39CEC6A9219A8AA300778A2B /* Lower Chest.json in Resources */,
 				39CEC6B7219A8AC200778A2B /* Upper Back.json in Resources */,
 				39CEC6A5219A8A9500778A2B /* Hamstrings.json in Resources */,
+				39D6D90121A5CBE7002E13A7 /* Forearms.json in Resources */,
 				39CEC6AF219A8AB100778A2B /* Quads.json in Resources */,
 				39CEC6AD219A8AAC00778A2B /* Obliques.json in Resources */,
 				39C3D8BB218292DD006D4AAB /* Workout.plist in Resources */,

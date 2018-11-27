@@ -21,7 +21,11 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     let pageLabelSize = 38
     let search: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
-//        search.hidesNavigationBarDuringPresentation = true
+//        search.searchBar.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
+//        search.searchBar.backgroundImage = UIImage()
+//        search.searchBar.backgroundColor = UIColor.white
+        
+        search.hidesNavigationBarDuringPresentation = true
         return search
     }()
     
@@ -51,13 +55,13 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if #available(iOS 11.0, *) {
-            navigationItem.hidesSearchBarWhenScrolling = false
+            navigationItem.hidesSearchBarWhenScrolling =  false
         }
         pageLabel.sizeToFit()
+        collectionView.collectionViewLayout.invalidateLayout()
 //        navigationItem.titleView = pageLabel
-//        collectionView?.reloadData()
+        collectionView?.reloadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -74,7 +78,13 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 
     func favoriteCell(cell: WorkoutCell) {
         guard let indexPath = collectionView?.indexPath(for: cell) else {return}
-        let workout = workouts[indexPath.section][indexPath.item]
+        let workout: NSManagedObject
+        
+        if isFiltering() {
+            workout = filteredWorkouts[indexPath.row]
+        } else {
+            workout = workouts[indexPath.section][indexPath.item]
+        }
 
         let isCurFavorited = workout.value(forKey: "hasFavorited") as? String
 
@@ -94,11 +104,42 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     }
 
     private func setupSearchBar() {
-        navigationItem.searchController = search
+//        navigationItem.searchController = search
         search.searchBar.placeholder = "Search \(self.muscleType ?? "") Workouts"
         search.obscuresBackgroundDuringPresentation = false
         search.searchResultsUpdater = self
-        definesPresentationContext = true
+        self.definesPresentationContext = true
+        
+        if #available(iOS 11.0, *) {
+//            let sc = UISearchController(searchResultsController: nil)
+//            sc.delegate = self
+            let scb = search.searchBar
+            scb.tintColor = UIColor.white
+            scb.barTintColor = UIColor.white
+                        
+            if let textfield = scb.value(forKey: "searchField") as? UITextField {
+                //textfield.textColor = // Set text color
+                if let backgroundview = textfield.subviews.first {
+                    
+                    // Background color
+                    backgroundview.backgroundColor = UIColor.white
+                    
+                    // Rounded corner
+                    backgroundview.layer.cornerRadius = 10
+                    backgroundview.clipsToBounds = true
+                    
+                }
+            }
+            
+//            if let navigationbar = self.navigationController?.navigationBar {
+//                navigationbar.barTintColor = UIColor.blue
+//            }
+            navigationItem.searchController = search
+//            navigationItem.hidesSearchBarWhenScrolling = true
+            
+        } else {
+            search.searchBar.backgroundColor = UIColor.white
+        }
     }
     
     func searchBarIsEmpty() -> Bool {
@@ -131,7 +172,7 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     
     private func setupMoreOptions() {
         let button = UIButton(type: .custom)
-        button.backgroundColor = .white
+        button.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
         button.translatesAutoresizingMaskIntoConstraints = false
         let moreOptionsImage = UIImage(named: "hamburger")
         button.setImage(moreOptionsImage, for: .normal)
@@ -306,6 +347,14 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 extension WorkoutListController: UISearchResultsUpdating {
     // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchController: UISearchController) {
+//        if searchBarIsEmpty() {
+////            self.collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0),
+////                                              at: .top,
+////                                              animated: true)
+//            if let attributes = collectionView.collectionViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0)) {
+//                collectionView.setContentOffset(CGPoint(x: 0, y: attributes.frame.origin.y - collectionView.contentInset.top), animated: true)
+//            }
+//        }
         filterContentForSearchText(searchController.searchBar.text!)
     }
 }

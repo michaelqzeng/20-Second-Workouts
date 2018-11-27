@@ -1,35 +1,38 @@
 {
           "Dumbbell Chest Fly": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Lie down on bench flat bench, with dumbbell in each hand. Palms facing each other",
+                "Press dumbbells up. This will be starting position",
+                "With a slight bend in elbows, inhale and lower arms out at both sides in a wide arc until you feel stretch on chest",
+                "Exhale and return to starting position"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Use arms to perform movement. Only shoulder joints should be moving"
               ]
           },
           "Flat Barbell Bench Press": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Grip the bar about shoulder width",
+                "Lift bar from rack, hold straight over chest with arms locked. This is starting position",
+                "Inhale and lower bar slowly, until it touches your middle chest",
+                "Exhale and push bar back up to starting position using your chest muscles",
+                "Lock arms and squeeze chest at top for a second"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Bench heavy weight without a spotter",
+                "Bounce weight off chest. Be in control of barbell and weight the entire time",
+                "Let the barbell drift away from the middle of chest"
               ]
           },
           "Flat Dumbbell Press": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Lie down on bench with dumbbells in each hand resting on top of thighs, palms facing each other",
+                "Kick dumbbells up with thighs, hold at shoulder width and rotate dumbbells so palms face away from you. Make sure your elbow forms 90º",
+                "Exhale and push dumbbells up. Lock at top and squeeze for a second"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Bounce weights at top. Maintain control of weights",
+                "Drop dumbbells next to you while laying down. This can cause injury"
               ]
           }
 }

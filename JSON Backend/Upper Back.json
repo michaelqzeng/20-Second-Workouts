@@ -1,13 +1,26 @@
 {
           "One-Arm Dumbbell Row": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Place hand and knee from the same side on bench, keeping back straight and parallel to ground",
+                "Grab dumbbell with opposite hand, palm facing towards body. Keep elbow at side and arm fully extended. This is starting position",
+                "Exhale and pull resistance straight up the side of body. Squeeze back for a second at top. Keep arm close to body, and torso straight as you do this",
+                "Inhale and slowly return to starting position"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Use your arms to pull the weight. Try to focus on using your back"
+              ]
+          },
+          "Pull-Up": {
+              "What to do": [
+                  "Grab and hang off pull-up bar with both hands, a little wider than shoulder-width apart. Palms are facing away from you",
+                  "Pull shoulder blades back and stick chest out, creating a curvature on lower back. This is starting position",
+                  "Exhale and pull yourself up until your upper chest touches the bar. Hold for a second",
+                  "Inhale and slowly return to starting position"
+              ],
+              "Do NOT": [
+                  "Swing to generate momentum. Control your movement",
+                  "Fall on the way down. Control the movement on the way down",
+                  "Have rounded shoulders when pulling up. Shoulders should be pressed back"
               ]
           }
 }

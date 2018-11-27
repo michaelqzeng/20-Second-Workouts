@@ -1,35 +1,37 @@
 {
-          "Reverse Crunch": {
-            "What to do": [
-                "Step 1",
-                "Step 2"
-              ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
-              ]
-          },
-          "Mountain Climber": {
-            "What to do": [
-                "Step 1",
-                "Step 2"
-              ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
-              ]
-          },
-          "Bicycle": {
-            "What to do": [
-                "Step 1",
-                "Step 2"
-              ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
-              ]
-          }
+    "Reverse Crunch": {
+        "What to do": [
+            "Lie down on the floor with legs fully extended, arms to your sides, and palms on the floor",
+            "Lift legs into air with hips and knees bent at 90º. This is starting position",
+            "Exhale and use lower abs to curl hips off floor into chest, maintaining form",
+            "For advanced, push straight up and fully extend legs, squeezing your abs",
+            "Lower back down to starting position"
+        ],
+        "Do NOT": [
+            "Use momentum to swing your legs. Control is key"
+        ]
+    },
+    "Cross Body Mountain Climber": {
+    "What to do": [
+        "Get in push-up position, with hands slightly wider than shoulder-width",
+        "Tighten your core. Your body should form a straight line",
+        "Bring one knee towards the opposite elbow",
+        "Return to push-up position"
+      ],
+    "Do NOT": [
+        "Loosen up your core. Your abs should be contracted the entire time"
+      ]
+    },
+    "Bicycle": {
+    "What to do": [
+        "Lie on back with both hands behind head",
+        "Crunch up and pull right knee in towards chest, and extend left leg out 6-12 inches off ground",
+        "Twist left elbow towards right knee",
+        "Use pedaling motion to switch position of legs, and twist right elbow towards left knee"
+      ],
+    "Do NOT": [
+        "Perform the exercise too fast. Focus on form and breathing",
+        "Touch elbows to knees if it causes strain in neck. Avoid far range of motion if it causes train in neck"
+      ]
+    }
 }

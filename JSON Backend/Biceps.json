@@ -1,46 +1,51 @@
 {
           "Barbell Bicep Curl": {
             "What to do": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+                "Grab barbell with palms facing forward, arms fully extended",
+                "Push shoulders back, so that your ear and shoulder are aligned. This is starting position",
+                "Exhale and curl the barbell up until barbell is at shoulder level",
+                "Lower the barbell until triceps are flexed for full range of motion"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Rotate your shoulders internally towards the center of your body",
+                "Swing your body to help you curl"
               ]
           },
           "Hammer Curl": {
               "What to do": [
-                  "Step 1",
-                  "Step 2",
-                  "Step 3"
+                  "Grab dumbbells with palms facing each other, arms fully extended",
+                  "Push shoulders back, so that your ear and shoulder are aligned. This is starting position",
+                  "Exhale and curl the barbell up until dumbbell is at shoulder level. Elbows and upper arms should be vertically in-line",
+                  "Inhale and lower the barbell back down to starting position"
               ],
-              "Common Mistakes": [
-                  "Step 1",
-                  "Step 2",
-                  "Step 3"
+              "Do NOT": [
+                  "Rotate your shoulders internally towards the center of your body",
+                  "Swing your body to help you curl",
+                  "Let your wrists slip. Keep them tight and straight"
               ]
           },
           "Incline Dumbbell Curl": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Sit back into a 45º inclined bench, with dumbbell in each hand.",
+                "Keep elbows close to torso, rotate palms until they are facing forward. This is starting position",
+                "Exhale and curl the barbell up until dumbbell is at shoulder level. Elbows and upper arms should be vertically in-line",
+                "Inhale and lower the dumbbell back down to starting position"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2"
+            "Do NOT": [
+                "Flare elbows out",
+                "Swing your body to help you curl"
               ]
           },
           "Dumbbell Bicep Curl": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Grab dumbbells with palms facing forward, arms fully extended",
+                "Push shoulders back, so that your ear and shoulder are aligned. This is starting position",
+                "Exhale and curl the barbell up until dumbbell is at shoulder level. Elbows and upper arms should be vertically in-line",
+                "Inhale and lower the barbell back down to starting position"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2"
+            "Do NOT": [
+                "Rotate your shoulders internally towards the center of your body",
+                "Swing your body to help you curl"
               ]
           }
 }

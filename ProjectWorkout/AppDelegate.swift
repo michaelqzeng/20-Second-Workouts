@@ -41,11 +41,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.backgroundColor = .white
 
         // Navigation bar at top
-        UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 255, green: 255, blue: 255)
+        UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 191, green: 192, blue: 193)
 
         // get rid of black bar underneath navigation bar
-        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+//        UINavigationBar.appearance().shadowImage = UIImage()
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        // swiftlint:disable:next force_cast
+        let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
+        if statusBar.responds(to: #selector(setter: UIView.backgroundColor)) {
+            statusBar.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
+        }
         
         return true
     }

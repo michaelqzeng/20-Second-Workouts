@@ -1,14 +1,13 @@
 {
           "Single-Leg Calf Raise": {
-            "What to do": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+              "What to do": [
+                  "Place toes and balls of feet on an elevated platform, with heels and arches hanging off",
+                  "Lift other leg up to rear by bending knee",
+                  "Exhale and raise heel by extending ankle as high as possible",
+                  "Inhale and slowly lower heel by bending ankle until calf is being stretched"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+              "Do NOT": [
+                  "Bend knee as you raise heel during exension of ankle"
               ]
           }
 }

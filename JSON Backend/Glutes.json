@@ -1,46 +1,51 @@
 {
           "Fire Hydrant": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Position hands and knees on ground, with knees at 90º. This is starting position",
+                "Using outer thigh and glutes, exhale and lift one knee out and up until it is level with hips. Keep knee bent at 90º",
+                "Pause at top, then inhale and slowly return to starting position"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Arch back",
+                "Let weight shift over to the support side",
+                "Raise leg higher than hips"
               ]
           },
           "Glute Kickback": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Kneel on floor with arms extended in front of you, shoulder-width apart. Keep lower back aligned with shoulders. This is starting position",
+                "Using your glute, lift one leg backwards until it is in line with back. Hold at top for a second",
+                "Return to starting position"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Let back arch. Be sure to keep back flat and aligned with shoulders",
+                "Let too much weight past hands. The spine should stay long and even with tailbone"
               ]
           },
           "Glute Bridge": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Lie with back on floor in a bent-knee position, with feet shoulder-width apart and flat on ground",
+                "Using your core, flatten your lower back into the ground. This is starting position",
+                "Using your glutes and core, exhale and press your hips upwards off the floor. Press with heels for stability"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Press hips too high and over-arch your back"
               ]
           },
           "Barbell Squat": {
               "What to do": [
-                  "Step 1",
-                  "Step 2"
+                  "Position squat rack so bar is a few inches lower than shoulders",
+                  "Pinch shoulder blades together. Raise chest up. Tighten core. Rest center of bar on shoulders at base of neck. Position feet shoulder-width apart, turned out about 30º",
+                  "Grab bar with medium grip, just outside shoulders. Unrack bar while keeping heels on floor. Walk back by taking a step with each leg",
+                  "Inhale and squat down as far as possible while maintaining form, so that knees bend outward.Bar should always move in vertical line over mid-foot. Knees should bend outwards. Chest should end at 45º",
+                  "Exhale and squat up by moving hips and chest straight up (not forward) and pushing knees out. At the top, lock knees and hips"
               ],
-              "Common Mistakes": [
-                  "Step 1",
-                  "Step 2",
-                  "Step 3"
+              "Do NOT": [
+                  "Workout through pain",
+                  "Use your neck to hold the bar",
+                  "Allow knees to cave in while squatting",
+                  "Round your lower back. Make sure toes and knees are out, and feet and shoulder-width apart",
+                  "Lean forward, or allow heels to come up"
               ]
           }
 }

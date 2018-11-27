@@ -18,6 +18,9 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
     let pageLabel = UILabel()
     let search: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
+//        search.searchBar.backgroundColor = UIColor.white
+        
+        search.hidesNavigationBarDuringPresentation = true
         return search
     }()
     
@@ -75,6 +78,37 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
         search.obscuresBackgroundDuringPresentation = false
         search.searchResultsUpdater = self
         definesPresentationContext = true
+        
+        if #available(iOS 11.0, *) {
+            //            let sc = UISearchController(searchResultsController: nil)
+            //            sc.delegate = self
+            let scb = search.searchBar
+            scb.tintColor = UIColor.white
+            scb.barTintColor = UIColor.white
+            
+            if let textfield = scb.value(forKey: "searchField") as? UITextField {
+                //textfield.textColor = // Set text color
+                if let backgroundview = textfield.subviews.first {
+                    
+                    // Background color
+                    backgroundview.backgroundColor = UIColor.white
+                    
+                    // Rounded corner
+                    backgroundview.layer.cornerRadius = 10
+                    backgroundview.clipsToBounds = true
+                    
+                }
+            }
+            
+            //            if let navigationbar = self.navigationController?.navigationBar {
+            //                navigationbar.barTintColor = UIColor.blue
+            //            }
+            navigationItem.searchController = search
+            //            navigationItem.hidesSearchBarWhenScrolling = true
+            
+        } else {
+            search.searchBar.backgroundColor = UIColor.white
+        }
     }
     
     func searchBarIsEmpty() -> Bool {
@@ -101,7 +135,7 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
     
     private func setupMoreOptions() {
         let button = UIButton(type: .custom)
-        button.backgroundColor = .white
+        button.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
         button.translatesAutoresizingMaskIntoConstraints = false
         let moreOptionsImage = UIImage(named: "hamburger")
         button.setImage(moreOptionsImage, for: .normal)
@@ -119,7 +153,13 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
     func favoriteCell(cell: WorkoutCell) {
         guard let indexPath = collectionView?.indexPath(for: cell) else {return}
         
-        let workout = workouts[indexPath.section][indexPath.item]
+        let workout: NSManagedObject
+        
+        if isFiltering() {
+            workout = filteredWorkouts[indexPath.row]
+        } else {
+            workout = workouts[indexPath.section][indexPath.item]
+        }
         
         let isCurFavorited = workout.value(forKey: "hasFavorited") as? String
         
@@ -139,7 +179,7 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
         let size = (navigationController?.navigationBar.frame.height)! - 10
         pageLabel.attributedText = "Favorites".convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
         
-        pageLabel.backgroundColor = .white
+        pageLabel.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
         pageLabel.sizeToFit()
         navigationItem.titleView = pageLabel
     }
@@ -268,7 +308,6 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
             sectionHeaderView.headerLabel.attributedText = "  Result".convertToNSAtrributredString(size: 25, color: .black)
         } else {
             let muscleGroup = "  " + muscleGroups[indexPath.section]
-            
             sectionHeaderView.headerLabel.attributedText = muscleGroup.convertToNSAtrributredString(size: 25, color: .black)
         }
         //        print(subgroup)

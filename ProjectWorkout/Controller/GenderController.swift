@@ -29,6 +29,7 @@ class GenderController: UIViewController {
 //        maleOption.backgroundColor = .white
         maleOption.translatesAutoresizingMaskIntoConstraints = false
         maleOption.setAttributedTitle("Male".convertToNSAtrributredString(size: 40, color: .white), for: .normal)
+//        maleOption.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
         return maleOption
     }()
     
@@ -100,12 +101,11 @@ class GenderController: UIViewController {
         bottomImageContainerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 2/7).isActive = true
         
         bottomImageContainerView.addSubview(maleLabel)
-        
+
         maleLabel.topAnchor.constraint(equalTo: bottomImageContainerView.topAnchor).isActive = true
-//        maleLabel.leadingAnchor.constraint(equalTo: bottomImageContainerView.leadingAnchor, constant: screenWidth/9).isActive = true
         let insetA = self.view.frame.width/9
         let insetB = self.view.frame.height/9
-        
+
         if UIDevice.current.orientation.isLandscape {
             maleWidthAnchorA = maleLabel.leadingAnchor.constraint(equalTo: bottomImageContainerView.leadingAnchor, constant: insetB)
             maleWidthAnchorB = maleLabel.leadingAnchor.constraint(equalTo: bottomImageContainerView.leadingAnchor, constant: insetA)
@@ -113,9 +113,9 @@ class GenderController: UIViewController {
             maleWidthAnchorA = maleLabel.leadingAnchor.constraint(equalTo: bottomImageContainerView.leadingAnchor, constant: insetA)
             maleWidthAnchorB = maleLabel.leadingAnchor.constraint(equalTo: bottomImageContainerView.leadingAnchor, constant: insetB)
         }
-        
+
         maleWidthAnchorA?.isActive = true
-        
+
         maleLabel.addTarget(self, action: #selector(selectMale(sender:)), for: .touchUpInside)
     }
     

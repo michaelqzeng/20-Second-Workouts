@@ -1,35 +1,42 @@
 {
           "Lunges": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Inhale and step one foot in front of the other so that front knee has a 90º bend, and back knee is almost touching the ground",
+                "Back knee should also be behind the back, at the bottom of the workout",
+                "Exhale and push off with your back foot's toe to go back up"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Let knees go too far past toe, to prevent stress on knees"
               ]
           },
           "Dumbbell Step-Up": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Stand straight up behind elevated platform, grasping a dumbbell in each hand at your sides",
+                "Inhale and place right foot on the elevated platform. This is starting position",
+                "Exhale and drive body up to platform through right heel, keeping left leg straight",
+                "Return to starting position by stepping down, one leg at a time"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Using the wrong height. The elevated platform should be about knee height",
+                "Pushing off rear leg when stepping up. Keep rear leg straight to reduce pushing off it",
+                "Use toes. Stay consistent stepping up with heels"
               ]
           },
           "Barbell Squat": {
               "What to do": [
-                  "Step 1",
-                  "Step 2"
+                  "Set up the squat rack so that the bar is a few inches lower than your shoulders",
+                  "Squeeze your shoulder blades together, raise your chest, and position yourself diretly underneath the center of bar so that it is high up on your shoulders, at the base of your neck",
+                  "Place hands on bar with a medium grip, just outside shoulders. Feet are shoulder-width apart, and turned out to about 30º",
+                  "Unrack the bar by squatting up, keeping heels on floor. Walk back by taking a step with each leg",
+                  "Inhale and squat down as far as you can while maintaining form and control. The bar should move in a vertical line over your mid-foot. Your knees should should be moving progressively further apart, and your chest should be at 45º",
+                  "Exhale and squat back up by moving your hips and chest straight up (not forward) and pushing your knees out. The bar should move in a vertical line over your mid-foot again. At the top, lock your knees and hips"
               ],
-              "Common Mistakes": [
-                  "Step 1",
-                  "Step 2",
-                  "Step 3"
+              "Do NOT": [
+                  "Workout through pain",
+                  "Use your neck to hold the bar",
+                  "Allow knees to cave in while squatting",
+                  "Round your lower back. Make sure toes and knees are out, and feet and shoulder-width apart",
+                  "Lean forward, or allow heels to come up"
               ]
           }
 }

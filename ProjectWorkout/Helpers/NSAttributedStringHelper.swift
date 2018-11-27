@@ -22,9 +22,10 @@ class NSAttributedStringHelper {
         }
         
         for index in 0..<strings.count {
-//            let bulletPoint: String = "\u{2022}"
-//            var formattedString: String = "\(bulletPoint) \(strings[index])"
-            var formattedString: String = "\(index+1). \(strings[index])"
+            let bulletPoint: String = "\u{2022}"
+            var formattedString: String = "\(bulletPoint) \(strings[index])"
+//            var formattedString: String = "\(index+1). \(strings[index])"
+//            var formattedString: String = "   \(strings[index])"
             
             if index < strings.count - 1 {
                 formattedString = "\(formattedString)\n\n"

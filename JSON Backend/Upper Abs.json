@@ -1,13 +1,14 @@
 {
-          "Crunch": {
-            "What to do": [
-                "Step 1",
-                "Step 2"
-              ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
-              ]
-          }
+    "Crunch": {
+        "What to do": [
+            "Lie on your back, with feet flat on the floor and knees bent at 90º",
+            "Keep hands behind head, and chin neutral",
+            "Exhale and use your abs to crunch up. Hold for 1-2 seconds",
+            "Slowly return to floor and immediately crunch again, keeping your abs contracted"
+          ],
+        "Do NOT": [
+            "Look down as your crunch. This can strain your neck",
+            "Use your hands to pull on neck, when crunching"
+          ]
+    }
 }

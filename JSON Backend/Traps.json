@@ -1,13 +1,13 @@
 {
           "Shrug": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Stand upright with dumbbell in each hand, arms extended, palms facing each other. This is starting position",
+                "Exhale and shrug to lift the dumbbells as high as your can. Hold contraction for a second",
+                "Return to starting position"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Use biceps to pull up dumbbells",
+                "Allow your arms to become unextended. Only the shoulders should be moving"
               ]
           }
 }

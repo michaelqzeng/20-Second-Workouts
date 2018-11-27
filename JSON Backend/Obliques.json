@@ -1,24 +1,26 @@
 {
-          "Dumbbell Side Bend": {
-            "What to do": [
-                "Step 1",
-                "Step 2"
-              ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
-              ]
-          },
-          "Side Crunch": {
-            "What to do": [
-                "Step 1",
-                "Step 2"
-              ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
-              ]
-          }
+    "Side Bend": {
+        "What to do": [
+            "Stand with feet shoulder-width apart, with a dumbbell in right hand, left hand on oblique",
+            "Inhale and stretch down to right",
+            "Exhale and contract your oblique as you move up and to the left",
+            "Switch sides with weight"
+          ],
+        "Do NOT": [
+            "Bend at knees. Keep your legs straight the entire time",
+            "Bend forward or backwards. Only bend from side to side"
+          ]
+    },
+    "Side Crunch": {
+        "What to do": [
+            "Lie on your back, with feet flat on the floor and knees bent at 90º",
+            "Keep hands behind head, and chin neutral",
+            "Using obliques, exhale and twist elbow into the opposite side",
+            "Inhale and return down"
+          ],
+        "Do NOT": [
+            "Look down as you crunch. This can strain your neck",
+            "Use your hands to pull on neck, when crunching"
+          ]
+    }
 }

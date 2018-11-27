@@ -1,24 +1,30 @@
 {
           "Decline Barbell Bench Press": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Secure legs at top of decline bench, and lay down slowly",
+                "Grip bar tight, slightly wider than shoulder width, and unrack",
+                "Bring directly over yourself, arms straight",
+                "Inhale and slowly lower bar to lower chest",
+                "Exhale and drive bar back up"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Let bar drift too far forward. Only touch lower chest",
+                "Use too much weight without a spotter",
+                "Bounce weight off chest"
               ]
           },
           "Decline Dumbbell Press": {
             "What to do": [
-                "Step 1",
-                "Step 2"
+                "Secure legs at top of decline bench, and lay down slowly with dumbbells in each hand on top of thighs",
+                "Move dumbbells in front of you, about shoulder width",
+                "Rotate dumbbells so palms face away from you",
+                "Inhale and lower dumbbells down to your side. Keep forearms perpendicular to floor",
+                "Exhale and push dumbbells up. Once at top, lock arms and squeeze chest"
               ],
-            "Common Mistakes": [
-                "Step 1",
-                "Step 2",
-                "Step 3"
+            "Do NOT": [
+                "Drop dumbbells next to you while laying down. This can cause injury",
+                "Bounce dumbbells at top, or lose control of dumbbells",
+                "Do heavy weight without a spotter"
               ]
           }
 }

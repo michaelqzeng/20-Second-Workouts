@@ -18,6 +18,8 @@ class ContentController: UIViewController {
     // workout variable
     var workout: NSManagedObject?
     
+    private let kSeparatorId = 123
+    private let kSeparatorHeight: CGFloat = 1.5
     let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
     let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
     let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
@@ -28,13 +30,10 @@ class ContentController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-//    var videoView = UIView()
-//    var videoView = UIWebView()
     var videoView: WKWebView!
-    weak var collectionView: UICollectionView!
+    weak var tableView: UITableView!
     lazy var content: [Content] = {
         var content = Json.parseFile(muscleSubgroup: self.muscleSubgroup, specificWorkout: self.specificWorkoutName)
-//        content.reverse()
         return content
     }()
     
@@ -42,13 +41,11 @@ class ContentController: UIViewController {
     fileprivate var videoHeightL: NSLayoutConstraint?
     
     override func viewDidLoad() {
-        
-//        setupScrollView()
-        setupMoreOptions()
-//        setupPageLabel()
+
+        setupMoreOptionsButton()
         setupVideo()
         setupPageLabel()
-        setupCollectionView()
+        setupTableView()
         setupFavButton()
         
         view.backgroundColor = .white
@@ -73,6 +70,8 @@ class ContentController: UIViewController {
         videoView = WKWebView(frame: CGRect.zero, configuration: webViewConfiguration)
         let myURL = URL(string: "https://www.youtube.com/embed/\(videoLink)?playsinline=1")
         let youtubeRequest = URLRequest(url: myURL!)
+        
+//        videoView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         view.addSubview(videoView)
         videoView.backgroundColor = .black
@@ -138,10 +137,11 @@ class ContentController: UIViewController {
     
     private func setupPageLabel() {
         
-        let text = specificWorkoutName + " - " + muscleSubgroup
+//        let text = specificWorkoutName + " - " + muscleSubgroup
+        let text = specificWorkoutName
         let size = CGFloat(27)
         pageLabel.attributedText = text.convertToNSAtrributredString(size: size, color: UIColor.black)
-        pageLabel.backgroundColor = .white
+        pageLabel.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
         pageLabel.textAlignment = .center
         pageLabel.lineBreakMode = .byWordWrapping
         pageLabel.numberOfLines = 0
@@ -152,31 +152,55 @@ class ContentController: UIViewController {
         pageLabel.sizeToFit()
         pageLabel.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
         pageLabel.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
+        
+        if pageLabel.viewWithTag(kSeparatorId) == nil //add separator only once
+        {
+            let separatorView = UIView(frame: CGRect(x: 0, y: pageLabel.frame.height - kSeparatorHeight, width: pageLabel.frame.width, height: kSeparatorHeight))
+            separatorView.tag = kSeparatorId
+            separatorView.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
+            separatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            pageLabel.addSubview(separatorView)
+        }
 
     }
     
-    private func setupCollectionView() {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(collectionView)
+    private func setupTableView() {
+        let tableView = UITableView(frame: .zero, style: UITableView.Style.plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(tableView)
         
-        collectionView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor).isActive = true
-//        collectionView.topAnchor.constraint(equalTo: videoView.bottomAnchor).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
+        // Set up separator line between pageLabel and our table view
+//        let pix = 1 / UIScreen.main.scale
+//        let line = UIView()
+//        line.translatesAutoresizingMaskIntoConstraints = false
+//        self.view.addSubview(line)
+//        line.heightAnchor.constraint(equalToConstant: pix).isActive = true
+//        line.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+//        line.topAnchor.constraint(equalTo: pageLabel.bottomAnchor).isActive = true
+//        line.backgroundColor = tableView.separatorColor
         
-        self.collectionView = collectionView
-        self.collectionView.backgroundColor = .white
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
+        // Connect table view to separator line
+        tableView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.safeLeadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.safeTrailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = UIColor.rgb(red: 191, green: 192, blue: 193)
+        tableView.allowsSelection = false
+        tableView.tableFooterView = UIView()
         
-        self.collectionView.register(ContentCell.self, forCellWithReuseIdentifier: "cellId")
+        // Assign created tableview to our tableview var
+        self.tableView = tableView
+        self.tableView.backgroundColor = .white
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.register(ContentCell.self, forCellReuseIdentifier: "cellId")
     }
     
-    private func setupMoreOptions() {
+    private func setupMoreOptionsButton() {
         let button = UIButton(type: .custom)
-        button.backgroundColor = .white
+        button.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
         button.translatesAutoresizingMaskIntoConstraints = false
         let moreOptionsImage = UIImage(named: "hamburger")
         button.setImage(moreOptionsImage, for: .normal)
@@ -194,9 +218,10 @@ class ContentController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        collectionView.collectionViewLayout.invalidateLayout()
+//        collectionView.collectionViewLayout.invalidateLayout()
+        
     }
-    
+        
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
 //        collectionView.collectionViewLayout.invalidateLayout()
         
@@ -219,49 +244,46 @@ class ContentController: UIViewController {
     }
 }
 
-extension ContentController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension ContentController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return content.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as? ContentCell else {
-            fatalError("Misconfigured cell type, \(collectionView)!")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as? ContentCell else {
+            fatalError("Misconfigured cell type, \(tableView)!")
         }
         cell.content = content[indexPath.row]
-//        cell.backgroundColor = .black
-//        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 5))
-//        cell.addSubview(image)
+        
+        if cell.viewWithTag(kSeparatorId) == nil //add separator only once
+        {
+            let separatorView = UIView(frame: CGRect(x: 0, y: cell.frame.height - kSeparatorHeight, width: cell.frame.width, height: kSeparatorHeight))
+            separatorView.tag = kSeparatorId
+            separatorView.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
+            separatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            cell.addSubview(separatorView)
+        }
+        
         return cell
     }
-    
 }
 
-extension ContentController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+extension ContentController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var numOfChars = 0
         for sentence in content[indexPath.row].content! {
-            numOfChars += sentence.count + 70
+            numOfChars += sentence.count + 75
         }
         let numOfLines = numOfChars / 30
-//        print(numOfChars, numOfLines)
         // Every 2 lines amounts to 30 pixels in height
-        let height = (numOfLines/2) * 30
-//        let height = view.frame.width * 9/16
-//        print(height)
-        return CGSize(width: view.frame.width, height: CGFloat(height))
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-}
-
-extension ContentController: UICollectionViewDelegateFlowLayout {
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
+        var height = (numOfLines/2) * 30
         
-        collectionView?.collectionViewLayout.invalidateLayout()
+        // Add extra space to Do NOT section
+        if content[indexPath.row].subtitle == "Do NOT" {
+            height += 15
+        }
         
+        return CGFloat(height)
     }
 }

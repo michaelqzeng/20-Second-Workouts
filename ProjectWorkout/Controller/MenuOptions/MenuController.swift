@@ -26,9 +26,9 @@ extension MenuController {
 class MenuController: UITableViewController {
 
     var menuItems = [
-        MenuItem(icon: UIImage(named: "male_arms")!, title: "Home"),
-        MenuItem(icon: UIImage(named: "male_arms")!, title: "Favorites"),
-        MenuItem(icon: UIImage(named: "male_arms")!, title: "Switch Genders")
+        MenuItem(icon: UIImage(named: "home-icon")!, title: "Home"),
+        MenuItem(icon: UIImage(named: "favorites-icon")!, title: "Favorites"),
+        MenuItem(icon: UIImage(named: "gender-icon")!, title: "Switch Genders")
         ]
 
     override func viewDidLoad() {
