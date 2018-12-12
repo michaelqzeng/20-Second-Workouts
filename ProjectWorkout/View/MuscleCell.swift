@@ -31,7 +31,13 @@ class BaseCell: UICollectionViewCell {
 class MuscleCell: BaseCell {
     
 //    let size = UIScreen.main.bounds.height/18
-    let size = CGFloat(35)
+    let size = CGFloat(38)
+//    let size: CGFloat = {
+//        if UIDevice.current.userInterfaceIdiom == .pad {
+//            return CGFloat(48)
+//        }
+//        return CGFloat(38)
+//    }()
     
     var displayName: String? {
         didSet {
@@ -68,13 +74,14 @@ class MuscleCell: BaseCell {
         imageview.layoutIfNeeded()
         imageview.layer.cornerRadius = 20
         imageview.layer.masksToBounds = true
+//        imageview.layer.borderWidth = 5.0
+//        imageview.layer.borderColor = UIColor.rgb(red: 191, green: 192, blue: 193).withAlphaComponent(0.8).cgColor
         return imageview
     }()
     
     // View for favorite button
     let favoriteButtonView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-//        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .gray
         view.alpha = 0.8
@@ -88,11 +95,6 @@ class MuscleCell: BaseCell {
         imageView.backgroundColor = .clear
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.alpha = 0.8
-//        print(imageView.frame.height)
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.layer.cornerRadius = imageView.frame.height/2
-//        imageView.clipsToBounds = true
-//        imageView.layer.masksToBounds = false
         return imageView
     }()
     
@@ -119,20 +121,9 @@ class MuscleCell: BaseCell {
     override func setupViews() {
         super.setupViews()
         
-//        self.backgroundColor = .white
         setupSections()
         setupCell()
         
-        // add muscle image
-//        addSubview(thumbnailImageView)
-        // 80 pixels from top, 57 pixels from left and right
-//        addConstraintsWithFormat(format: "V:|-25-[v0]|", views: thumbnailImageView)
-//        addConstraintsWithFormat(format: "H:|-35-[v0]-35-|", views: thumbnailImageView)
-        
-        // add muscle name
-//        addSubview(thumbnailLabel)
-        // anchor to center of thumbnail imageview
-//        thumbnailLabel.centerAnchor(to: thumbnailImageView)
     }
     
     override func setupSections() {
@@ -140,11 +131,24 @@ class MuscleCell: BaseCell {
     }
     
     private func setupCell() {
+        let borderView = UIView()
+        borderView.translatesAutoresizingMaskIntoConstraints = false
+        borderView.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
+        borderView.alpha = 0.4
+        self.addSubview(borderView)
+        borderView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 19/24).isActive = true
+        borderView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 4/5).isActive = true
+        borderView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        borderView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        borderView.layoutIfNeeded()
+        borderView.layer.cornerRadius = 20
+        borderView.layer.masksToBounds = true
+        
         self.addSubview(thumbnailImageView)
-        thumbnailImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 5/6).isActive = true
-        thumbnailImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 4/5).isActive = true
-        thumbnailImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        thumbnailImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        thumbnailImageView.widthAnchor.constraint(equalTo: borderView.widthAnchor, constant: -8).isActive = true
+        thumbnailImageView.heightAnchor.constraint(equalTo: borderView.heightAnchor, constant: -8).isActive = true
+        thumbnailImageView.centerXAnchor.constraint(equalTo: borderView.centerXAnchor).isActive = true
+        thumbnailImageView.centerYAnchor.constraint(equalTo: borderView.centerYAnchor).isActive = true
 
         self.addSubview(thumbnailLabel)
         thumbnailLabel.centerAnchor(to: thumbnailImageView)

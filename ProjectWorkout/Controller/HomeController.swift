@@ -11,27 +11,15 @@ import CoreData
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
-    let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
-    let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
-    let whiteView = UIView()
-    let pageLabel = UILabel()
-    let search: UISearchController = {
-        let search = UISearchController(searchResultsController: nil)
-        //        search.hidesNavigationBarDuringPresentation = true
-        return search
-    }()
-    let spaceBetweenTopSafeAreaAndPageLabel = 10
-    
-//    var managedObjectContext: NSManagedObjectContext? = nil
+    // List of muscles included in database
     var muscles: [NSManagedObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        print(urls[urls.count-1] as URL)
+//        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        print(urls[urls.count-1] as URL)
         
         setupNavBar()
 //        setupSearchBar()
@@ -44,48 +32,53 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Get muscles and it's corresponding images based on selected gender
         if Defaults.getGender() == "male" {
             muscles = CoreData.retrieveMuscleData(table: "Muscle", gender: "M")
         } else if Defaults.getGender() == "female" {
             muscles = CoreData.retrieveMuscleData(table: "Muscle", gender: "F")
         }
         
-        if #available(iOS 11.0, *) {
-            navigationItem.hidesSearchBarWhenScrolling = false
-        }
-        
+        // Reload data with most recent data
         collectionView?.reloadData()
 
+        // Handles layout changes
         view.layoutIfNeeded()
-
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if #available(iOS 11.0, *) {
-            navigationItem.hidesSearchBarWhenScrolling = true
-        }
+    
+    // MARK: Page Label
+    let pageLabel = UILabel()
+    
+    private func setupPageLabel() {
+        let text = "Home"
+        let size = (navigationController?.navigationBar.frame.height)! - 7
+        pageLabel.attributedText = text.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
+        pageLabel.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
+        pageLabel.sizeToFit()
+        navigationItem.titleView = pageLabel
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-
-    private func setupNavBar() {
-        self.navigationController?.navigationBar.isTranslucent = false
-//        self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 191, green: 192, blue: 193)
-    }
-
+    
+    // MARK: Search Controller
+    let search: UISearchController = {
+        let search = UISearchController(searchResultsController: nil)
+        //        search.hidesNavigationBarDuringPresentation = true
+        return search
+    }()
+    
     private func setupSearchBar() {
         navigationItem.searchController = search
         search.searchBar.placeholder = "Search Muscles"
         search.obscuresBackgroundDuringPresentation = false
-//        search.searchResultsUpdater = self
+        //        search.searchResultsUpdater = self
         definesPresentationContext = true
-
+    }
+    
+    // MARK: Navigation Bar
+    private func setupNavBar() {
+        self.navigationController?.navigationBar.isTranslucent = false
     }
 
+    // MARK: Options Button
     private func setupMoreOptions() {
         let button = UIButton(type: .custom)
         button.backgroundColor = .white
@@ -101,19 +94,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     @objc private func handleMoreOptions() {
-//        self.delegate?.openMenu()
         (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingController)?.openMenu()
     }
 
-    private func setupPageLabel() {
-        let text = "Home"
-        let size = (navigationController?.navigationBar.frame.height)! - 7
-        pageLabel.attributedText = text.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
-        pageLabel.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
-        pageLabel.sizeToFit()
-        navigationItem.titleView = pageLabel
-    }
-
+    // MARK: Collection View
     private func setupCollectionView() {
         // register videocell as our cells for our collectionview
         collectionView?.register(MuscleCell.self, forCellWithReuseIdentifier: "cellId")
@@ -127,21 +111,25 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
     }
 
-    // MARK: UICollectionView override delegation methods
+    // MARK: Collection View override delegation methods
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Cast cell into a MuscleCell
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as? MuscleCell else {
             fatalError("Misconfigured cell type, \(collectionView)!")
         }
+        
+        // Load muscle cell from list, and create next view controller w/ defined header size
         let muscle = muscles[indexPath.item]
-        let height = cell.frame.height/6
-        let width = cell.frame.width
         let layout = UICollectionViewFlowLayout()
-        layout.headerReferenceSize = CGSize(width: width, height: height)
+        let headerHeight = cell.frame.height/6
+        let headerWidth = cell.frame.width
+        layout.headerReferenceSize = CGSize(width: headerWidth, height: headerHeight)
         let workoutListVC = WorkoutListController(collectionViewLayout: layout)
-        // pass muscle type data into workout list
+        
+        // Pass selected muscle information to our newly created WorkoutList controller
         workoutListVC.muscleType = muscle.value(forKey: "displayName") as? String
 
-        // Change the back button look
+        // Back Button customization
         let backItem = UIBarButtonItem()
         navigationItem.backBarButtonItem = backItem
         backItem.title = "Home "
@@ -155,18 +143,19 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Load each cell from list of muscles
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as? MuscleCell else {
             fatalError("Misconfigured cell type, \(collectionView)!")
         }
+        
         let muscle = muscles[indexPath.item]
         cell.displayName = muscle.value(forKeyPath: "displayName") as? String
         cell.imageName = muscle.value(forKeyPath: "imageName") as? String
         return cell
     }
 
-    // define size of each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // conform to 16 by 9 standard. subtract left and right padding
+        // Define size of each cell. Conform to 16 by 9 standard
         let width = view.frame.width
         let height = width * 9/16
         return CGSize(width: width, height: height)
@@ -174,6 +163,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        // Reload layout if we have an empty set of muscles?
         if muscles.isEmpty == false {
             collectionView.collectionViewLayout.invalidateLayout()
         }
@@ -181,13 +171,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-
 //        collectionView?.collectionViewLayout.invalidateLayout()
-
     }
 
-    // remove extra pixel padding between each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        // Remove extra pixel padding between each cell
         return 0
     }
 }

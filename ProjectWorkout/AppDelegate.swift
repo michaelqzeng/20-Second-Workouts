@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-//import Firebase
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,9 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CoreData.preloadData()
 
         // Load FireBase
-//        FirebaseApp.configure()
+        FirebaseApp.configure()
 
-//        Firebase.getURL()
+//        Firebase.getURL(workoutName: "female_bicycle.mp4")
 
 //        let context = self.persistentContainer.viewContext
 

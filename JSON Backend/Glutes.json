@@ -47,5 +47,17 @@
                   "Round your lower back. Make sure toes and knees are out, and feet and shoulder-width apart",
                   "Lean forward, or allow heels to come up"
               ]
+          },
+          "Barbell Hip Thrust": {
+              "What to do": [
+                  "Position yourself on floor, with shoulder blades against the bench. Raise butt a little off floor if needed",
+                  "Place bar parallel with bench directly over hips. Hips should be square and aligned under bar. Spine should be neutral",
+                  "Put elbows on bench and hands on bar",
+                  "Exhale and tighten core, squeeze glutes and drive through your heels to lift hips and bar up",
+                  "Come down smoothly, with core still braced"
+              ],
+              "Do NOT": [
+                  "Throw head back or hyperextend spine when pushing bar up"
+              ]
           }
 }

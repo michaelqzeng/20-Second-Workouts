@@ -16,20 +16,36 @@ class GenderController: UIViewController {
     fileprivate var maleWidthAnchorB: NSLayoutConstraint?
     fileprivate var femaleWidthAnchorB: NSLayoutConstraint?
     
+    let titleSize: CGFloat = 0
+    let buttonSize: CGFloat = 0
+    
     let appNameLabel: UILabel = {
         let label = UILabel()
 //        label.backgroundColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.attributedText = "Fitness".convertToNSAtrributredString(size: 70, color: .black)
+        var size: CGFloat = 0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            size = 70
+        } else {
+            size = 60
+        }
+        label.attributedText = "20 Second Workouts".convertToNSAtrributredString(size: size, color: UIColor.rgb(red: 255, green: 245, blue: 232))
+        label.textAlignment = .center
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
         return label
     }()
     
     let maleLabel: UIButton = {
         let maleOption = UIButton()
-//        maleOption.backgroundColor = .white
         maleOption.translatesAutoresizingMaskIntoConstraints = false
-        maleOption.setAttributedTitle("Male".convertToNSAtrributredString(size: 40, color: .white), for: .normal)
-//        maleOption.backgroundColor = UIColor.darkGray.withAlphaComponent(0.5)
+        var size: CGFloat = 0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            size = 50
+        } else {
+            size = 40
+        }
+        maleOption.setAttributedTitle("Male".convertToNSAtrributredString(size: size, color: .white), for: .normal)
         return maleOption
     }()
     
@@ -37,7 +53,13 @@ class GenderController: UIViewController {
         let femaleOption = UIButton()
 //        femaleOption.backgroundColor = .white
         femaleOption.translatesAutoresizingMaskIntoConstraints = false
-        femaleOption.setAttributedTitle("Female".convertToNSAtrributredString(size: 40, color: .white), for: .normal)
+        var size: CGFloat = 0
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            size = 50
+        } else {
+            size = 40
+        }
+        femaleOption.setAttributedTitle("Female".convertToNSAtrributredString(size: size, color: .white), for: .normal)
         return femaleOption
     }()
     
@@ -57,7 +79,7 @@ class GenderController: UIViewController {
         // screen width and height:
         
         let imageViewBackground = UIImageView(frame: CGRect.zero)
-        imageViewBackground.image = UIImage(named: "home")
+        imageViewBackground.image = UIImage(named: "home-gender-icon3")
         
         view.addSubview(imageViewBackground)
         view.sendSubviewToBack(imageViewBackground)
@@ -77,14 +99,16 @@ class GenderController: UIViewController {
 //        topImageContainerView.backgroundColor = .green
         topImageContainerView.translatesAutoresizingMaskIntoConstraints = false
         topImageContainerView.topAnchor.constraint(equalTo: self.view.safeTopAnchor).isActive = true
-        topImageContainerView.leadingAnchor.constraint(equalTo: self.view.safeLeadingAnchor).isActive = true
-        topImageContainerView.trailingAnchor.constraint(equalTo: self.view.safeTrailingAnchor).isActive = true
+        topImageContainerView.leadingAnchor.constraint(equalTo: self.view.safeLeadingAnchor, constant: 20).isActive = true
+        topImageContainerView.trailingAnchor.constraint(equalTo: self.view.safeTrailingAnchor, constant: -20).isActive = true
         topImageContainerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 3/7).isActive = true
         
         topImageContainerView.addSubview(appNameLabel)
         
-        appNameLabel.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor).isActive = true
-        appNameLabel.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor).isActive = true
+        appNameLabel.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor, constant: 0).isActive = true
+        appNameLabel.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor, constant: 150).isActive = true
+        appNameLabel.leadingAnchor.constraint(equalTo: topImageContainerView.leadingAnchor).isActive = true
+        appNameLabel.trailingAnchor.constraint(equalTo: topImageContainerView.trailingAnchor).isActive = true
 //        appNameLabel.heightAnchor.constraint(equalTo: topImageContainerView.heightAnchor, multiplier: 0.5).isActive = true
         
     }

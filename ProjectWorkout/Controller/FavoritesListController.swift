@@ -12,7 +12,7 @@ import CoreData
 
 class FavoritesListController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
-    let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
+    let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56).withAlphaComponent(0.55)
     let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
     
     let pageLabel = UILabel()
@@ -129,7 +129,7 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
     }
     
     func isFiltering() -> Bool {
-        print(search.isActive && !searchBarIsEmpty())
+//        print(search.isActive && !searchBarIsEmpty())
         return search.isActive && !searchBarIsEmpty()
     }
     
@@ -157,22 +157,57 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
         
         if isFiltering() {
             workout = filteredWorkouts[indexPath.row]
+            
+            let isCurFavorited = workout.value(forKey: "hasFavorited") as? String
+            
+            // update favorited data
+            if isCurFavorited == "TRUE" {
+                CoreData.updateFavoriteData(workout: workout, to: "FALSE")
+                filteredWorkouts.remove(at: indexPath.row)
+            } else if isCurFavorited == "FALSE" {
+                CoreData.updateFavoriteData(workout: workout, to: "TRUE")
+//                filteredWorkouts.append(workout)
+            }
+            for groupIndex in 0..<workouts.count {
+                if let index = workouts[groupIndex].index(of: workout) {
+                    // Remove workout from subgroup
+                    workouts[groupIndex].remove(at: index)
+                    // Remove subgroup if it's empty
+                    if workouts[groupIndex].isEmpty {
+//                        print(workouts)
+//                        print(groupIndex)
+                        workouts.remove(at: groupIndex)
+                        muscleGroups.remove(at: groupIndex)
+                    }
+                    // Break from search loop
+                    break
+                }
+            }
+            
+            print(workouts.count)
+            // switch the color of the favorited cell upon click
+            cell.favoriteImageView.tintColor = isCurFavorited == "TRUE" ? UIColor.darkGray.withAlphaComponent(0.55) : brightYellow
         } else {
             workout = workouts[indexPath.section][indexPath.item]
+            
+            let isCurFavorited = workout.value(forKey: "hasFavorited") as? String
+            
+            // update favorited data
+            if isCurFavorited == "TRUE" {
+                CoreData.updateFavoriteData(workout: workout, to: "FALSE")
+                workouts[indexPath.section].remove(at: indexPath.item)
+            } else if isCurFavorited == "FALSE" {
+                CoreData.updateFavoriteData(workout: workout, to: "TRUE")
+//                workouts[indexPath.section].append(workout)
+            }
+            if workouts[indexPath.section].isEmpty == true {
+                muscleGroups.remove(at: indexPath.section)
+            }
+            // switch the color of the favorited cell upon click
+            cell.favoriteImageView.tintColor = isCurFavorited == "TRUE" ? UIColor.darkGray.withAlphaComponent(0.55) : brightYellow
         }
         
-        let isCurFavorited = workout.value(forKey: "hasFavorited") as? String
-        
-        // update favorited data
-        if isCurFavorited == "TRUE" {
-            CoreData.updateFavoriteData(workout: workout, to: "FALSE")
-        } else if isCurFavorited == "FALSE" {
-            CoreData.updateFavoriteData(workout: workout, to: "TRUE")
-        }
-        
-        // switch the color of the favorited cell upon click
-        cell.favoriteImageView.tintColor = isCurFavorited == "TRUE" ? lightGray : brightYellow
-        //        print(isCurFavorited)
+        collectionView?.reloadData()
     }
     
     private func setupPageLabel() {
@@ -260,7 +295,7 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isFiltering() {
-            print(filteredWorkouts.count)
+//            print(filteredWorkouts.count)
             return filteredWorkouts.count
         } else {
             var count = 0
@@ -270,8 +305,20 @@ class FavoritesListController: UICollectionViewController, UICollectionViewDeleg
             } else if Defaults.getGender() == "female" {
                 workoutsForSubgroup = CoreData.retrieveFavoritedWorkoutsForMuscle(muscle: muscleGroups[section], gender: "F")
             }
-            workouts.append(workoutsForSubgroup)
-            searchableWorkouts.append(contentsOf: workoutsForSubgroup)
+            // If we have a new section to add
+            if section > workouts.count - 1 {
+                workouts.append(workoutsForSubgroup)
+                searchableWorkouts.append(contentsOf: workoutsForSubgroup)
+            } else {
+                // Otherwise, we are updating an existing section
+                workouts[section] = workoutsForSubgroup
+                for item in workoutsForSubgroup {
+                    if !searchableWorkouts.contains(item) {
+                        searchableWorkouts.append(item)
+                    }
+                }
+            }
+            
             count = workoutsForSubgroup.count
             return count
         }

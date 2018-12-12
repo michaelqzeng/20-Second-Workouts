@@ -10,7 +10,7 @@
                 "Use your arms to pull the weight. Try to focus on using your back"
               ]
           },
-          "Pull-Up": {
+          "Pull-up": {
               "What to do": [
                   "Grab and hang off pull-up bar with both hands, a little wider than shoulder-width apart. Palms are facing away from you",
                   "Pull shoulder blades back and stick chest out, creating a curvature on lower back. This is starting position",
@@ -21,6 +21,17 @@
                   "Swing to generate momentum. Control your movement",
                   "Fall on the way down. Control the movement on the way down",
                   "Have rounded shoulders when pulling up. Shoulders should be pressed back"
+              ]
+          },
+          "Bent Over Row": {
+              "What to do": [
+                  "Hold dumbbell/barbell with palms facing down",
+                  "Bend knees slightly, keep back straight and bring torso forward (by bending at waist) until it is slightly above parallel with floor. Keep head up, and arms perpendicular with floor",
+                  "Exhale and pull weight towards belly button, retracting your shoulder blades and keeping elbows close",
+                  "Inhale and slowly return down"
+              ],
+              "Do NOT": [
+                  "Slouch back. Keep back straight"
               ]
           }
 }

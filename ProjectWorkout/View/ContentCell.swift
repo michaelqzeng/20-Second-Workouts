@@ -33,7 +33,6 @@ class ContentCell: UITableViewCell {
     
     var subtitleLabel: UILabel = {
         var label = UILabel()
-//        label.backgroundColor = .green
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -41,9 +40,15 @@ class ContentCell: UITableViewCell {
         return label
     }()
     
+    var checkImage: UIImageView = {
+        var label = UIImageView()
+        label.image = UIImage(named: "check-icon")
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     var stepsLabel: UILabel = {
         let label = UILabel()
-//        label.backgroundColor = .yellow
         label.textAlignment = .center
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -105,11 +110,11 @@ class ContentCell: UITableViewCell {
         let stringArray = ["first row", "second row", "third row"]
         stepsLabel.attributedText = NSAttributedStringHelper.createBulletedList(fromStringArray: stringArray, font: UIFont(name: "Helvetica", size: stepsSize))
         
-//        subtitleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        subtitleLabel.backgroundColor = .green
+        subtitleLabel.topAnchor.constraint(equalTo: leftSideView.topAnchor).isActive = true
         subtitleLabel.heightAnchor.constraint(equalTo: leftSideView.heightAnchor, multiplier: 1).isActive = true
         subtitleLabel.widthAnchor.constraint(equalTo: leftSideView.widthAnchor, multiplier: 1).isActive = true
         subtitleLabel.centerXAnchor.constraint(equalTo: leftSideView.centerXAnchor).isActive = true
-//        subtitleLabel.topAnchor.constraint(equalTo: leftSideView.topAnchor).isActive = true
         subtitleLabel.centerYAnchor.constraint(equalTo: leftSideView.centerYAnchor).isActive = true
         
         stepsLabel.heightAnchor.constraint(equalTo: rightSideView.heightAnchor, multiplier: 1).isActive = true

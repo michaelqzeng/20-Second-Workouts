@@ -12,6 +12,7 @@ import AVFoundation
 import AVKit
 import CoreData
 import WebKit
+import Firebase
 
 class ContentController: UIViewController {
     
@@ -21,7 +22,7 @@ class ContentController: UIViewController {
     private let kSeparatorId = 123
     private let kSeparatorHeight: CGFloat = 1.5
     let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
-    let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
+    let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56).withAlphaComponent(0.55)
     let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
     
     let scrollView = UIScrollView()
@@ -30,7 +31,7 @@ class ContentController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var videoView: WKWebView!
+    var videoView: UIView!
     weak var tableView: UITableView!
     lazy var content: [Content] = {
         var content = Json.parseFile(muscleSubgroup: self.muscleSubgroup, specificWorkout: self.specificWorkoutName)
@@ -65,14 +66,7 @@ class ContentController: UIViewController {
     var playerController: AVPlayerViewController?
     
     private func setupVideo() {
-        let webViewConfiguration = WKWebViewConfiguration()
-        webViewConfiguration.allowsInlineMediaPlayback = true
-        videoView = WKWebView(frame: CGRect.zero, configuration: webViewConfiguration)
-        let myURL = URL(string: "https://www.youtube.com/embed/\(videoLink)?playsinline=1")
-        let youtubeRequest = URLRequest(url: myURL!)
-        
-//        videoView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
+        videoView = UIView()
         view.addSubview(videoView)
         videoView.backgroundColor = .black
         
@@ -83,7 +77,37 @@ class ContentController: UIViewController {
         videoHeightV = videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16)
         videoHeightL = videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1)
         
-        videoView.load(youtubeRequest)
+        let workoutName = firebaseURL + ".mp4"
+        
+        let storage = Storage.storage()
+        
+        // Create a reference from a Google Cloud Storage URI
+        let gsReference = storage.reference(forURL: "gs://projectworkout-84fca.appspot.com")
+        
+        // Create a reference to the file you want to download
+        //        let starsRef = gsReference.child("male_decline_barbell_bench_press.mp4")
+        let starsRef = gsReference.child(workoutName)
+        // Fetch the download URL
+        starsRef.downloadURL(completion: { url, error in
+            if let error = error {
+                // Handle any errors
+                print("ERROR \(error)")
+                return
+            } else {
+                // Get the download URL for 'images/stars.jpg'
+                print("download URL retrieved \(url!)")
+                let player = AVPlayer(url: url!)
+                self.playerController = AVPlayerViewController()
+                self.playerController?.player = player
+                player.isMuted = true
+                player.play()
+                
+                self.playerController?.view.frame = self.videoView.bounds
+                self.addChild(self.playerController!)
+                self.videoView.addSubview((self.playerController?.view)!)
+                self.playerController?.didMove(toParent: self)
+            }
+        })
         
         if UIDevice.current.orientation.isLandscape {
             videoHeightL?.isActive = true
@@ -100,6 +124,7 @@ class ContentController: UIViewController {
     lazy var videoLink = self.workout?.value(forKey: "videoLink") as? String ?? ""
     lazy var muscleGroup = self.workout?.value(forKey: "muscleGroup") as? String ?? ""
     lazy var hasFavorited = self.workout?.value(forKey: "hasFavorited") as? String ?? "FALSE"
+    lazy var firebaseURL = self.workout?.value(forKey: "imageName") as? String ?? "FALSE"
     
     // Button represented as UIImageview
     let favoriteButton: UIButton = {
@@ -118,7 +143,7 @@ class ContentController: UIViewController {
         }
         
         // switch the color of the favorited cell upon click
-        sender.tintColor = isCurFavorited == "TRUE" ? lightGray : brightYellow
+        sender.tintColor = isCurFavorited == "TRUE" ? UIColor.darkGray.withAlphaComponent(0.55) : brightYellow
     }
     
     private func setupFavButton() {
@@ -127,11 +152,10 @@ class ContentController: UIViewController {
         favoriteButton.addTarget(self, action: #selector(favoriteCell(_:)), for: .touchUpInside)
         favoriteButton.backgroundColor = .clear
         if hasFavorited == "FALSE" {
-            favoriteButton.tintColor = lightGray
+            favoriteButton.tintColor = UIColor.darkGray.withAlphaComponent(0.55)
         } else {
             favoriteButton.tintColor = brightYellow
         }
-        favoriteButton.alpha = 0.8
         self.navigationItem.titleView = favoriteButton
     }
     
@@ -169,16 +193,6 @@ class ContentController: UIViewController {
         let tableView = UITableView(frame: .zero, style: UITableView.Style.plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
-        
-        // Set up separator line between pageLabel and our table view
-//        let pix = 1 / UIScreen.main.scale
-//        let line = UIView()
-//        line.translatesAutoresizingMaskIntoConstraints = false
-//        self.view.addSubview(line)
-//        line.heightAnchor.constraint(equalToConstant: pix).isActive = true
-//        line.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-//        line.topAnchor.constraint(equalTo: pageLabel.bottomAnchor).isActive = true
-//        line.backgroundColor = tableView.separatorColor
         
         // Connect table view to separator line
         tableView.topAnchor.constraint(equalTo: pageLabel.bottomAnchor).isActive = true
@@ -223,19 +237,12 @@ class ContentController: UIViewController {
     }
         
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-//        collectionView.collectionViewLayout.invalidateLayout()
         
         if UIDevice.current.orientation.isLandscape {
-//            print("Landscape")
-//            print(self.view.frame.height)
-            //            videoView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 9/16).isActive = true
             videoHeightV?.isActive = false
             videoHeightL?.isActive = true
             navigationController?.navigationBar.isHidden = true
         } else {
-//            print("Vertical")
-//            print(self.view.frame.width)
-            //            videoView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 9/16).isActive = true
             videoHeightL?.isActive = false
             videoHeightV?.isActive = true
             navigationController?.navigationBar.isHidden = false
@@ -255,8 +262,8 @@ extension ContentController: UITableViewDataSource {
         }
         cell.content = content[indexPath.row]
         
-        if cell.viewWithTag(kSeparatorId) == nil //add separator only once
-        {
+        // Add separator only once
+        if cell.viewWithTag(kSeparatorId) == nil {
             let separatorView = UIView(frame: CGRect(x: 0, y: cell.frame.height - kSeparatorHeight, width: cell.frame.width, height: kSeparatorHeight))
             separatorView.tag = kSeparatorId
             separatorView.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)

@@ -15,6 +15,7 @@ class CustomMenuHeaderView: UIView {
     let usernameLabel = UILabel()
     let statsLabel = UILabel()
 //    let profileImageView = ProfileImageView()
+    let headerSize: CGFloat = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)

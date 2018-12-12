@@ -38,5 +38,17 @@
                   "Round your lower back. Make sure toes and knees are out, and feet and shoulder-width apart",
                   "Lean forward, or allow heels to come up"
               ]
+          },
+          "Leg Extension": {
+              "What to do": [
+                  "Position yourself on the leg extension machine to where you are seated upright",
+                  "Place your legs against the pad with your feet pointing up towards the sky (this helps to engage the quadriceps)",
+                  "Have the backside of your knees against the protruding end of the chair",
+                  "Grab onto the handles and push the pad up with your feet, engaging your quads",
+                  "Hold at the top for a second and retract your legs to complete the movement"
+              ],
+              "Do NOT": [
+                  "Have the seat too close or too far out of your legs range of motion. This can put too much pressure on the knees"
+              ]
           }
 }

@@ -17,6 +17,23 @@ extension UIColor {
 }
 
 extension UIView {
+    struct Constants {
+        static let ExternalBorderName = "externalBorder"
+    }
+    
+    func addExternalBorder(borderWidth: CGFloat = 2.0, borderColor: UIColor = UIColor.white) -> CALayer {
+        let externalBorder = CALayer()
+        externalBorder.frame = CGRect(x: -borderWidth, y: -borderWidth, width: frame.size.width + 2 * borderWidth, height: frame.size.height + 2 * borderWidth)
+        externalBorder.borderColor = borderColor.cgColor
+        externalBorder.borderWidth = borderWidth
+        externalBorder.name = Constants.ExternalBorderName
+        
+        layer.insertSublayer(externalBorder, at: 0)
+        layer.masksToBounds = false
+        
+        return externalBorder
+    }
+    
     func addConstraintsWithFormat(format: String, views: UIView...) {
         var viewsDictionary = [String: UIView]()
         for (index, view) in views.enumerated() {
@@ -107,7 +124,7 @@ extension UICollectionViewController {
 extension String {
     func convertToNSAtrributredString(size: CGFloat, color: UIColor) -> NSAttributedString {
         
-        let attributes = [NSAttributedString.Key.font: UIFont(name: "AvenirNext-DemiBold", size: size) as Any,
+        let attributes = [NSAttributedString.Key.font: UIFont(name: "Avenir-MediumOblique", size: size) as Any,
                           NSAttributedString.Key.foregroundColor: color
             ] as [NSAttributedString.Key: Any]
         let attributedString = NSAttributedString(string: self, attributes: attributes)

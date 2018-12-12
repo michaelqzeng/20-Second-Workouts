@@ -23,5 +23,18 @@
                 "Overarch your back",
                 "Push through shoulder pain"
               ]
+          },
+          "Standing Military Press": {
+              "What to do": [
+                  "Position squat rack so barbell is chest high",
+                  "Get under the barbell and grip it slightly wider than shoulder-width, with palms facing out",
+                  "Lift barbell up at collar-bone level. Take a step back and position feet shoulder width apart. Keep elbows tight to body, core tight, and push heels into ground",
+                  "Keeping torso and lower body rigid, exhale and push barbell towards ceiling by fully extending arms. Push hips forward a little bit as barbell passes your head",
+                  "Inhale and slowly return barbell back to collar-bone level, allowing hips to naturally pull back a bit"
+              ],
+              "Do NOT": [
+                  "Press barbell too far in front of body. Keep close to center of gravity",
+                  "Sacrifice form for weight. Ensure you have good form"
+              ]
           }
 }

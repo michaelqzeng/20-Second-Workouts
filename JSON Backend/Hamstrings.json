@@ -43,12 +43,24 @@
           "Romanian Dead Lift": {
               "What to do": [
                   "Step to bar so shin is just touching barbell. Feet are shoulder-width apart. Pinch shoulders back and keep chest up. Maintain a straight lower back.",
-                  "Bend down and grab bar with overhand grip slightly outside legs. Pick up bar into deadlift position",
+                  "Bend down and grab bar with overhand grip slightly outside legs. Pick up bar into Dead Lift position",
                   "Inhale and lower bar by pushing hips backwards with slight knee bend",
                   "Once you feel a stretch in hamstrings, exhale and push hips forward to lift bar up. Lock and squeeze hamstrings and glutes"
               ],
               "Do NOT": [
                   "Use back to pull up bar. Push hips forward"
+              ]
+          },
+          "Leg Curl": {
+              "What to do": [
+                  "Usually done on the machine. Can be done seated or lying down",
+                  "Lay down or sit on the machine and have it adjusted to where the pad rests right above the ankle",
+                  "Have your feet pointed out (this helps to engage the hamstring)",
+                  "Curl your feet to your glutes, engaging and contracting the hamstrings"
+              ],
+              "Do NOT": [
+                  "Swing your legs back and forth to complete the reps",
+                  "Speed through the repetition. Focus on the contraction"
               ]
           }
 }

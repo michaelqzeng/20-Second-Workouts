@@ -12,33 +12,21 @@ import CoreData
 
 class WorkoutListController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
-    let darkGray = UIColor.rgb(red: 61, green: 61, blue: 56)
-    let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
-    
-    let pageLabel = UILabel()
-    let spaceBetweenTopSafeAreaAndPageLabel = 10
-    let pageLabelSize = 38
-    let search: UISearchController = {
-        let search = UISearchController(searchResultsController: nil)
-//        search.searchBar.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
-//        search.searchBar.backgroundImage = UIImage()
-//        search.searchBar.backgroundColor = UIColor.white
-        
-        search.hidesNavigationBarDuringPresentation = true
-        return search
-    }()
-    
+    // List of workouts for the given muscle
+    var workouts: [[NSManagedObject]] = []
+    // Duplicate list of workouts that we will search upon
+    var searchableWorkouts: [NSManagedObject] = []
+    // Stores filtered workouts based on search text
+    var filteredWorkouts = [NSManagedObject]()
+    // Stores the selected muscle type for this workout list
+    var muscleType: String?
+    // Subgroups for the given muscle
     lazy var subgroups: [String] = {
         var subgroups: [String] = []
         if Defaults.getGender() == "male" {
             subgroups = CoreData.retrieveWorkoutSubgroups(for: self.muscleType ?? "Arms", gender: "M") // insert default value here later
         } else if Defaults.getGender() == "female" {
             subgroups = CoreData.retrieveWorkoutSubgroups(for: self.muscleType ?? "Arms", gender: "F") // insert default value here later
-        }
-        print("returned result")
-        for item in subgroups {
-            print(item)
         }
         return subgroups
     }()
@@ -56,87 +44,91 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if #available(iOS 11.0, *) {
+            // Handles search bar appearing upon first loading view
             navigationItem.hidesSearchBarWhenScrolling =  false
         }
+        // Ensure pageLabel does not glitch size
         pageLabel.sizeToFit()
+        // Handles horizontal view rotation
         collectionView.collectionViewLayout.invalidateLayout()
-//        navigationItem.titleView = pageLabel
+        // Reloads data every time view is about to appear
         collectionView?.reloadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if #available(iOS 11.0, *) {
+            // Handles search bar appearing upon first loading view
             navigationItem.hidesSearchBarWhenScrolling = true
         }
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-//        navigationItem.titleView = nil
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if workouts.isEmpty == false {
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
 
     func favoriteCell(cell: WorkoutCell) {
+        // Grab favorited cell
         guard let indexPath = collectionView?.indexPath(for: cell) else {return}
         let workout: NSManagedObject
-        
         if isFiltering() {
             workout = filteredWorkouts[indexPath.row]
         } else {
             workout = workouts[indexPath.section][indexPath.item]
         }
 
+        // Update favorited data
         let isCurFavorited = workout.value(forKey: "hasFavorited") as? String
-
-        // update favorited data
         if isCurFavorited == "TRUE" {
             CoreData.updateFavoriteData(workout: workout, to: "FALSE")
         } else if isCurFavorited == "FALSE" {
             CoreData.updateFavoriteData(workout: workout, to: "TRUE")
         }
 
-        // switch the color of the favorited cell upon click
+        // Switch the color of the favorited cell upon click
+        let brightYellow = UIColor.rgb(red: 255, green: 255, blue: 0)
+        let lightGray = UIColor.rgb(red: 183, green: 183, blue: 176)
         cell.favoriteImageView.tintColor = isCurFavorited == "TRUE" ? lightGray : brightYellow
     }
 
+    // MARK: Navigation Bar
     private func setupNavBar() {
         navigationController?.navigationBar.isTranslucent = false
     }
-
+    
+    // MARK: Search Controller
+    let search: UISearchController = {
+        let search = UISearchController(searchResultsController: nil)
+        search.hidesNavigationBarDuringPresentation = true
+        return search
+    }()
+    
     private func setupSearchBar() {
-//        navigationItem.searchController = search
         search.searchBar.placeholder = "Search \(self.muscleType ?? "") Workouts"
         search.obscuresBackgroundDuringPresentation = false
         search.searchResultsUpdater = self
         self.definesPresentationContext = true
         
+        // Make search text box white
         if #available(iOS 11.0, *) {
-//            let sc = UISearchController(searchResultsController: nil)
-//            sc.delegate = self
             let scb = search.searchBar
             scb.tintColor = UIColor.white
             scb.barTintColor = UIColor.white
                         
             if let textfield = scb.value(forKey: "searchField") as? UITextField {
-                //textfield.textColor = // Set text color
+                // Set text color
                 if let backgroundview = textfield.subviews.first {
-                    
                     // Background color
                     backgroundview.backgroundColor = UIColor.white
-                    
                     // Rounded corner
                     backgroundview.layer.cornerRadius = 10
                     backgroundview.clipsToBounds = true
-                    
                 }
             }
-            
-//            if let navigationbar = self.navigationController?.navigationBar {
-//                navigationbar.barTintColor = UIColor.blue
-//            }
             navigationItem.searchController = search
-//            navigationItem.hidesSearchBarWhenScrolling = true
-            
         } else {
             search.searchBar.backgroundColor = UIColor.white
         }
@@ -147,29 +139,23 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         return search.searchBar.text?.isEmpty ?? true
     }
 
-    var filteredWorkouts = [NSManagedObject]()
-
-    // Filter by search text
     func filterContentForSearchText(_ searchText: String) {
+        // Reset upon each new search text
         filteredWorkouts = []
+        // Filter by searched text
         filteredWorkouts = searchableWorkouts.filter({( workout: NSManagedObject) -> Bool in
             let temp = workout.value(forKey: "displayName") as? String ?? ""
-            print(temp.lowercased())
-            print(searchText.lowercased())
-            print(temp.lowercased().contains(searchText.lowercased()))
             return temp.lowercased().contains(searchText.lowercased())
         })
-        for item in filteredWorkouts {
-            print(item)
-        }
+        // Reload text to reflect searched text live
         collectionView?.reloadData()
     }
     
     func isFiltering() -> Bool {
-        print(search.isActive && !searchBarIsEmpty())
         return search.isActive && !searchBarIsEmpty()
     }
     
+    // MARK: Options Button
     private func setupMoreOptions() {
         let button = UIButton(type: .custom)
         button.backgroundColor = UIColor.rgb(red: 191, green: 192, blue: 193)
@@ -187,8 +173,8 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         (UIApplication.shared.keyWindow?.rootViewController as? BaseSlidingController)?.openMenu()
     }
     
-    var muscleType: String?
-    
+    // MARK: Page Label
+    let pageLabel = UILabel()
     private func setupPageLabel() {
         let size = (navigationController?.navigationBar.frame.height)! - 10
         if let muscleType = muscleType {
@@ -197,16 +183,18 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
             self.muscleType = "Default"
             pageLabel.attributedText = self.muscleType!.convertToNSAtrributredString(size: CGFloat(size), color: UIColor.black)
         }
-        
         pageLabel.sizeToFit()
         navigationItem.titleView = pageLabel
     }
 
+    // MARK: Collection View
     private func setupCollectionView() {
-        // register videocell as our cells for our collectionview
+        // Register WorkoutCell as our cells for our collectionview
         collectionView?.register(WorkoutCell.self, forCellWithReuseIdentifier: "cellId")
+        // Register our header cells as ReusableCollectionView
         collectionView?.register(ReusableCollectionView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         
+        // White background color for collectionview
         collectionView?.backgroundColor = UIColor.rgb(red: 255, green: 255, blue: 255)
         
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
@@ -216,74 +204,50 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         collectionView?.bottomAnchor.constraint(equalTo: view.safeBottomAnchor).isActive = true
     }
     
-    // MARK: UICollectionView override delegation methods
-    
-    // Go to selected workout cell
+    // MARK: Collection View Override Delegation Methods
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let workout: NSManagedObject
-        
-        if isFiltering() {
-            workout = filteredWorkouts[indexPath.row]
-        } else {
-            workout = workouts[indexPath.section][indexPath.item]
-        }
-        print("Selected workout \(workout)")
-        let contentVC = ContentController()
-        contentVC.workout = workout
         
         // Change the back button look
         let backItem = UIBarButtonItem()
         backItem.title = "\(muscleType ?? "Muscle") "
         navigationItem.backBarButtonItem = backItem
         
+        // Grab selected workout object
+        let workout: NSManagedObject
+        if isFiltering() {
+            workout = filteredWorkouts[indexPath.row]
+        } else {
+            workout = workouts[indexPath.section][indexPath.item]
+        }
+        
+        // Open content controller based off selected workout
+        let contentVC = ContentController()
+        contentVC.workout = workout
         navigationController?.pushViewController(contentVC, animated: true)
     }
     
-    // define size of each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // Define size of each cell. Adhere to 9x16 rule
         let height = view.frame.width * 9/16
         return CGSize(width: view.frame.width, height: height)
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        if workouts.isEmpty == false {
-            collectionView.collectionViewLayout.invalidateLayout()
-        }
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-
-//        collectionView?.collectionViewLayout.invalidateLayout()
-
-    }
-    
-    // remove extra pixel padding between each cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        // Remove extra pixels between cells
         return 0
     }
     
-    var workouts: [[NSManagedObject]] = []
-    var searchableWorkouts: [NSManagedObject] = []
-    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        print("sections.count", sections.count)
-//        print(subgroups)
         if isFiltering() {
             return 1
         }
-        // reset previously filtered workouts
+        // Reset previously filtered workouts
         searchableWorkouts = []
         return subgroups.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        print("sections[section].muscle!.count", sections[section].muscle!.count)
-//        return sections[section].muscle!.count
         if isFiltering() {
-            print(filteredWorkouts.count)
-//            print(filteredWorkouts)
             return filteredWorkouts.count
         } else {
             var count = 0
@@ -293,12 +257,23 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
             } else if Defaults.getGender() == "female" {
                 workoutsForSubgroup = CoreData.retrieveWorkoutsForSubgroup(subgroup: subgroups[section], gender: "F")
             }
-//            for item in workoutsForSubgroup {
-//                print(item.value(forKey: "displayName"))
-//            }
-            workouts.append(workoutsForSubgroup)
-            searchableWorkouts.append(contentsOf: workoutsForSubgroup)
+            // If we have a new section to add
+            if section > workouts.count - 1 {
+                workouts.append(workoutsForSubgroup)
+                searchableWorkouts.append(contentsOf: workoutsForSubgroup)
+            } else {
+                // Otherwise, we are updating an existing section
+                workouts[section] = workoutsForSubgroup
+                for item in workoutsForSubgroup {
+                    if !searchableWorkouts.contains(item) {
+                        searchableWorkouts.append(item)
+                    }
+                }
+            }
+            
             count = workoutsForSubgroup.count
+            print(workouts.count)
+            print(searchableWorkouts.count)
             return count
         }
     }
@@ -318,8 +293,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         cell.displayName = workout.value(forKeyPath: "displayName") as? String
         cell.imageName = workout.value(forKeyPath: "imageName") as? String
         cell.hasFavorited = workout.value(forKey: "hasFavorited") as? String
-//        print(cell.displayName!)
-//        print(workout.hasFavorited!)
         
         return cell
     }
@@ -330,7 +303,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
         guard let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? ReusableCollectionView else {
             fatalError("Misconfigured cell type, \(collectionView)!")
         }
-//        let subgroup = "  " + sections[indexPath.section].subgroup!
         if isFiltering() {
             sectionHeaderView.headerLabel.attributedText = "  Result".convertToNSAtrributredString(size: 25, color: .black)
         } else {
@@ -338,8 +310,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
             
             sectionHeaderView.headerLabel.attributedText = subgroup.convertToNSAtrributredString(size: 25, color: .black)
         }
-//        print(subgroup)
-
         return sectionHeaderView
     }
 }
@@ -347,14 +317,6 @@ class WorkoutListController: UICollectionViewController, UICollectionViewDelegat
 extension WorkoutListController: UISearchResultsUpdating {
     // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchController: UISearchController) {
-//        if searchBarIsEmpty() {
-////            self.collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0),
-////                                              at: .top,
-////                                              animated: true)
-//            if let attributes = collectionView.collectionViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0)) {
-//                collectionView.setContentOffset(CGPoint(x: 0, y: attributes.frame.origin.y - collectionView.contentInset.top), animated: true)
-//            }
-//        }
         filterContentForSearchText(searchController.searchBar.text!)
     }
 }
